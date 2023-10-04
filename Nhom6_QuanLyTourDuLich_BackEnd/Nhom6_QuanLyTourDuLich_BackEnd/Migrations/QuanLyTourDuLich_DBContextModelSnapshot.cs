@@ -42,7 +42,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasDefaultValue("ImageDefault.png");
 
                     b.Property<string>("maKhachSan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("maTour")
@@ -54,7 +53,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phuongTien")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("thoiGianBatDau")
@@ -165,7 +163,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 16, 25, 38, 448, DateTimeKind.Local).AddTicks(1078));
+                        .HasDefaultValue(new DateTime(2023, 10, 4, 17, 0, 56, 169, DateTimeKind.Local).AddTicks(9021));
 
                     b.Property<int>("soLuong")
                         .HasColumnType("int");
@@ -215,7 +213,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("diaChi")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("email")
@@ -230,11 +227,9 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("id_Xa")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("maTaiKhoan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ngaySinh")
@@ -248,7 +243,9 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
                     b.HasIndex("id_Xa");
 
-                    b.HasIndex("maTaiKhoan");
+                    b.HasIndex("maTaiKhoan")
+                        .IsUnique()
+                        .HasFilter("[maTaiKhoan] IS NOT NULL");
 
                     b.ToTable("KhachHang");
                 });
@@ -273,7 +270,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("soDienThoai")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tenKhachSan")
@@ -340,7 +336,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("maLoaiNhanVien")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)")
                         .HasDefaultValue("0");
@@ -354,7 +349,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayVaoLam")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 16, 25, 38, 448, DateTimeKind.Local).AddTicks(2055));
+                        .HasDefaultValue(new DateTime(2023, 10, 4, 17, 0, 56, 170, DateTimeKind.Local).AddTicks(617));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -368,7 +363,9 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
                     b.HasIndex("maLoaiNhanVien");
 
-                    b.HasIndex("maTaiKhoan");
+                    b.HasIndex("maTaiKhoan")
+                        .IsUnique()
+                        .HasFilter("[maTaiKhoan] IS NOT NULL");
 
                     b.ToTable("NhanVien", (string)null);
                 });
@@ -407,7 +404,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime?>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 16, 25, 38, 448, DateTimeKind.Local).AddTicks(3975));
+                        .HasDefaultValue(new DateTime(2023, 10, 4, 17, 0, 56, 170, DateTimeKind.Local).AddTicks(2499));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -437,7 +434,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("canCuocConDan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("gioiTinh")
@@ -494,7 +490,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("maKhachSan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("maLoaiTour")
@@ -502,27 +497,24 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("moTa")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 22, 16, 25, 38, 448, DateTimeKind.Local).AddTicks(5122));
+                        .HasDefaultValue(new DateTime(2023, 10, 4, 17, 0, 56, 170, DateTimeKind.Local).AddTicks(3672));
 
                     b.Property<string>("nguoiLap")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("phuongTienDiChuyen")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("tenTour")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("trangThai")
+                    b.Property<bool?>("trangThai")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
@@ -649,15 +641,11 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                 {
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.XaEntity", "Xa")
                         .WithMany()
-                        .HasForeignKey("id_Xa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("id_Xa");
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TaiKhoanEntity", "TaiKhoan")
                         .WithMany()
-                        .HasForeignKey("maTaiKhoan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("maTaiKhoan");
 
                     b.Navigation("TaiKhoan");
 
@@ -668,9 +656,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                 {
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiNhanVienEntity", "LoaiNhanVien")
                         .WithMany("NhanViens")
-                        .HasForeignKey("maLoaiNhanVien")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("maLoaiNhanVien");
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TaiKhoanEntity", "TaiKhoan")
                         .WithMany()
@@ -711,9 +697,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachSanEntity", "KhachSan")
                         .WithMany()
-                        .HasForeignKey("maKhachSan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("maKhachSan");
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiTourEntity", "LoaiTour")
                         .WithMany("Tours")
@@ -723,9 +707,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.NhanVienEntity", "NhanVien")
                         .WithMany()
-                        .HasForeignKey("nguoiLap")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("nguoiLap");
 
                     b.Navigation("ChuyenBay");
 

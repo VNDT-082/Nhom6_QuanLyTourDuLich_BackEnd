@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yt+M5WkXFUGFNJ89KjJELbnwOt2H2zfdPwk+mJ0XOI2SKmenM/9qMixRVaXHQop4WCK31maZLgMkuYXbn1Cq/g==",
+  "dgSpecHash": "JcyQtBfrSPrBHXc+ITjcjSE2Arf5R4COlOJVX7ewuqBuS/0cnHE/oIdutXzJ2qtnwSn7naZtglAzKm0gM5oyHA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\source\\repos\\CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich\\Nhom6_QuanLyTourDuLich_BackEnd\\Nhom6_QuanLyTourDuLich_BackEnd\\Nhom6_QuanLyTourDuLich_BackEnd.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Documents\\Github_VNDT\\Nhom6_QuanLyTourDuLich_BackEnd\\Nhom6_QuanLyTourDuLich_BackEnd\\Nhom6_QuanLyTourDuLich_BackEnd\\Nhom6_QuanLyTourDuLich_BackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

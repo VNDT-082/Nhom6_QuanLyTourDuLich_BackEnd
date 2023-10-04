@@ -18,8 +18,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public string tieuDe { get; set; }
         public string moTa { get; set; }
         public string hinhAnh { get; set; }
-        public string maKhachSan { get; set; }
-        public string phuongTien { get; set; }
+        public string? maKhachSan { get; set; }
+        public string? phuongTien { get; set; }
         public virtual TourEntity Tour { get; set; }
     }
 }

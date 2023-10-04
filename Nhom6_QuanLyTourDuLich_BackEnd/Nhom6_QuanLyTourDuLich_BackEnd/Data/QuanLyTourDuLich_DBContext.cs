@@ -21,11 +21,11 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public DbSet<LoaiNhanVienEntity> LoaiNhanViens { get; set; }
         public DbSet<LoaiTaiKhoanEntity> LoaiTaiKhoans { get; set; }
         public DbSet<LoaiTourEntity> LoaiTours { get; set; }
-        public DbSet<NhanVienEntity> nhanViens { get; set; }
-        public DbSet<SanBayEntity> sanBays { get; set; }
-        public DbSet<TaiKhoanEntity> taiKhoans { get; set; }
-        public DbSet<ThanhVienEntity> thanhViens { get; set; }
-        public DbSet<TourEntity> tours { get; set; }
+        public DbSet<NhanVienEntity> NhanViens { get; set; }
+        public DbSet<SanBayEntity> SanBays { get; set; }
+        public DbSet<TaiKhoanEntity> TaiKhoans { get; set; }
+        public DbSet<ThanhVienEntity> ThanhViens { get; set; }
+        public DbSet<TourEntity> Tours { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -77,6 +77,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
                 entity.Property(i => i.ngayDat).HasDefaultValue(DateTime.Now);//.ToString("dd/MM/yyyy HH:mm:ss")
             });
             //KhachHang
+            modelBuilder.Entity<KhachHangEntity>(entity =>
+            {
+                entity.HasIndex(i => i.maTaiKhoan).IsUnique();
+            });
 
             //KhachSan
             modelBuilder.Entity<KhachSanEntity>(entity =>
@@ -105,6 +109,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
                 entity.ToTable("NhanVien");
                 entity.Property(i => i.maLoaiNhanVien).HasDefaultValue("0");
                 entity.Property(i => i.ngayVaoLam).HasDefaultValue(DateTime.Now);//.ToString("dd/MM/yyyy HH:mm:ss")
+                entity.HasIndex(i => i.maTaiKhoan).IsUnique();
             });
 
             //SanBay

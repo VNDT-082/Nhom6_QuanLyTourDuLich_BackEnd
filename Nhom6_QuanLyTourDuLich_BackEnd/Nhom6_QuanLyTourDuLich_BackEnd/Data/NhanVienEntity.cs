@@ -11,7 +11,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public string? maTaiKhoan { get; set; }
 
         [ForeignKey("LoaiNhanVien")]
-        public string maLoaiNhanVien { get; set; }
+        public string? maLoaiNhanVien { get; set; }
 
         [Required]
         public string tenNhanVien { get; set; }
@@ -25,7 +25,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public DateTime ngayVaoLam { get; set; }
 
         [Required]
-        public string canCuocConDan { get; set; }
+        public string? canCuocConDan { get; set; }
         public virtual TaiKhoanEntity? TaiKhoan { get; set; }
         public virtual LoaiNhanVienEntity? LoaiNhanVien { get; set; }
 

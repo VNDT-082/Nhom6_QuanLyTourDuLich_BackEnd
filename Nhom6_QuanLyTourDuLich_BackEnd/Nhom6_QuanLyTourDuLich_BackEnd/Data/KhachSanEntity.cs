@@ -14,7 +14,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         [Required]
         public string diaChi { get; set; }
         public string id_Xa { get; set; }
-        public string soDienThoai { get; set;}
+        public string? soDienThoai { get; set;}
 
 
     }

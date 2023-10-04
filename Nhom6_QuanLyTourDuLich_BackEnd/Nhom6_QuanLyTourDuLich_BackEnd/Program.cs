@@ -22,9 +22,11 @@ builder.Services.AddDbContext<QuanLyTourDuLich_DBContext>(opt =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<ILoaiTourRepository, LoaiTourRepository>();
+builder.Services.AddScoped<ITourRepository, TourRepository>();
 
 
 builder.Services.AddScoped<ILoaiTourServices, LoaiTourService>();
+builder.Services.AddScoped<ITourService, TourService>();
 
 
 var app = builder.Build();

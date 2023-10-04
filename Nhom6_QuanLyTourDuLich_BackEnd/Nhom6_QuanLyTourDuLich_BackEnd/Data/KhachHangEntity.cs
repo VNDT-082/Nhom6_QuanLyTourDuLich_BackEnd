@@ -12,10 +12,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         [Required]
         public bool gioiTinh { get; set; }
 
-        public string diaChi { get; set; }
+        public string? diaChi { get; set; }
 
         [ForeignKey("Xa")]
-        public string id_Xa { get; set; }
+        public string? id_Xa { get; set; }
         public string email { get; set; }
         public DateTime? ngaySinh { get; set; }
         
@@ -23,7 +23,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public string soDienThoai { get; set; }
 
         [ForeignKey("TaiKhoan")]
-        public string maTaiKhoan { get; set; }
+        public string? maTaiKhoan { get; set; }
         public virtual XaEntity? Xa { get; set; }
         public virtual TaiKhoanEntity? TaiKhoan { get; set; }
         public virtual ICollection<DatTourEntity>? Tours { get; set; }

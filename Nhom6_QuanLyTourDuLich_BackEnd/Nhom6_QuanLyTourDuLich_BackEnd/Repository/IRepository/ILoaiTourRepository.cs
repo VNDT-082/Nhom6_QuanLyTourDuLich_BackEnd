@@ -7,6 +7,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
     {
         public Task<List<LoaiTourEntity>> GetAllAsync();
         public Task<LoaiTourEntity> GetOneByIDAsync(string Id);
+        //public Task<LoaiTourEntity> GetOneByTenLoaiAsync(string tenLoai);
         public Task<LoaiTourEntity> GetLastAsync();
         public Task AddAsync(LoaiTourEntity loaiTour);
         public Task UpdateAsync(LoaiTourEntity loaiTour);

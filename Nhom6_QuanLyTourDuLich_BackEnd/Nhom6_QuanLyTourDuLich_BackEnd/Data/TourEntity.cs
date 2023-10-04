@@ -20,7 +20,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
     {
         [Required]
         public string tenTour { get; set; }
-        public string moTa { get; set; }
+        public string? moTa { get; set; }
         public string anhBia { get; set; }
 
         [Required]
@@ -28,7 +28,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public DateTime ngayLap { get; set; }
 
         [ForeignKey("NhanVien")]
-        public string nguoiLap { get; set; }
+        public string? nguoiLap { get; set; }
 
         [ForeignKey("LoaiTour")]
         public string maLoaiTour { get; set; }
@@ -37,13 +37,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public string? maChuyenBay { get; set; }
 
         [ForeignKey("KhachSan")]
-        public string maKhachSan { get; set; }
-        public string phuongTienDiChuyen { get; set; }
-        public bool trangThai { get; set; }
+        public string? maKhachSan { get; set; }
+        public string? phuongTienDiChuyen { get; set; }
+        public bool? trangThai { get; set; }
         public virtual ChuyenBayEntity? ChuyenBay { get; set; }
         public virtual LoaiTourEntity? LoaiTour { get; set; }
-        public virtual NhanVienEntity NhanVien { get; set; }
-        public virtual KhachSanEntity KhachSan { get; set; }
+        public virtual NhanVienEntity? NhanVien { get; set; }
+        public virtual KhachSanEntity? KhachSan { get; set; }
         public virtual ICollection<DanhMucHinhEntity>? DanhMucHinhs { get; set; }
     }
 }

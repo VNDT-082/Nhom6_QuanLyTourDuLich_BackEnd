@@ -9,6 +9,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
         public AutoMapperApp()
         {
             CreateMap<LoaiTourEntity, LoaiTourModel>().ReverseMap();
+            CreateMap<TourEntity, TourModel>().ReverseMap();
         }
     }
 }
