@@ -8,8 +8,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<LoaiNhanVienEntity> GetOneByIdAsync(string Id);
         //public Task<LoaiNhanVienEntity> GetOneByTenLoaiAsync(string tenLoai);
         public Task<LoaiNhanVienEntity> GetLastAsync();
-        public Task AddAsync(LoaiNhanVienEntity loaiNhanVienEntity);
-        public Task UpdateAsync(LoaiNhanVienEntity loaiNhanVienEntity);
-        public Task DeleteAsync(LoaiNhanVienEntity loaiNhanVienEntity);
+        public Task<bool> AddAsync(LoaiNhanVienEntity loaiNhanVienEntity);
+        public Task<bool> UpdateAsync(LoaiNhanVienEntity loaiNhanVienEntity);
+        public Task<bool> DeleteAsync(LoaiNhanVienEntity loaiNhanVienEntity);
     }
 }

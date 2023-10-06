@@ -11,31 +11,40 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(TaiKhoanEntity taiKhoanEntity)
+        public async Task<bool> AddAsync(TaiKhoanEntity taiKhoanEntity)
         {
-            await _DBContext.TaiKhoans.AddAsync(taiKhoanEntity);
-            await _DBContext.SaveChangesAsync();
+            try {
+                await _DBContext.TaiKhoans.AddAsync(taiKhoanEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            } catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(TaiKhoanEntity taiKhoanEntity)
+        public async Task<bool> DeleteAsync(TaiKhoanEntity taiKhoanEntity)
         {
+            try
+            {
+                if (taiKhoanEntity.maLoai == "KhachHang")
+                {
+                    var kh = _DBContext.KhachHangs.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
+                    kh.maTaiKhoan = null;
+                    KhachHangRepository khRepo = new KhachHangRepository(_DBContext);
+                    khRepo.UpdateAsync(kh);
+                }
+                else
+                {
+                    var nv = _DBContext.NhanViens.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
+                    nv.maTaiKhoan = null;
+                    NhanVienRepository nvRepo = new NhanVienRepository(_DBContext);
+                    nvRepo.UpdateAsync(nv);
+                }
+                _DBContext.TaiKhoans.Remove(taiKhoanEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
             
-            if (taiKhoanEntity.maLoai == "KhachHang")
-            {
-                var kh = _DBContext.KhachHangs.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
-                kh.maTaiKhoan = null;
-                KhachHangRepository khRepo = new KhachHangRepository(_DBContext);
-                khRepo.UpdateAsync(kh);
-            }
-            else
-            {
-                var nv = _DBContext.NhanViens.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
-                nv.maTaiKhoan = null;
-                NhanVienRepository nvRepo = new NhanVienRepository(_DBContext);
-                nvRepo.UpdateAsync(nv);
-            }
-            _DBContext.TaiKhoans.Remove(taiKhoanEntity);
-            await _DBContext.SaveChangesAsync();
         }
 
         public async Task<List<TaiKhoanEntity>> GetAllAsync()
@@ -69,11 +78,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return taiKhoan;
         }
 
-        public async Task UpdateAsync(TaiKhoanEntity taiKhoanEntity)
+        public async Task<bool> UpdateAsync(TaiKhoanEntity taiKhoanEntity)
         {
-            _DBContext.TaiKhoans!.Update(taiKhoanEntity);
-            _DBContext.Entry(taiKhoanEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.TaiKhoans!.Update(taiKhoanEntity);
+                _DBContext.Entry(taiKhoanEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
@@ -16,21 +17,22 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._ILoaiTourRepo = _ILoaiTourRepo;
             this._IMapper = _IMapper;
         }
-        public async Task<bool> AddAsync(LoaiTourModel loaiTour)
+        public async Task<bool> AddAsync(LoaiTour_repo loaiTour)
         {
-            try
+            LoaiTourEntity loaiTourLast = await _ILoaiTourRepo.GetLastAsync();
+            LoaiTourEntity loaiTourEntity = new LoaiTourEntity();
+            loaiTourEntity.tenLoai = loaiTour.tenLoai;
+            if (loaiTourLast != null)
             {
-                LoaiTourEntity loaiTourEntity = new LoaiTourEntity();
-                loaiTourEntity.Id = loaiTour.Id;
-                loaiTourEntity.tenLoai = loaiTour.tenLoai;
-
-                await _ILoaiTourRepo.AddAsync(loaiTourEntity);
-                return true;
+                loaiTourEntity.Id = GenarateId.setIdLoaiTour(loaiTourLast.Id);
             }
-            catch (Exception ex)
+            else
             {
-                return false;
+                loaiTourEntity.Id = "LT001";
             }
+            await _ILoaiTourRepo.AddAsync(loaiTourEntity);
+            return true;
+            
         }
 
         public async Task<bool> DeleteAsync(string Id)

@@ -9,7 +9,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<List<LoaiTourModel>> GetAllAsync();
         public Task<LoaiTourModel> GetOneByIdAsync(string Id);
         public Task<LoaiTourModel> GetLastAsync();
-        public Task<bool> AddAsync(LoaiTourModel loaiTour);
+        public Task<bool> AddAsync(LoaiTour_repo loaiTour);
         public Task<bool> UpdateAsync(LoaiTourModel loaiTour);
         public Task<bool> DeleteAsync(string Id);
     }

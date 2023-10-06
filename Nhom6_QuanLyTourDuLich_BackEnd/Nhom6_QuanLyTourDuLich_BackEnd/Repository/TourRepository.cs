@@ -11,10 +11,16 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(TourEntity tourEntity)
+        public async Task<bool> AddAsync(TourEntity tourEntity)
         {
-            await _DBContext.Tours.AddAsync(tourEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.Tours.AddAsync(tourEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<int> Count()
@@ -23,12 +29,18 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return soLuong;
         }
 
-        public async Task DeleteAsync(TourEntity tourEntity)
+        public async Task<bool> DeleteAsync(TourEntity tourEntity)
         {
-            tourEntity.trangThai = false;
-            _DBContext.Tours!.Update(tourEntity);
-            _DBContext.Entry(tourEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                tourEntity.trangThai = false;
+                _DBContext.Tours!.Update(tourEntity);
+                _DBContext.Entry(tourEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<TourEntity>> GetAllAsync()
@@ -96,11 +108,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return list;
         }
 
-        public async Task UpdateAsync(TourEntity tourEntity)
+        public async Task<bool> UpdateAsync(TourEntity tourEntity)
         {
-            _DBContext.Tours!.Update(tourEntity);
-            _DBContext.Entry(tourEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Tours!.Update(tourEntity);
+                _DBContext.Entry(tourEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
 

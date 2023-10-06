@@ -12,12 +12,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public Task AddAsync(NhanVienEntity nhanVienEntity)
+        public Task<bool> AddAsync(NhanVienEntity nhanVienEntity)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(NhanVienEntity nhanVienEntity)
+        public Task<bool> DeleteAsync(NhanVienEntity nhanVienEntity)
         {
             throw new NotImplementedException();
         }
@@ -47,11 +47,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(NhanVienEntity nhanVienEntity)
+        public async Task<bool> UpdateAsync(NhanVienEntity nhanVienEntity)
         {
-            _DBContext.NhanViens!.Update(nhanVienEntity);
-            _DBContext.Entry(nhanVienEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.NhanViens!.Update(nhanVienEntity);
+                _DBContext.Entry(nhanVienEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

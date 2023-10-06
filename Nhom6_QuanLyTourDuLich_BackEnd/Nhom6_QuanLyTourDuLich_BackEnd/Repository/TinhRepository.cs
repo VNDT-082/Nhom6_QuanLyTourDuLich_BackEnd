@@ -11,16 +11,28 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(TinhEntity tinhEntity)
+        public async Task<bool> AddAsync(TinhEntity tinhEntity)
         {
-            await _DBContext.Tinhs.AddAsync(tinhEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.Tinhs.AddAsync(tinhEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(TinhEntity tinhEntity)
+        public async Task<bool> DeleteAsync(TinhEntity tinhEntity)
         {
-            _DBContext.Tinhs.Remove(tinhEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Tinhs.Remove(tinhEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<TinhEntity>> GetAllAsync()
@@ -41,11 +53,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return tinh;
         }
 
-        public async Task UpdateAsync(TinhEntity tinhEntity)
+        public async Task<bool> UpdateAsync(TinhEntity tinhEntity)
         {
-            _DBContext.Tinhs!.Update(tinhEntity);
-            _DBContext.Entry(tinhEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Tinhs!.Update(tinhEntity);
+                _DBContext.Entry(tinhEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

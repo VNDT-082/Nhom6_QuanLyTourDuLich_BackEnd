@@ -11,16 +11,28 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(HuyenEntity huyenEntity)
+        public async Task<bool> AddAsync(HuyenEntity huyenEntity)
         {
-            await _DBContext.Huyens.AddAsync(huyenEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.Huyens.AddAsync(huyenEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(HuyenEntity huyenEntity)
+        public async Task<bool> DeleteAsync(HuyenEntity huyenEntity)
         {
-            _DBContext.Huyens.Remove(huyenEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Huyens.Remove(huyenEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<HuyenEntity>> GetAllAsync()
@@ -47,11 +59,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return huyen;
         }
 
-        public async Task UpdateAsync(HuyenEntity huyenEntity)
+        public async Task<bool> UpdateAsync(HuyenEntity huyenEntity)
         {
-            _DBContext.Huyens!.Update(huyenEntity);
-            _DBContext.Entry(huyenEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Huyens!.Update(huyenEntity);
+                _DBContext.Entry(huyenEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

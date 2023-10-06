@@ -12,8 +12,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model
         public string nguoiLap { get; set; }
         public string maLoaiTour { get; set; }
         public string? maChuyenBay { get; set; }
-        public string maKhachSan { get; set; }
-        public string phuongTienDiChuyen { get; set; }
+        public string? maKhachSan { get; set; }
+        public string? phuongTienDiChuyen { get; set; }
         public bool trangThai { get; set; }
 
         public Tour_repo() { }

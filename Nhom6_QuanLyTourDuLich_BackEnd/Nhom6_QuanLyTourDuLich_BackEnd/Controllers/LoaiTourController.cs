@@ -51,26 +51,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         {
             try
             {
-                LoaiTourModel loaiTourModel = new LoaiTourModel();
-                var loaiTourLast = await loaiTourService.GetLastAsync();
-                if (loaiTourLast != null)
-                {
-                    loaiTourModel.Id = (int.Parse(loaiTourLast.Id) + 1).ToString();
-                    loaiTourModel.tenLoai = loaiTour.tenLoai;
-                    bool kq = await loaiTourService.AddAsync(loaiTourModel);
-                    if (kq == true)
-                        return Ok(kq);
-                    return BadRequest("Không thể khởi tạo");
-                }
-                else
-                {
-                    loaiTourModel.Id = "1";
-                    loaiTourModel.tenLoai = loaiTour.tenLoai;
-                    bool kq = await loaiTourService.AddAsync(loaiTourModel);
-                    if (kq == true)
-                        return Ok(kq);
-                    return BadRequest("Không thể khởi tạo");
-                }
+                bool kq = await loaiTourService.AddAsync(loaiTour);
+                if (kq == true)
+                    return Ok(kq);
+                return BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }
         }

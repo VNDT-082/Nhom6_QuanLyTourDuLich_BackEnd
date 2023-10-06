@@ -8,8 +8,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<List<XaEntity>> GetListByHuyenId(string maHuyen);
         public Task<XaEntity> GetOneByIDAsync(string Id);
         public Task<XaEntity> GetLastAsync();
-        public Task AddAsync(XaEntity xaEntity);
-        public Task UpdateAsync(XaEntity xaEntity);
-        public Task DeleteAsync(XaEntity xaEntity);
+        public Task<bool> AddAsync(XaEntity xaEntity);
+        public Task<bool> UpdateAsync(XaEntity xaEntity);
+        public Task<bool> DeleteAsync(XaEntity xaEntity);
     }
 }

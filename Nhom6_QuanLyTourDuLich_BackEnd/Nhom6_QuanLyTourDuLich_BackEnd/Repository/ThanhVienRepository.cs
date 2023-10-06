@@ -11,16 +11,25 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(ThanhVienEntity thanhVienEntity)
+        public async Task<bool> AddAsync(ThanhVienEntity thanhVienEntity)
         {
-            await _DBContext.ThanhViens.AddAsync(thanhVienEntity);
-            await _DBContext.SaveChangesAsync();
+            try { 
+                await _DBContext.ThanhViens.AddAsync(thanhVienEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            } catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(ThanhVienEntity thanhVienEntity)
+        public async Task<bool> DeleteAsync(ThanhVienEntity thanhVienEntity)
         {
-            _DBContext.ThanhViens.Remove(thanhVienEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.ThanhViens.Remove(thanhVienEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex);return false; }
         }
 
         public async Task<List<ThanhVienEntity>> GetAllAsync(string datTourId)
@@ -41,17 +50,27 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return thanhVien;
         }
 
+        public async Task<ThanhVienEntity> GetLastOfDatTourAsync(string maDatTour)
+        {
+            var thanhVien = await _DBContext.ThanhViens.Where(i=>i.maDatTour==maDatTour).OrderBy(i => i.Id).LastAsync();
+            return thanhVien;
+        }
+
         public async Task<ThanhVienEntity> GetOneByIDAsync(string Id)
         {
             var thanhVien = await _DBContext.ThanhViens.FirstOrDefaultAsync(i => i.Id == Id);
             return thanhVien;
         }
 
-        public async Task UpdateAsync(ThanhVienEntity thanhVienEntity)
+        public async Task<bool> UpdateAsync(ThanhVienEntity thanhVienEntity)
         {
-            _DBContext.ThanhViens!.Update(thanhVienEntity);
-            _DBContext.Entry(thanhVienEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try { 
+                _DBContext.ThanhViens!.Update(thanhVienEntity);
+                _DBContext.Entry(thanhVienEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            } catch (Exception ex) { Console.WriteLine(ex);return false; }
+            
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
-using Nhom6_QuanLyTourDuLich_BackEnd.Repository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 
@@ -9,94 +10,165 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 {
     public class TourService:ITourService
     {
-        public readonly ITourRepository _ITourRepo;
+        public readonly ITourRepository _ITourRepository;
         public IMapper _IMapper;
-        public TourService(ITourRepository _ITourRepo, IMapper _IMapper)
+        public TourService(ITourRepository _ITourRepository, IMapper _IMapper)
         {
-            this._ITourRepo = _ITourRepo;
+            this._ITourRepository = _ITourRepository;
             this._IMapper = _IMapper;
         }
 
-        public Task AddAsync(Tour_repo tourRepo)
+        public async Task<bool> AddAsync(Tour_repo tourRepo)
         {
-            throw new NotImplementedException();
+            TourEntity tourEntity = await _ITourRepository.GetLastAsync();
+            TourEntity tour = _IMapper.Map<TourEntity>(tourRepo);
+            if (tourEntity != null)
+            {
+                
+                tour.Id = GenarateId.setIdTour(tourEntity.Id);
+            }
+            else
+            {
+                tour.Id = "Tour001";
+            }
+            return await _ITourRepository.AddAsync(tour);
         }
 
-        public Task<int> Count()
+        public async Task<int> Count()
         {
-            throw new NotImplementedException();
+            int sl =await _ITourRepository.Count();
+            return sl;
         }
 
-        public Task DeleteAsync(TourModel tourModel)
+        public Task<bool> DeleteAsync(string ID)
         {
             throw new NotImplementedException();
         }
 
         public async Task<List<TourModel>> GetAllAsync()
         {
-            var listTourEnity = await _ITourRepo.GetAllAsync();
-
-            List<TourModel> listTourModel = new List<TourModel>();
+            var listTourEnity = await _ITourRepository.GetAllAsync();
             if (listTourEnity.Count > 0)
             {
-                foreach (var item in listTourEnity)
-                {
-                    var tour = _IMapper.Map<TourModel>(item);
-                    listTourModel.Add(tour);
-                }
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
                 return listTourModel;
             }
             return null;
         }
 
-        public Task<List<TourModel>> GetAllAsync(bool trangThai)
+        public async Task<List<TourModel>> GetAllAsync(bool trangThai)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetAllAsync(trangThai);
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<TourModel> GetLastAsync()
+        public async Task<TourModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            TourEntity tourEntity = await _ITourRepository.GetLastAsync();
+            if (tourEntity!=null)
+            {
+                TourModel tourModel = _IMapper.Map<TourModel>(tourEntity);
+                return tourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetListTheoGia(double giaMin, double giaMax)
+        public async Task<List<TourModel>> GetListTheoGia(double giaMin, double giaMax)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetListTheoGia(giaMin, giaMax);
+
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetListTheoLoai(string maLoai)
+        public async Task<List<TourModel>> GetListTheoLoai(string maLoai)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetListTheoLoai(maLoai);
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetListTheoLoai(string maLoai, bool trangThai)
+        public async Task<List<TourModel>> GetListTheoLoai(string maLoai, bool trangThai)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetListTheoLoai(maLoai, trangThai);
+
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetListTheoNguoiLap(string maNhanVien)
+        public async Task<List<TourModel>> GetListTheoNguoiLap(string maNhanVien)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetListTheoNguoiLap(maNhanVien);
+
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<TourModel> GetOneByIDAsync(string Id)
+        public async Task<TourModel> GetOneByIDAsync(string Id)
         {
-            throw new NotImplementedException();
+            TourEntity tourEntity = await _ITourRepository.GetOneByIDAsync(Id);
+            if (tourEntity != null)
+            {
+                TourModel tourModel = _IMapper.Map<TourModel>(tourEntity);
+                return tourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetPage(byte pageSize, int pageNumber)
+        public async Task<List<TourModel>> GetPage(byte pageSize, int pageNumber)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetPage(pageSize, pageNumber);
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task<List<TourModel>> GetPage(byte pageSize, int pageNumber, bool trangThai)
+        public async Task<List<TourModel>> GetPage(byte pageSize, int pageNumber, bool trangThai)
         {
-            throw new NotImplementedException();
+            var listTourEnity = await _ITourRepository.GetPage(pageSize, pageNumber, trangThai);
+           
+            if (listTourEnity.Count > 0)
+            {
+                List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
+                return listTourModel;
+            }
+            return null;
         }
 
-        public Task UpdateAsync(TourModel tourModel)
+        public async Task<bool> UpdateAsync(TourModel tourModel)
         {
-            throw new NotImplementedException();
+            var tinhEntity = await _ITourRepository.GetOneByIDAsync(tourModel.Id);
+            if (tinhEntity != null)
+            {
+                TourEntity tourE = _IMapper.Map<TourEntity>(tourModel);
+                await _ITourRepository.UpdateAsync(tourE);
+                return true;
+            }
+            return false;
         }
     }
 }

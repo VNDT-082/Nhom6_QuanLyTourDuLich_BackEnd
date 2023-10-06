@@ -17,9 +17,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<List<TourModel>> GetListTheoNguoiLap(string maNhanVien);
         public Task<TourModel> GetOneByIDAsync(string Id);
         public Task<TourModel> GetLastAsync();
-        public Task AddAsync(Tour_repo tourRepo);
-        public Task UpdateAsync(TourModel tourModel);
-        public Task DeleteAsync(TourModel tourModel);
+        public Task<bool> AddAsync(Tour_repo tourRepo);
+        public Task<bool> UpdateAsync(TourModel tourModel);
+        public Task<bool> DeleteAsync(string ID);
 
     }
 }

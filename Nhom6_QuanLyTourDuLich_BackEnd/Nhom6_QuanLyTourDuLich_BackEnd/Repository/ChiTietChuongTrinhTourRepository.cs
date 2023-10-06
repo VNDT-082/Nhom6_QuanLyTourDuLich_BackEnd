@@ -12,13 +12,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
+        public async Task<bool> AddAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
         {
-            await _DBContext.ChiTietChuongTrinhTours.AddAsync(chiTietChuongTrinhTourEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.ChiTietChuongTrinhTours.AddAsync(chiTietChuongTrinhTourEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
+        public async Task<bool> DeleteAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
         {
             throw new NotImplementedException();
         }
@@ -35,6 +41,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return ct;
         }
 
+        public async Task<ChiTietChuongTrinhTourEntity> GetLastOfTourAsync(string maTour)
+        {
+            var ct = await _DBContext.ChiTietChuongTrinhTours.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).LastAsync();
+            return ct;
+        }
+
         public async Task<List<ChiTietChuongTrinhTourEntity>> GetListByTourId(string maTour)
         {
             var list = await _DBContext.ChiTietChuongTrinhTours.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).ToListAsync();
@@ -47,11 +59,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return ct;
         }
 
-        public async Task UpdateAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
+        public async Task<bool> UpdateAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
         {
-            _DBContext.ChiTietChuongTrinhTours!.Update(chiTietChuongTrinhTourEntity);
-            _DBContext.Entry(chiTietChuongTrinhTourEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.ChiTietChuongTrinhTours!.Update(chiTietChuongTrinhTourEntity);
+                _DBContext.Entry(chiTietChuongTrinhTourEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

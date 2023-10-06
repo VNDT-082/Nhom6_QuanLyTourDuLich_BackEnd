@@ -11,13 +11,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(KhachHangEntity khachHangEntity)
+        public async Task<bool> AddAsync(KhachHangEntity khachHangEntity)
         {
-            await _DBContext.KhachHangs.AddAsync(khachHangEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.KhachHangs.AddAsync(khachHangEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public Task DeleteAsync(KhachHangEntity khachHangEntity)
+        public Task<bool> DeleteAsync(KhachHangEntity khachHangEntity)
         {
             throw new NotImplementedException();
         }
@@ -52,11 +58,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return khachHang;
         }
 
-        public async Task UpdateAsync(KhachHangEntity khachHangEntity)
+        public async Task<bool> UpdateAsync(KhachHangEntity khachHangEntity)
         {
-            _DBContext.KhachHangs!.Update(khachHangEntity);
-            _DBContext.Entry(khachHangEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.KhachHangs!.Update(khachHangEntity);
+                _DBContext.Entry(khachHangEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

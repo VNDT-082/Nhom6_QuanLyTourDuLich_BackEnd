@@ -11,8 +11,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<List<ChuyenBayEntity>> GetListKhuHoi(bool khuHoi);
         public Task<ChuyenBayEntity> GetOneByIDAsync(string Id);
         public Task<ChuyenBayEntity> GetLastAsync();
-        public Task AddAsync(ChuyenBayEntity chuyenBayEntity);
-        public Task UpdateAsync(ChuyenBayEntity chuyenBayEntity);
-        public Task DeleteAsync(ChuyenBayEntity chuyenBayEntity);
+        public Task<bool> AddAsync(ChuyenBayEntity chuyenBayEntity);
+        public Task<bool> UpdateAsync(ChuyenBayEntity chuyenBayEntity);
+        public Task<bool> DeleteAsync(ChuyenBayEntity chuyenBayEntity);
     }
 }

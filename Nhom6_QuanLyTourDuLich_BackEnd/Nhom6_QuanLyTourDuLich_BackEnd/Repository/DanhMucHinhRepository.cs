@@ -12,15 +12,27 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(DanhMucHinhEntity danhMucHinhEntity)
+        public async Task<bool> AddAsync(DanhMucHinhEntity danhMucHinhEntity)
         {
-            await _DBContext.DanhMucHinhs.AddAsync(danhMucHinhEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.DanhMucHinhs.AddAsync(danhMucHinhEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(DanhMucHinhEntity danhMucHinhEntity)
+        public async Task<bool> DeleteAsync(DanhMucHinhEntity danhMucHinhEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _DBContext.DanhMucHinhs.Remove(danhMucHinhEntity);
+                _DBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
         public async Task<List<DanhMucHinhEntity>> GetAllAsync()
@@ -35,17 +47,28 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return danhMuc;
         }
 
+        public async Task<DanhMucHinhEntity> GetLastOfTourAsync(string maTour)
+        {
+            var danhMuc = await _DBContext.DanhMucHinhs.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).LastAsync();
+            return danhMuc;
+        }
+
         public async Task<DanhMucHinhEntity> GetOneByIDAsync(string Id)
         {
             var danhMuc = await _DBContext.DanhMucHinhs.FirstOrDefaultAsync(i => i.Id==Id);
             return danhMuc;
         }
 
-        public async Task UpdateAsync(DanhMucHinhEntity danhMucHinhEntity)
+        public async Task<bool> UpdateAsync(DanhMucHinhEntity danhMucHinhEntity)
         {
-            _DBContext.DanhMucHinhs!.Update(danhMucHinhEntity);
-            _DBContext.Entry(danhMucHinhEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.DanhMucHinhs!.Update(danhMucHinhEntity);
+                _DBContext.Entry(danhMucHinhEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         //public Task<List<TourEntity>> GetListTheoNgay(DateTime ngayBatDau);//ngay dau tien cua chuong trinh tour
         public Task<TourEntity> GetOneByIDAsync(string Id);
         public Task<TourEntity> GetLastAsync();
-        public Task AddAsync(TourEntity tourEntity);
-        public Task UpdateAsync(TourEntity tourEntity);
-        public Task DeleteAsync(TourEntity tourEntity);
+        public Task<bool> AddAsync(TourEntity tourEntity);
+        public Task<bool> UpdateAsync(TourEntity tourEntity);
+        public Task<bool> DeleteAsync(TourEntity tourEntity);
     }
 }

@@ -17,8 +17,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
 
         public Task<DatTourEntity> GetOneByIDAsync(string Id);
         public Task<DatTourEntity> GetLastAsync();
-        public Task AddAsync(DatTourEntity datTourEntity);
-        public Task UpdateAsync(DatTourEntity datTourEntity);
-        public Task DeleteAsync(DatTourEntity datTourEntity);
+        public Task<bool> AddAsync(DatTourEntity datTourEntity);
+        public Task<bool> UpdateAsync(DatTourEntity datTourEntity);
+        public Task<bool> DeleteAsync(DatTourEntity datTourEntity);
     }
 }

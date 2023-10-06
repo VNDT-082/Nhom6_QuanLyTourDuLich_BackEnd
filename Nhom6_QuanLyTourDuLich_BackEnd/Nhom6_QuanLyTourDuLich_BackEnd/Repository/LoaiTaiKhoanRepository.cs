@@ -12,27 +12,39 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
+        public async Task<bool> AddAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
         {
-            await _DBContext.LoaiTaiKhoans.AddAsync(loaiTaiKhoanEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.LoaiTaiKhoans.AddAsync(loaiTaiKhoanEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
+        public async Task<bool> DeleteAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
         {
-            if (loaiTaiKhoanEntity.Id != "KhachHang")
+            try
             {
-                var listTaiKhoan = await _DBContext.TaiKhoans.Where(i => i.maLoai == loaiTaiKhoanEntity.Id).ToListAsync();
-                TaiKhoanRepository tkRepo = new TaiKhoanRepository(_DBContext);
-                foreach (var item in listTaiKhoan)
+                if (loaiTaiKhoanEntity.Id != "KhachHang")
                 {
-                    item.maLoai = "KhachHang";
-                    item.trangThai = false;
-                    tkRepo.UpdateAsync(item);
+                    var listTaiKhoan = await _DBContext.TaiKhoans.Where(i => i.maLoai == loaiTaiKhoanEntity.Id).ToListAsync();
+                    TaiKhoanRepository tkRepo = new TaiKhoanRepository(_DBContext);
+                    foreach (var item in listTaiKhoan)
+                    {
+                        item.maLoai = "KhachHang";
+                        item.trangThai = false;
+                        tkRepo.UpdateAsync(item);
+                    }
+                    _DBContext.LoaiTaiKhoans.Remove(loaiTaiKhoanEntity);
+                    await _DBContext.SaveChangesAsync();
                 }
-                _DBContext.LoaiTaiKhoans.Remove(loaiTaiKhoanEntity);
-                await _DBContext.SaveChangesAsync();
+                return true;
             }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<LoaiTaiKhoanEntity>> GetAllAsync()
@@ -53,11 +65,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return loai;
         }
 
-        public async Task UpdateAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
+        public async Task<bool> UpdateAsync(LoaiTaiKhoanEntity loaiTaiKhoanEntity)
         {
-            _DBContext.LoaiTaiKhoans!.Update(loaiTaiKhoanEntity);
-            _DBContext.Entry(loaiTaiKhoanEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.LoaiTaiKhoans!.Update(loaiTaiKhoanEntity);
+                _DBContext.Entry(loaiTaiKhoanEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

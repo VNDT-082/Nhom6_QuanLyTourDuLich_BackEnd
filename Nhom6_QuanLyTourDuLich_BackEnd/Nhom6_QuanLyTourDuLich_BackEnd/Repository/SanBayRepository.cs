@@ -12,33 +12,45 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(SanBayEntity sanBayEntity)
+        public async Task<bool> AddAsync(SanBayEntity sanBayEntity)
         {
-            await _DBContext.SanBays.AddAsync(sanBayEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.SanBays.AddAsync(sanBayEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(SanBayEntity sanBayEntity)
+        public async Task<bool> DeleteAsync(SanBayEntity sanBayEntity)
         {
-            var list = _DBContext.ChuyenBays.Where(i => i.noiKhoiHanh == sanBayEntity.Id || i.noiDen == sanBayEntity.Id).ToList();
-            ChuyenBayRepository cbRepo = new ChuyenBayRepository(_DBContext);
-            foreach (var item in list)
+            try
             {
-                if (item.noiKhoiHanh == sanBayEntity.Id)
+                var list = _DBContext.ChuyenBays.Where(i => i.noiKhoiHanh == sanBayEntity.Id || i.noiDen == sanBayEntity.Id).ToList();
+                ChuyenBayRepository cbRepo = new ChuyenBayRepository(_DBContext);
+                foreach (var item in list)
                 {
-                    item.noiKhoiHanh = null;
-                    item.trangThai = false;
-                    cbRepo.UpdateAsync(item);
+                    if (item.noiKhoiHanh == sanBayEntity.Id)
+                    {
+                        item.noiKhoiHanh = null;
+                        item.trangThai = false;
+                        cbRepo.UpdateAsync(item);
+                    }
+                    if (item.noiDen == sanBayEntity.Id)
+                    {
+                        item.noiDen = null;
+                        item.trangThai = false;
+                        cbRepo.UpdateAsync(item);
+                    }
                 }
-                if (item.noiDen == sanBayEntity.Id)
-                {
-                    item.noiDen = null;
-                    item.trangThai = false;
-                    cbRepo.UpdateAsync(item);
-                }
+                _DBContext.SanBays.Remove(sanBayEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
             }
-            _DBContext.SanBays.Remove(sanBayEntity);
-            await _DBContext.SaveChangesAsync();
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<SanBayEntity>> GetAllAsync()
@@ -59,11 +71,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return sanBay;
         }
 
-        public async Task UpdateAsync(SanBayEntity sanBayEntity)
+        public async Task<bool> UpdateAsync(SanBayEntity sanBayEntity)
         {
-            _DBContext.SanBays!.Update(sanBayEntity);
-            _DBContext.Entry(sanBayEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.SanBays!.Update(sanBayEntity);
+                _DBContext.Entry(sanBayEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

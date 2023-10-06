@@ -12,13 +12,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(LoaiNhanVienEntity loaiNhanVienEntity)
+        public async Task<bool> AddAsync(LoaiNhanVienEntity loaiNhanVienEntity)
         {
-            await _DBContext.LoaiNhanViens.AddAsync(loaiNhanVienEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.LoaiNhanViens.AddAsync(loaiNhanVienEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(LoaiNhanVienEntity loaiNhanVienEntity)
+        public async Task<bool> DeleteAsync(LoaiNhanVienEntity loaiNhanVienEntity)
         {
             //if (loaiNhanVienEntity.Id != "KhachHang")
             //{
@@ -47,11 +53,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         }
 
 
-        public async Task UpdateAsync(LoaiNhanVienEntity loaiNhanVienEntity)
+        public async Task<bool> UpdateAsync(LoaiNhanVienEntity loaiNhanVienEntity)
         {
-            _DBContext.LoaiNhanViens!.Update(loaiNhanVienEntity);
-            _DBContext.Entry(loaiNhanVienEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.LoaiNhanViens!.Update(loaiNhanVienEntity);
+                _DBContext.Entry(loaiNhanVienEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

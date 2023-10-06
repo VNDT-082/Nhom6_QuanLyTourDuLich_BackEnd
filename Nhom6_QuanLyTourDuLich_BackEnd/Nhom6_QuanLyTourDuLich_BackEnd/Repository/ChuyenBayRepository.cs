@@ -13,13 +13,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task AddAsync(ChuyenBayEntity chuyenBayEntity)
+        public async Task<bool> AddAsync(ChuyenBayEntity chuyenBayEntity)
         {
-            await _DBContext.ChuyenBays.AddAsync(chuyenBayEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.ChuyenBays.AddAsync(chuyenBayEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public Task DeleteAsync(ChuyenBayEntity chuyenBayEntity)
+        public Task<bool> DeleteAsync(ChuyenBayEntity chuyenBayEntity)
         {
             throw new NotImplementedException();
         }
@@ -66,11 +72,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return chuyenBay;
         }
 
-        public async Task UpdateAsync(ChuyenBayEntity chuyenBayEntity)
+        public async Task<bool> UpdateAsync(ChuyenBayEntity chuyenBayEntity)
         {
-            _DBContext.ChuyenBays!.Update(chuyenBayEntity);
-            _DBContext.Entry(chuyenBayEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.ChuyenBays!.Update(chuyenBayEntity);
+                _DBContext.Entry(chuyenBayEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }

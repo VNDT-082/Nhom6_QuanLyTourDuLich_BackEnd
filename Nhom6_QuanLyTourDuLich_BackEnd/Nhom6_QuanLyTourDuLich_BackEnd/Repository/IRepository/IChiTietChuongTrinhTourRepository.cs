@@ -8,9 +8,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<List<ChiTietChuongTrinhTourEntity>> GetListByTourId(string maTour);
         public Task<ChiTietChuongTrinhTourEntity> GetOneByIDAsync(string Id);
         public Task<ChiTietChuongTrinhTourEntity> GetLastAsync();
-        public Task AddAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
-        public Task UpdateAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
-        public Task DeleteAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
+        public Task<ChiTietChuongTrinhTourEntity> GetLastOfTourAsync(string maTour);
+        public Task<bool> AddAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
+        public Task<bool> UpdateAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
+        public Task<bool> DeleteAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity);
 
         
     }

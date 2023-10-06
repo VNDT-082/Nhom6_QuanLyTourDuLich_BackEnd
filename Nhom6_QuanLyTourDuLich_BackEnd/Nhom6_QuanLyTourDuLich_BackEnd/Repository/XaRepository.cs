@@ -11,16 +11,28 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task AddAsync(XaEntity xaEntity)
+        public async Task<bool> AddAsync(XaEntity xaEntity)
         {
-            await _DBContext.Xas.AddAsync(xaEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                await _DBContext.Xas.AddAsync(xaEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
-        public async Task DeleteAsync(XaEntity xaEntity)
+        public async Task<bool> DeleteAsync(XaEntity xaEntity)
         {
-            _DBContext.Xas.Remove(xaEntity);
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Xas.Remove(xaEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
 
         public async Task<List<XaEntity>> GetAllAsync()
@@ -47,11 +59,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return xa;
         }
 
-        public async Task UpdateAsync(XaEntity xaEntity)
+        public async Task<bool> UpdateAsync(XaEntity xaEntity)
         {
-            _DBContext.Xas!.Update(xaEntity);
-            _DBContext.Entry(xaEntity).State = EntityState.Modified;
-            await _DBContext.SaveChangesAsync();
+            try
+            {
+                _DBContext.Xas!.Update(xaEntity);
+                _DBContext.Entry(xaEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            
         }
     }
 }
