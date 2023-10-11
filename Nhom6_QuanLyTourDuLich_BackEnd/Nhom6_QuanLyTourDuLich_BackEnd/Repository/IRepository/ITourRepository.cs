@@ -12,6 +12,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<List<TourEntity>> GetPage(byte pageSize, int pageNumber);
         public Task<List<TourEntity>> GetPage(byte pageSize, int pageNumber, bool trangThai);
         public Task<List<TourEntity>> GetListTheoLoai(string maLoai);
+        public Task<List<TourEntity>> GetListTheoTen(string tenTour);
         public Task<List<TourEntity>> GetListTheoLoai(string maLoai, bool trangThai);
         public Task<List<TourEntity>> GetListTheoGia(double giaMin, double giaMax);
         public Task<List<TourEntity>> GetListTheoNguoiLap(string maNhanVien);

@@ -18,7 +18,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             this._IDanhMucHinhService = _IDanhMucHinhService;
         }
         [HttpGet]
-        [Route("/[Controller]/get-danh-muc-hinh-tour")]
+        [Route("/[Controller]/get-all-danh-muc-hinh-tour")]
         public async Task<IActionResult> GetAll(string maTour)
         {
             try
@@ -33,7 +33,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-one-danh-muc-hinh-by-id/{Id}")]
+        [Route("/[Controller]/get-one-danh-muc-hinh-by-id")]
         public async Task<IActionResult> GetOneById(string Id)
         {
             try

@@ -12,6 +12,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<List<TourModel>> GetPage(byte pageSize, int pageNumber);
         public Task<List<TourModel>> GetPage(byte pageSize, int pageNumber, bool trangThai);
         public Task<List<TourModel>> GetListTheoLoai(string maLoai);
+        public Task<List<TourModel>> GetListTheoTen(string tenTour);
         public Task<List<TourModel>> GetListTheoLoai(string maLoai, bool trangThai);
         public Task<List<TourModel>> GetListTheoGia(double giaMin, double giaMax);
         public Task<List<TourModel>> GetListTheoNguoiLap(string maNhanVien);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
+using Nhom6_QuanLyTourDuLich_BackEnd.Services;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers

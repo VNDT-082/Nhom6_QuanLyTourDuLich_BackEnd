@@ -26,7 +26,6 @@ builder.Services.AddScoped<IChiTietChuongTrinhTourRepository, ChiTietChuongTrinh
 builder.Services.AddScoped<IChuyenBayRepository, ChuyenBayRepository>();
 builder.Services.AddScoped<IDanhMucHinhRepository, DanhMucHinhRepository>();
 builder.Services.AddScoped<IDatTourRepository, DatTourRepository>();
-builder.Services.AddScoped<IHuyenRepository, HuyenRepository>();
 builder.Services.AddScoped<IKhachHangRepository, KhachHangRepository>();
 builder.Services.AddScoped<IKhachSanRepository, KhachSanRepository>();
 builder.Services.AddScoped<ILoaiNhanVienRepository, LoaiNhanVienRepository>();
@@ -36,16 +35,13 @@ builder.Services.AddScoped<INhanVienRepository, NhanVienRepository>();
 builder.Services.AddScoped<ISanBayRepository, SanBayRepository>();
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IThanhVienRepository, ThanhVienRepository>();
-builder.Services.AddScoped<ITinhRepository, TinhRepository>();
 builder.Services.AddScoped<ITourRepository, TourRepository>();
-builder.Services.AddScoped<IXaRepository, XaRepository>();
 
 
 builder.Services.AddScoped<IChiTietChuongTrinhTourService, ChiTietChuongTrinhTourService>();
 builder.Services.AddScoped<IChuyenBayService, ChuyenBayService>();
 builder.Services.AddScoped<IDanhMucHinhService, DanhMucHinhService>();
 builder.Services.AddScoped<IDatTourService, DatTourService>();
-builder.Services.AddScoped<IHuyenService, HuyenService>();
 builder.Services.AddScoped<IKhachHangService, KhachHangService>();
 builder.Services.AddScoped<IKhachSanService, KhachSanService>();
 builder.Services.AddScoped<ILoaiNhanVienService, LoaiNhanVienService>();
@@ -55,10 +51,7 @@ builder.Services.AddScoped<INhanVienService, NhanVienService>();
 builder.Services.AddScoped<ISanBayService, SanBayService>();
 builder.Services.AddScoped<ITaiKhoanService, TaiKhoanService>();
 builder.Services.AddScoped<IThanhVienService, ThanhVienService>();
-builder.Services.AddScoped<ITinhService, TinhService>();
 builder.Services.AddScoped<ITourService, TourService>();
-builder.Services.AddScoped<IXaService, XaService>();
-
 
 var app = builder.Build();
 
@@ -72,6 +65,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(builder => { builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 
 app.MapControllers();
 

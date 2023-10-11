@@ -23,7 +23,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         [Required]
         public DateTime ngaySinh { get; set; }
         public DateTime ngayVaoLam { get; set; }
-
+        public string diaChi { get; set; }
+        public bool trangThai { get; set; }
         [Required]
         public string? canCuocConDan { get; set; }
         public virtual TaiKhoanEntity? TaiKhoan { get; set; }

@@ -17,7 +17,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             this._ILoaiTaiKhoanService = _ILoaiTaiKhoanService;
         }
         [HttpGet]
-        [Route("/[Controller]/get-loai-tai-khoan")]
+        [Route("/[Controller]/get-all-loai-tai-khoan")]
         public async Task<IActionResult> GetAll()
         {
             try

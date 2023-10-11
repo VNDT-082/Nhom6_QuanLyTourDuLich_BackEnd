@@ -24,7 +24,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 
         [ForeignKey("TaiKhoan")]
         public string? maTaiKhoan { get; set; }
-        public virtual XaEntity? Xa { get; set; }
         public virtual TaiKhoanEntity? TaiKhoan { get; set; }
         public virtual ICollection<DatTourEntity>? Tours { get; set; }
     }

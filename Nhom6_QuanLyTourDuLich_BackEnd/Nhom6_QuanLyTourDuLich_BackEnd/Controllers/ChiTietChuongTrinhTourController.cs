@@ -20,7 +20,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         }
 
         [HttpGet]
-        [Route("/[Controller]/chi-tiet-chuong-trinh-tour")]
+        [Route("/[Controller]/get-all-chi-tiet-chuong-trinh-tour")]
         public async Task<IActionResult> GetAll(string maTour)
         {
             try {

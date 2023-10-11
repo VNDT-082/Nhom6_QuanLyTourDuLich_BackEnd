@@ -29,6 +29,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try
             {
+                var dsTour = _DBContext.Tours.Where(i => i.maLoaiTour == loaiTour.Id).ToList();
+                if (dsTour != null)
+                {
+                    foreach (var item in dsTour)
+                    {
+                        item.maLoaiTour = "LT20231011163510";
+                    }
+                }
+                
                 _DBContext.LoaiTours.Remove(loaiTour);
                 await _DBContext.SaveChangesAsync();
                 return true;

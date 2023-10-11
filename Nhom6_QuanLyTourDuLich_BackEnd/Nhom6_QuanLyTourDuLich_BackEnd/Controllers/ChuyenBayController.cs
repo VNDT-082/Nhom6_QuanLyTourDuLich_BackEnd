@@ -16,7 +16,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             this._IChuyenBayService = _IChuyenBayService;
         }
         [HttpGet]
-        [Route("/[Controller]/get-danh-chuyen-bay")]
+        [Route("/[Controller]/get-danh-sach-chuyen-bay")]
         public async Task<IActionResult> GetAll()
         {
             try

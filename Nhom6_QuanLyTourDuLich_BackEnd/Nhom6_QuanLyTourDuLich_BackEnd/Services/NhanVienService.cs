@@ -27,9 +27,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return true;
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<bool> DeleteAsync(string ID)
         {
-            throw new NotImplementedException();
+            var nhanVienEntiy = await _INhanVienRepo.GetOneByIDAsync(ID);
+            if (nhanVienEntiy != null)
+                return await _INhanVienRepo.DeleteAsync(nhanVienEntiy);
+            return false;
         }
 
         public async Task<List<NhanVienModel>> GetAllAsync()

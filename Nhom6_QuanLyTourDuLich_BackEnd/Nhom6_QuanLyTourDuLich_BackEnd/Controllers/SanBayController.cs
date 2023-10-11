@@ -73,17 +73,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi update");
         }
-        //[HttpDelete]
-        //[Route("/[Controller]/delete-san-bay")]
-        //public async Task<IActionResult> Delete(string Id)
-        //{
-        //    var SanBayModel_ = await _ISanBayService.GetOneByIDAsync(Id);
-        //    if (SanBayModel_ != null)
-        //    {
-        //        bool kq = await _ISanBayService.DeleteAsync(SanBayModel_.Id);
-        //        return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
-        //    }
-        //    return BadRequest("Lỗi delete");
-        //}
+        [HttpDelete]
+        [Route("/[Controller]/delete-san-bay")]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var SanBayModel_ = await _ISanBayService.GetOneByIDAsync(Id);
+            if (SanBayModel_ != null)
+            {
+                bool kq = await _ISanBayService.DeleteAsync(SanBayModel_.Id);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
+            }
+            return BadRequest("Lỗi delete");
+        }
     }
 }

@@ -12,39 +12,59 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public Task<bool> AddAsync(NhanVienEntity nhanVienEntity)
+        public async Task<bool> AddAsync(NhanVienEntity nhanVienEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _DBContext.NhanViens.AddAsync(nhanVienEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+
         }
 
-        public Task<bool> DeleteAsync(NhanVienEntity nhanVienEntity)
+        public async Task<bool> DeleteAsync(NhanVienEntity nhanVienEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                nhanVienEntity.trangThai = false;
+                _DBContext.NhanViens!.Update(nhanVienEntity);
+                _DBContext.Entry(nhanVienEntity).State = EntityState.Modified;
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
-        public Task<List<NhanVienEntity>> GetAllAsync()
+        public async Task<List<NhanVienEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var list = await _DBContext.NhanViens.ToListAsync();
+            return list;
         }
 
-        public Task<NhanVienEntity> GetLastAsync()
+        public async Task<NhanVienEntity> GetLastAsync()
         {
-            throw new NotImplementedException();
+            var nhanVien = await _DBContext.NhanViens.OrderBy(i => i.Id).LastAsync();
+            return nhanVien;
         }
 
-        public Task<List<NhanVienEntity>> GetListByLoaiNhanVienIdAsync(string maLoaiNhanVien)
+        public async Task<List<NhanVienEntity>> GetListByLoaiNhanVienIdAsync(string maLoaiNhanVien)
         {
-            throw new NotImplementedException();
+            var list = await _DBContext.NhanViens.Where(i=>i.maLoaiNhanVien==maLoaiNhanVien).ToListAsync();
+            return list;
         }
 
-        public Task<NhanVienEntity> GetOneByCCCDAsync(string canCuocConDan)
+        public async Task<NhanVienEntity> GetOneByCCCDAsync(string canCuocConDan)
         {
-            throw new NotImplementedException();
+            var nhanVien = await _DBContext.NhanViens.FirstOrDefaultAsync(i=>i.canCuocConDan==canCuocConDan);
+            return nhanVien;
         }
 
-        public Task<NhanVienEntity> GetOneByIDAsync(string Id)
+        public async Task<NhanVienEntity> GetOneByIDAsync(string Id)
         {
-            throw new NotImplementedException();
+            var nhanVien = await _DBContext.NhanViens.FirstOrDefaultAsync(i => i.Id == Id);
+            return nhanVien;
         }
 
         public async Task<bool> UpdateAsync(NhanVienEntity nhanVienEntity)

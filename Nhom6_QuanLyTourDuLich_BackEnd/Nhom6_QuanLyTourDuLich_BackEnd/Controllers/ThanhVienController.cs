@@ -17,7 +17,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             this._IThanhVienService = _IThanhVienService;
         }
         [HttpGet]
-        [Route("/[Controller]/get-thanh-vien")]
+        [Route("/[Controller]/get-all-thanh-vien")]
         public async Task<IActionResult> GetAll(string maDatTour)
         {
             try

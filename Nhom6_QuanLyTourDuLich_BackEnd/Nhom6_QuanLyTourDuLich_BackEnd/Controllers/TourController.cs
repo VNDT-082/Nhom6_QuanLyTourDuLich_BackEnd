@@ -50,7 +50,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         }
 
         [HttpGet]
-        [Route("/[Controller]/get-all-tour-active/{trangThai}")]
+        [Route("/[Controller]/get-all-tour-active")]
         public async Task<IActionResult> GetAll(bool trangThai)
         {
             try
@@ -83,7 +83,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-list-theo-khoang-gia/{giaMin}/{giaMax}")]
+        [Route("/[Controller]/get-list-theo-khoang-gia")]
         public async Task<IActionResult> GetListTheoGia(double giaMin,double giaMax)
         {
             try
@@ -99,8 +99,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-list-theo-loai/{maLoai}")]
-        public async Task<IActionResult> GetListTheoGia(string maLoai)
+        [Route("/[Controller]/get-list-theo-loai")]
+        public async Task<IActionResult> GetListTheoLoai(string maLoai)
         {
             try
             {
@@ -115,8 +115,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-list-theo-loai-active/{maLoai}/{trangThai}")]
-        public async Task<IActionResult> GetListTheoGia(string maLoai,bool trangThai)
+        [Route("/[Controller]/get-list-theo-loai-active")]
+        public async Task<IActionResult> GetListTheoLoai(string maLoai,bool trangThai)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-list-theo-nguoi-lap/{maNhanVien}")]
+        [Route("/[Controller]/get-list-theo-nguoi-lap")]
         public async Task<IActionResult> GetListTheoNguoiLap(string maNhanVien)
         {
             try
@@ -148,7 +148,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         }
 
         [HttpGet]
-        [Route("/[Controller]/get-one-tour-by-id/{Id}")]
+        [Route("/[Controller]/get-one-tour-by-id")]
         public async Task<IActionResult> GetOneById(string Id)
         {
             try
@@ -163,7 +163,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-one-tour-by-id/{pageNum}")]
+        [Route("/[Controller]/get-list-tour-by-page-number")]
         public async Task<IActionResult> GetPage(int pageNum)
         {
             try
@@ -179,7 +179,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             catch { return NotFound(); }
         }
         [HttpGet]
-        [Route("/[Controller]/get-one-tour-by-id/{pageNum}/{trangThai}")]
+        [Route("/[Controller]/get-list-tour-by-page-number-trang-thai")]
         public async Task<IActionResult> GetPage(int pageNum,bool trangThai)
         {
             try
@@ -194,7 +194,23 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             catch { return NotFound(); }
         }
-
+        [HttpGet]
+        [Route("/[Controller]/get-list-tour-by-theo-ten")]
+        public async Task<IActionResult> GetListTheoTen(string tenTour)
+        {
+            try
+            {
+                List<TourModel> values = await tourService.GetListTheoTen(tenTour);
+                if (values != null)
+                {
+                    if (values.Count > 0)
+                        return Ok(values);
+                }
+                return NoContent();
+            }
+            catch { return NotFound(); }
+        }
+        
         [HttpPut]
         [Route("/[Controller]/update-one-tour")]
         public async Task<IActionResult> Update(TourModel tourModel)
@@ -220,6 +236,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
                 return BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }
+        }
+        [HttpDelete]
+        [Route("/[Controller]/delete-one-tour")] 
+        public async Task<IActionResult> Delete(Tour_repo tour_Repo) //tat trang thai hoat 
+        {
+            try
+            {
+                bool kq = await tourService.AddAsync(tour_Repo);
+                if (kq == true)
+                    return Ok(kq);
+                return BadRequest("Không thể xóa");
+            }
+            catch { return BadRequest("Không thể xóa"); }
         }
     }
 }

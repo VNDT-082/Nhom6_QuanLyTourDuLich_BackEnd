@@ -29,14 +29,16 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> DeleteAsync(string Id)
         {
-            //var loaiTour = await _ILoaiTourRepo.GetOneByIDAsync(Id);
-            //if (loaiTour != null)
-            //{
-            //    await _ILoaiTourRepo.DeleteAsync(loaiTour);
-            //    return true;
-            //}
-            //return false;
-            throw new NotImplementedException();
+            var loaiTour = await _ILoaiTourRepo.GetOneByIDAsync(Id);
+            if (loaiTour != null)
+            {
+                if (loaiTour.Id != "LT20231011163510")
+                {
+                    await _ILoaiTourRepo.DeleteAsync(loaiTour);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public async Task<List<LoaiTourModel>> GetAllAsync()

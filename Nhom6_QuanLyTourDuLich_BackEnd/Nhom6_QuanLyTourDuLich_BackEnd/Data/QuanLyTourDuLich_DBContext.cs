@@ -8,10 +8,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public QuanLyTourDuLich_DBContext(DbContextOptions<QuanLyTourDuLich_DBContext> dbContextOptions)
         : base(dbContextOptions) { }
 
-        public DbSet<TinhEntity> Tinhs { get; set; }
-        public DbSet<HuyenEntity> Huyens { get; set; }
-        public DbSet<XaEntity> Xas { get; set; }
-
         public DbSet<ChiTietChuongTrinhTourEntity> ChiTietChuongTrinhTours { get; set; }
         public DbSet<ChuyenBayEntity> ChuyenBays { get; set; }
         public DbSet<DanhMucHinhEntity> DanhMucHinhs { get; set; }
@@ -31,25 +27,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //Tinh
-            modelBuilder.Entity<TinhEntity>(entity =>
-            {
-                entity.ToTable("Tinh");
-                entity.HasIndex(i => i.tenTinh).IsUnique();
 
-            });
-            //Huyen
-            modelBuilder.Entity<HuyenEntity>(entity =>
-            {
-                entity.ToTable("Huyen");
-                entity.HasIndex(i => i.tenHuyen).IsUnique();
-            });
-            //Xa
-            modelBuilder.Entity<XaEntity>(entity =>
-            {
-                entity.ToTable("Xa");
-                entity.HasIndex(i => i.tenXa).IsUnique();
-            });
             //ChiTietChuongTrinhTour
             modelBuilder.Entity<ChiTietChuongTrinhTourEntity>(entity =>
             {
@@ -108,6 +86,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
             {
                 entity.ToTable("NhanVien");
                 entity.Property(i => i.maLoaiNhanVien).HasDefaultValue("0");
+                entity.Property(i => i.trangThai).HasDefaultValue(true);
                 entity.Property(i => i.ngayVaoLam).HasDefaultValue(DateTime.Now);//.ToString("dd/MM/yyyy HH:mm:ss")
                 entity.HasIndex(i => i.maTaiKhoan).IsUnique();
             });

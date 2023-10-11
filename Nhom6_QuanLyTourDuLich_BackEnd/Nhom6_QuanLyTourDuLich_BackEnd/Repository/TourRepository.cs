@@ -87,6 +87,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return list;
         }
 
+        public async Task<List<TourEntity>> GetListTheoTen(string tenTour)
+        {
+            var list = _DBContext.Tours.Where(i => i.tenTour.Contains("/tenTour/")).ToList();
+            return list;
+        }
+
         public async Task<TourEntity> GetOneByIDAsync(string Id)
         {
             var tour = await _DBContext.Tours.FirstOrDefaultAsync(i => i.Id == Id);

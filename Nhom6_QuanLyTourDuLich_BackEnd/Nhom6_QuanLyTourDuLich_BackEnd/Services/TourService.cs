@@ -32,9 +32,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return sl;
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<bool> DeleteAsync(string ID)
         {
-            throw new NotImplementedException();
+            var _TourEntity = await _ITourRepository.GetOneByIDAsync(ID);
+            if(_TourEntity!=null)
+                return await _ITourRepository.DeleteAsync(_TourEntity);
+            return false;
         }
 
         public async Task<List<TourModel>> GetAllAsync()
@@ -113,6 +116,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             {
                 List<TourModel> listTourModel = _IMapper.Map<List<TourModel>>(listTourEnity);
                 return listTourModel;
+            }
+            return null;
+        }
+
+        public async Task<List<TourModel>> GetListTheoTen(string tenTour)
+        {
+            var list = await _ITourRepository.GetListTheoTen(tenTour);
+            if (list != null || list.Count > 0)
+            {
+                List<TourModel> dsTour = _IMapper.Map<List<TourModel>>(list);
+                return dsTour;
             }
             return null;
         }
