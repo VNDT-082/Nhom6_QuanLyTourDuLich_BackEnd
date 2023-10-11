@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
@@ -16,39 +18,92 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public Task<bool> AddAsync(KhachSan_repo khachSan_repo)
+        public async Task<bool> AddAsync(KhachSan_repo khachSan_repo)
         {
+            KhachSanEntity _KhachSanEntity = _IMapper.Map<KhachSanEntity>(khachSan_repo);
+            DateTime time = DateTime.Now;
+            _KhachSanEntity.Id = "Hotel" + time.ToString("yyyyMMddHHmmss");
+            return await _IKhachSanRepo.AddAsync(_KhachSanEntity);
+        }
+
+        public async Task<bool> DeleteAsync(string ID)
+        {
+
+            //KhachSanEntity _KhachSan = await _IKhachSanRepo.GetOneById(ID);
+            //if (_KhachSan != null)
+            //{
+            //    return await _IKhachSanRepo.DeleteAsync(_KhachSan);
+            //}
+            //return false;
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<List<KhachSanModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<KhachSanEntity> listKhachSan = await _IKhachSanRepo.GetAllAsync();
+            if (listKhachSan != null || listKhachSan.Count > 0)
+            {
+                List<KhachSanModel> listKhachSanModel = _IMapper.Map<List<KhachSanModel>>(listKhachSan);
+                return listKhachSanModel;
+            }
+            return null;
         }
 
-        public Task<List<KhachSanModel>> GetAllAsync()
+        public async Task<KhachSanModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            KhachSanEntity _KhachSan = await _IKhachSanRepo.GetLastAsync();
+            if (_KhachSan != null)
+            {
+                KhachSanModel _KhachSanModel = _IMapper.Map<KhachSanModel>(_KhachSan);
+                return _KhachSanModel;
+            }
+            return null;
         }
 
-        public Task<KhachSanModel> GetLastAsync()
+        public async Task<List<KhachSanModel>> GetListByHangSao(string hangSao)
         {
-            throw new NotImplementedException();
+            List<KhachSanEntity> listKhachSan = await _IKhachSanRepo.GetListByHangSao(hangSao);
+            if (listKhachSan != null || listKhachSan.Count > 0)
+            {
+                List<KhachSanModel> listKhachSanModel = _IMapper.Map<List<KhachSanModel>>(listKhachSan);
+                return listKhachSanModel;
+            }
+            return null;
         }
 
-        public Task<List<KhachSanModel>> GetListByHangSao(string hangSao)
+        public async Task<KhachSanModel> GetOneById(string maKhachSan)
         {
-            throw new NotImplementedException();
+            KhachSanEntity _KhachSan = await _IKhachSanRepo.GetOneById(maKhachSan);
+            if (_KhachSan != null)
+            {
+                KhachSanModel _KhachSanModel = _IMapper.Map<KhachSanModel>(_KhachSan);
+                return _KhachSanModel;
+            }
+            return null;
         }
 
-        public Task<KhachSanModel> GetOneByXaIdAsync(string xaId)
+
+
+        public async Task<bool> UpdateAsync(KhachSanModel khachSanModel)
         {
-            throw new NotImplementedException();
+            KhachSanEntity _KhachSan = await _IKhachSanRepo.GetOneById(khachSanModel.Id);
+            if (_KhachSan != null)
+            {
+                KhachSanEntity _KhachSanEntity = _IMapper.Map<KhachSanEntity>(khachSanModel);
+                return await _IKhachSanRepo.UpdateAsync(_KhachSanEntity);
+            }
+            return false;
         }
 
-        public Task<bool> UpdateAsync(KhachSanModel khachSanModel)
+        public async Task<List<KhachSanModel>> GetListByXaIdAsync(string xaId)
         {
-            throw new NotImplementedException();
+            List<KhachSanEntity> listKhachSan = await _IKhachSanRepo.GetListByXaIdAsync(xaId);
+            if (listKhachSan != null || listKhachSan.Count > 0)
+            {
+                List<KhachSanModel> listKhachSanModel = _IMapper.Map<List<KhachSanModel>>(listKhachSan);
+                return listKhachSanModel;
+            }
+            return null;
         }
     }
 }

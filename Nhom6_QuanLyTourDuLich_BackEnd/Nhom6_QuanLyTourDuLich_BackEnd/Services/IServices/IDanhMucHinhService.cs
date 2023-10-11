@@ -6,7 +6,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
 {
     public interface IDanhMucHinhService
     {
-        public Task<List<DanhMucHinhModel>> GetAllAsync();//lay theo ma tour
+        public Task<List<DanhMucHinhModel>> GetAllAsync(string maTour);//lay theo ma tour
         public Task<DanhMucHinhModel> GetOneByIDAsync(string Id);
         public Task<DanhMucHinhModel> GetLastAsync();
         public Task<DanhMucHinhModel> GetLastOfTourAsync(string maTour);

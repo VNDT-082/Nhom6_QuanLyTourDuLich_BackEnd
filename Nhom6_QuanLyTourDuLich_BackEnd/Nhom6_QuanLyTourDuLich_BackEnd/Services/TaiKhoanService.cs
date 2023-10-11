@@ -20,16 +20,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(TaiKhoan_repo taiKhoan_repo)
         {
-            TaiKhoanEntity taiKhoanLast = await _ITaiKhoanRepository.GetLastAsync();
             TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoan_repo);
-            if (taiKhoanLast != null)
-            {
-                taiKhoanEntity.Id = GenarateId.setIdTaiKhoan(taiKhoanLast.Id);
-            }
-            else
-            {
-                taiKhoanEntity.Id = "TK001";
-            }
+            DateTime time = DateTime.Now;
+            taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
             return await _ITaiKhoanRepository.AddAsync(taiKhoanEntity);
         }
 

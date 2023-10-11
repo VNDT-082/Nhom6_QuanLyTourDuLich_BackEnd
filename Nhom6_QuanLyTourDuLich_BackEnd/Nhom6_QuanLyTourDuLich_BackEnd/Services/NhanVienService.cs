@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
+using Nhom6_QuanLyTourDuLich_BackEnd.Repository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 
@@ -16,9 +18,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public Task<bool> AddAsync(NhanVien_repo nhaVien_repo)
+        public async Task<bool> AddAsync(NhanVien_repo nhaVien_repo)
         {
-            throw new NotImplementedException();
+            NhanVienEntity _NhanVienEntity = _IMapper.Map<NhanVienEntity>(nhaVien_repo);
+            DateTime time = DateTime.Now;
+            _NhanVienEntity.Id = "NV" + time.ToString("yyyyMMddHHmmss");
+            await _INhanVienRepo.AddAsync(_NhanVienEntity);
+            return true;
         }
 
         public Task<bool> DeleteAsync(string ID)
@@ -26,34 +32,73 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<NhanVienModel>> GetAllAsync()
+        public async Task<List<NhanVienModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listNhanVienEnity = await _INhanVienRepo.GetAllAsync();
+            
+            if (listNhanVienEnity.Count > 0)
+            {
+                List<NhanVienModel> listNhanVienModel = _IMapper.Map<List<NhanVienModel>>(listNhanVienEnity);
+                return listNhanVienModel;
+            }
+            return null;
         }
 
-        public Task<NhanVienModel> GetLastAsync()
+        public async Task<NhanVienModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            NhanVienEntity NhanVien = await _INhanVienRepo.GetLastAsync();
+            if (NhanVien != null)
+            {
+                NhanVienModel NhanVienModel = _IMapper.Map<NhanVienModel>(NhanVien);
+                return NhanVienModel;
+            }
+            return null;
         }
 
-        public Task<List<NhanVienModel>> GetListByLoaiNhanVienIdAsync(string maLoaiNhanVien)
+        public async Task<List<NhanVienModel>> GetListByLoaiNhanVienIdAsync(string maLoaiNhanVien)
         {
-            throw new NotImplementedException();
+            var listNhanVienEnity = await _INhanVienRepo.GetListByLoaiNhanVienIdAsync(maLoaiNhanVien);
+
+            if (listNhanVienEnity.Count > 0)
+            {
+                List<NhanVienModel> listNhanVienModel = _IMapper.Map<List<NhanVienModel>>(listNhanVienEnity);
+                return listNhanVienModel;
+            }
+            return null;
         }
 
-        public Task<NhanVienModel> GetOneByCCCDAsync(string canCuocConDan)
+        public async Task<NhanVienModel> GetOneByCCCDAsync(string canCuocConDan)
         {
-            throw new NotImplementedException();
+            NhanVienEntity NhanVien = await _INhanVienRepo.GetOneByCCCDAsync(canCuocConDan);
+            if (NhanVien != null)
+            {
+                NhanVienModel NhanVienModel = _IMapper.Map<NhanVienModel>(NhanVien);
+                return NhanVienModel;
+            }
+            return null;
         }
 
-        public Task<NhanVienModel> GetOneByIDAsync(string Id)
+        public async Task<NhanVienModel> GetOneByIDAsync(string Id)
         {
-            throw new NotImplementedException();
+            NhanVienEntity NhanVien = await _INhanVienRepo.GetOneByIDAsync(Id);
+            if (NhanVien != null)
+            {
+                NhanVienModel NhanVienModel = _IMapper.Map<NhanVienModel>(NhanVien);
+                return NhanVienModel;
+            }
+            return null;
         }
 
-        public Task<bool> UpdateAsync(NhanVienModel nhanVienModel)
+        public async Task<bool> UpdateAsync(NhanVienModel nhanVienModel)
         {
-            throw new NotImplementedException();
+            var _NhanVienEntity = await _INhanVienRepo.GetOneByIDAsync(nhanVienModel.Id);
+            if (_NhanVienEntity != null)
+            {
+                var _NhanVienEntityUpdate = _IMapper.Map<NhanVienEntity>(nhanVienModel);
+                await _INhanVienRepo.UpdateAsync(_NhanVienEntityUpdate);
+                return true;
+            }
+            return false;
         }
     }
 }

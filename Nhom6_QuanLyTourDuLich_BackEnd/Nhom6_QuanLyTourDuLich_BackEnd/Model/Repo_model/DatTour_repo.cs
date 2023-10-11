@@ -10,7 +10,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model
         public int soLuong { get; set; }
         public DateTime ngayDat { get; set; }
         public bool trangThai { get; set; }
-        public virtual ICollection<ThanhVienEntity>? ThanhViens { get; set; }
+        public virtual ICollection<ThanhVien_repo>? ThanhViens { get; set; }
         public DatTour_repo() { }
 
         public DatTour_repo(string maKhach, string? maHuongDanVien, string maTour, int soLuong,

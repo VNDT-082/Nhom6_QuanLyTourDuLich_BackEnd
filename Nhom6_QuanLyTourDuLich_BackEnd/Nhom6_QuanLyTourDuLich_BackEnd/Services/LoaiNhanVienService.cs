@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
+using Nhom6_QuanLyTourDuLich_BackEnd.Repository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 
@@ -8,17 +11,20 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 {
     public class LoaiNhanVienService:ILoaiNhanVienService
     {
-        public readonly ILoaiNhanVienRepository _ILoaiNhanVienRepo;
+        public readonly ILoaiNhanVienRepository _ILoaiNhanVienRepository;
         public IMapper _IMapper;
-        public LoaiNhanVienService(ILoaiNhanVienRepository _ILoaiNhanVienRepo, IMapper _IMapper)
+        public LoaiNhanVienService(ILoaiNhanVienRepository _ILoaiNhanVienRepository, IMapper _IMapper)
         {
-            this._ILoaiNhanVienRepo = _ILoaiNhanVienRepo;
+            this._ILoaiNhanVienRepository = _ILoaiNhanVienRepository;
             this._IMapper = _IMapper;
         }
 
-        public Task<bool> AddAsync(LoaiNhanVien_repo loaiNhanVien_repo)
+        public async Task<bool> AddAsync(LoaiNhanVien_repo loaiNhanVien_repo)
         {
-            throw new NotImplementedException();
+            LoaiNhanVienEntity loaiNhanVienEntity = _IMapper.Map<LoaiNhanVienEntity>(loaiNhanVien_repo);
+            DateTime time = DateTime.Now;
+            loaiNhanVienEntity.Id = "LNV" + time.ToString("yyyyMMddHHmmss");
+            return await _ILoaiNhanVienRepository.AddAsync(loaiNhanVienEntity);
         }
 
         public Task<bool> DeleteAsync(string ID)
@@ -26,24 +32,48 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<LoaiNhanVienModel>> GetAllAsync()
+        public async Task<List<LoaiNhanVienModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            List<LoaiNhanVienEntity> listLoaiNhanVien = await _ILoaiNhanVienRepository.GetAllAsync();
+            if (listLoaiNhanVien != null || listLoaiNhanVien.Count > 0)
+            {
+                List<LoaiNhanVienModel> listLoaiNhanVienModel = _IMapper.Map<List<LoaiNhanVienModel>>(listLoaiNhanVien);
+                return listLoaiNhanVienModel;
+            }
+            return null;
         }
 
-        public Task<LoaiNhanVienModel> GetLastAsync()
+        public async Task<LoaiNhanVienModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            LoaiNhanVienEntity loaiNhanVien = await _ILoaiNhanVienRepository.GetLastAsync();
+            if (loaiNhanVien != null)
+            {
+                LoaiNhanVienModel loaiNhanVienModel = _IMapper.Map<LoaiNhanVienModel>(loaiNhanVien);
+                return loaiNhanVienModel;
+            }
+            return null;
         }
 
-        public Task<LoaiNhanVienModel> GetOneByIdAsync(string Id)
+        public async Task<LoaiNhanVienModel> GetOneByIdAsync(string Id)
         {
-            throw new NotImplementedException();
+            LoaiNhanVienEntity loaiNhanVien = await _ILoaiNhanVienRepository.GetOneByIdAsync(Id);
+            if (loaiNhanVien != null)
+            {
+                LoaiNhanVienModel loaiNhanVienModel = _IMapper.Map<LoaiNhanVienModel>(loaiNhanVien);
+                return loaiNhanVienModel;
+            }
+            return null;
         }
 
-        public Task<bool> UpdateAsync(LoaiNhanVienModel loaiNhanVienModel)
+        public async Task<bool> UpdateAsync(LoaiNhanVienModel loaiNhanVienModel)
         {
-            throw new NotImplementedException();
+            LoaiNhanVienEntity loaiNhanVien = await _ILoaiNhanVienRepository.GetOneByIdAsync(loaiNhanVienModel.Id);
+            if (loaiNhanVien != null)
+            {
+                LoaiNhanVienEntity loaiNhanVienEntity = _IMapper.Map<LoaiNhanVienEntity>(loaiNhanVienModel);
+                return await _ILoaiNhanVienRepository.UpdateAsync(loaiNhanVienEntity);
+            }
+            return false;
         }
     }
 }

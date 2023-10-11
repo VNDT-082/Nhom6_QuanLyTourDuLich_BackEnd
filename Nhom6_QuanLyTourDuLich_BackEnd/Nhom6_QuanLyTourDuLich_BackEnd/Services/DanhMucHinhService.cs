@@ -20,16 +20,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(DanhMucHinh_repo danhMucHinh_repo)
         {
-            DanhMucHinhEntity danhMucHinhLast = await _IDanhMucHinhRepo.GetLastOfTourAsync(danhMucHinh_repo.maTour);
             DanhMucHinhEntity danhMucHinhEntity = _IMapper.Map<DanhMucHinhEntity>(danhMucHinh_repo);
-            if (danhMucHinhLast != null)
-            {
-                danhMucHinhEntity.Id = GenarateId.setIdDanhMucHinh(danhMucHinhLast.Id, danhMucHinhEntity.maTour);
-            }
-            else
-            {
-                danhMucHinhEntity.Id = danhMucHinhEntity.maTour+ "H001";
-            }
+            DateTime time = DateTime.Now;
+            danhMucHinhEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
             return await _IDanhMucHinhRepo.AddAsync(danhMucHinhEntity);
         }
 
@@ -43,9 +36,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return false;
         }
 
-        public async Task<List<DanhMucHinhModel>> GetAllAsync()
+        public async Task<List<DanhMucHinhModel>> GetAllAsync(string maTour)
         {
-            List<DanhMucHinhEntity> listDanhMucHinh = await _IDanhMucHinhRepo.GetAllAsync();
+            List<DanhMucHinhEntity> listDanhMucHinh = await _IDanhMucHinhRepo.GetAllAsync(maTour);
             if (listDanhMucHinh != null)
             {
                 List<DanhMucHinhModel> listDanhMucHinhModel = _IMapper.Map<List<DanhMucHinhModel>>(listDanhMucHinh);

@@ -18,7 +18,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public string? maKhachSan { get; set; }
         public string? phuongTienDiChuyen { get; set; }
         public bool? trangThai { get; set; }
-        public virtual ICollection<DanhMucHinhEntity>? DanhMucHinhs { get; set; }
+        public virtual ICollection<DanhMucHinhModel>? DanhMucHinhs { get; set; }
 
         public TourModel() { }
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
@@ -16,9 +17,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public Task<bool> AddAsync(SanBay_repo sanBay_repo)
+        public async Task<bool> AddAsync(SanBay_repo sanBay_repo)
         {
-            throw new NotImplementedException();
+            SanBayEntity _SanBayEntity = _IMapper.Map<SanBayEntity>(sanBay_repo);
+            DateTime time = DateTime.Now;
+            _SanBayEntity.Id = "NV" + time.ToString("yyyyMMddHHmmss");
+            await _ISanBayRepo.AddAsync(_SanBayEntity);
+            return true;
         }
 
         public Task<bool> DeleteAsync(string ID)
@@ -26,24 +31,51 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<SanBayModel>> GetAllAsync()
+        public async Task<List<SanBayModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listSanBayEnity = await _ISanBayRepo.GetAllAsync();
+
+            if (listSanBayEnity.Count > 0)
+            {
+                List<SanBayModel> listSanBayModel = _IMapper.Map<List<SanBayModel>>(listSanBayEnity);
+                return listSanBayModel;
+            }
+            return null;
         }
 
-        public Task<SanBayModel> GetLastAsync()
+        public async Task<SanBayModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            SanBayEntity SanBay = await _ISanBayRepo.GetLastAsync();
+            if (SanBay != null)
+            {
+                SanBayModel _SanBayModel = _IMapper.Map<SanBayModel>(SanBay);
+                return _SanBayModel;
+            }
+            return null;
         }
 
-        public Task<SanBayModel> GetOneByIDAsync(string Id)
+        public async Task<SanBayModel> GetOneByIDAsync(string Id)
         {
-            throw new NotImplementedException();
+            var _SanBayEntity = await _ISanBayRepo.GetOneByIDAsync(Id);
+
+            if (_SanBayEntity != null)
+            {
+                SanBayModel _SanBayModel = _IMapper.Map<SanBayModel>(_SanBayEntity);
+                return _SanBayModel;
+            }
+            return null;
         }
 
-        public Task<bool> UpdateAsync(SanBayModel sanBayModel)
+        public async Task<bool> UpdateAsync(SanBayModel sanBayModel)
         {
-            throw new NotImplementedException();
+            var _SanBayEntity = await _ISanBayRepo.GetOneByIDAsync(sanBayModel.Id);
+            if (_SanBayEntity != null)
+            {
+                var _SanBayEntityUpdate = _IMapper.Map<SanBayEntity>(sanBayModel);
+                await _ISanBayRepo.UpdateAsync(_SanBayEntityUpdate);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -12,9 +12,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public Task<bool> AddAsync(KhachSanEntity khachSanEntity)
+        public async Task<bool> AddAsync(KhachSanEntity khachSanEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _DBContext.KhachSans.AddAsync(khachSanEntity);
+                await _DBContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
         public Task<bool> DeleteAsync(KhachSanEntity khachSanEntity)
@@ -22,19 +28,34 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             throw new NotImplementedException();
         }
 
-        public Task<List<KhachSanEntity>> GetAllAsync()
+        public async Task<List<KhachSanEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var list = await _DBContext.KhachSans.OrderByDescending(i => i.Id).ToListAsync();
+            return list;
         }
 
-        public Task<KhachSanEntity> GetLastAsync()
+        public async Task<KhachSanEntity> GetLastAsync()
         {
-            throw new NotImplementedException();
+            var khachSan = await _DBContext.KhachSans.OrderBy(i=>i.Id).LastAsync();
+            return khachSan;
         }
 
-        public Task<List<KhachSanEntity>> GetListByHangSao(string hangSao)
+        public async Task<List<KhachSanEntity>> GetListByHangSao(string hangSao)
         {
-            throw new NotImplementedException();
+            var list = await _DBContext.KhachSans.Where(i=>i.hangSao==hangSao).OrderByDescending(i => i.Id).ToListAsync();
+            return list;
+        }
+
+        public async Task<List<KhachSanEntity>> GetListByXaIdAsync(string maXa)
+        {
+            var list = await _DBContext.KhachSans.Where(i => i.id_Xa == maXa).OrderByDescending(i => i.Id).ToListAsync();
+            return list;
+        }
+
+        public async Task<KhachSanEntity> GetOneById(string maKhachSan)
+        {
+            var khachSan = await _DBContext.KhachSans.FirstOrDefaultAsync(i => i.Id == maKhachSan);
+            return khachSan;
         }
 
         public async Task<bool> UpdateAsync(KhachSanEntity khachSanEntity)

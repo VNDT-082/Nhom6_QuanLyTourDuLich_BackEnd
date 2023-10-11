@@ -20,16 +20,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(KhachHang_repo khachHang_repo)
         {
-            KhachHangEntity khachHangLast = await _IKhachHangRepo.GetLastAsync();
             KhachHangEntity khachHangEntity = _IMapper.Map<KhachHangEntity>(khachHang_repo);
-            if (khachHangLast != null)
-            {
-                khachHangEntity.Id = GenarateId.setIdKhachHang(khachHangLast.Id);
-            }
-            else
-            {
-                khachHangEntity.Id ="KH001";
-            }
+            DateTime time = DateTime.Now;
+            khachHangEntity.Id = "KH" + time.ToString("yyyyMMddHHmmss");
             return await _IKhachHangRepo.AddAsync(khachHangEntity);
         }
 

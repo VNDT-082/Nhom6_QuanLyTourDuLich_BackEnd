@@ -13,7 +13,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public int soLuong { get; set; }
         public DateTime ngayDat { get; set; }
         public bool trangThai { get; set; }
-        public virtual ICollection<ThanhVienEntity>? ThanhViens { get; set; }
+        public virtual ICollection<ThanhVienModel>? ThanhViens { get; set; }
         public DatTourModel() { }
 
         public DatTourModel(string id, string maKhach, string? maHuongDanVien, string maTour, int soLuong,

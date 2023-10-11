@@ -20,16 +20,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(ThanhVien_repo thanhVienRepo)
         {
-            ThanhVienEntity thanhVienLast =await _IThanhVienRepository.GetLastOfDatTourAsync(thanhVienRepo.maDatTour);
             ThanhVienEntity thanhVienEntity = _IMapper.Map<ThanhVienEntity>(thanhVienRepo);
-            if (thanhVienLast != null)
-            {
-                thanhVienEntity.Id = GenarateId.setIdThanhVien(thanhVienLast.Id, thanhVienEntity.maDatTour);
-            }
-            else
-            {
-                thanhVienEntity.Id = thanhVienEntity.maDatTour+ "_TV001";
-            }
+            DateTime time = DateTime.Now;
+            thanhVienEntity.Id = "TV" + time.ToString("yyyyMMddHHmmss");
                 
             return await _IThanhVienRepository.AddAsync(thanhVienEntity);
         }

@@ -35,9 +35,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
-        public async Task<List<DanhMucHinhEntity>> GetAllAsync()
+        public async Task<List<DanhMucHinhEntity>> GetAllAsync(string maTour)
         {
-            var list = await _DBContext.DanhMucHinhs.OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.DanhMucHinhs.Where(i=>i.maTour==maTour).OrderByDescending(i => i.Id).ToListAsync();
             return list;
         }
 

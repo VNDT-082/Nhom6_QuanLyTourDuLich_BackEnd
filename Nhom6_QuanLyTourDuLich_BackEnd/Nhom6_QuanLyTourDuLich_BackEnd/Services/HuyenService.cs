@@ -20,16 +20,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(Huyen_repo huyen_repo)
         {
-            HuyenEntity huyenEntity = await _IHuyenRepo.GetLastAsync();
-            if (huyenEntity != null)
-            {
-                huyenEntity.tenHuyen = huyen_repo.tenHuyen;
-                huyenEntity.Id = GenarateId.setIdHuyen(huyenEntity.Id);
-            }
-            else
-            {
-                huyenEntity.Id = "H001";
-            }
+            HuyenEntity huyenEntity = _IMapper.Map<HuyenEntity>(huyen_repo);
+            DateTime time = DateTime.Now;
+            huyenEntity.Id = "H" + time.ToString("yyyyMMddHHmmss");
             return await _IHuyenRepo.AddAsync(huyenEntity);
         }
 

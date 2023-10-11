@@ -19,17 +19,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         }
         public async Task<bool> AddAsync(LoaiTour_repo loaiTour)
         {
-            LoaiTourEntity loaiTourLast = await _ILoaiTourRepo.GetLastAsync();
-            LoaiTourEntity loaiTourEntity = new LoaiTourEntity();
-            loaiTourEntity.tenLoai = loaiTour.tenLoai;
-            if (loaiTourLast != null)
-            {
-                loaiTourEntity.Id = GenarateId.setIdLoaiTour(loaiTourLast.Id);
-            }
-            else
-            {
-                loaiTourEntity.Id = "LT001";
-            }
+            LoaiTourEntity loaiTourEntity = _IMapper.Map<LoaiTourEntity>(loaiTour);
+            DateTime time = DateTime.Now;
+            loaiTourEntity.Id = "LT" + time.ToString("yyyyMMddHHmmss");
             await _ILoaiTourRepo.AddAsync(loaiTourEntity);
             return true;
             
@@ -37,26 +29,22 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> DeleteAsync(string Id)
         {
-            var loaiTour = await _ILoaiTourRepo.GetOneByIDAsync(Id);
-            if (loaiTour != null)
-            {
-                await _ILoaiTourRepo.DeleteAsync(loaiTour);
-                return true;
-            }
-            return false;
+            //var loaiTour = await _ILoaiTourRepo.GetOneByIDAsync(Id);
+            //if (loaiTour != null)
+            //{
+            //    await _ILoaiTourRepo.DeleteAsync(loaiTour);
+            //    return true;
+            //}
+            //return false;
+            throw new NotImplementedException();
         }
 
         public async Task<List<LoaiTourModel>> GetAllAsync()
         {
-            var listLoaiTourEnity = await _ILoaiTourRepo.GetAllAsync();
-            List<LoaiTourModel> listLoaiTourModel = new List<LoaiTourModel>();
+            var listLoaiTourEnity = await _ILoaiTourRepo.GetAllAsync();  
             if (listLoaiTourEnity.Count > 0)
-            { 
-                foreach (var item in listLoaiTourEnity)
-                {
-                    var loaiTour = _IMapper.Map<LoaiTourModel>(item);
-                    listLoaiTourModel.Add(loaiTour);
-                }
+            {
+                List<LoaiTourModel> listLoaiTourModel = _IMapper.Map<List<LoaiTourModel>>(listLoaiTourEnity);
                 return listLoaiTourModel;
             }
             return null;

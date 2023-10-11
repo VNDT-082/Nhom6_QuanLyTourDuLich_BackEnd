@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
@@ -16,9 +17,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public Task<bool> AddAsync(ChuyenBay_repo chuyenBay_repo)
+        public async Task<bool> AddAsync(ChuyenBay_repo chuyenBay_repo)
         {
-            throw new NotImplementedException();
+            ChuyenBayEntity _ChuyenBayEntity = _IMapper.Map<ChuyenBayEntity>(chuyenBay_repo);
+            DateTime time = DateTime.Now;
+            _ChuyenBayEntity.Id = "CTT" + time.ToString("yyyyMMddHHmmss");
+            return await _IChuyenBayRepo.AddAsync(_ChuyenBayEntity);
         }
 
         public Task<bool> DeleteAsync(string ID)
@@ -26,44 +30,92 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<ChuyenBayModel>> GetAllAsync()
+        public async Task<List<ChuyenBayModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var listChuyenBay = await _IChuyenBayRepo.GetAllAsync();
+            if (listChuyenBay != null||listChuyenBay.Count>0)
+            {
+                var listChuyenBayModel = _IMapper.Map<List<ChuyenBayModel>>(listChuyenBay);
+                return listChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<ChuyenBayModel> GetLastAsync()
+        public async Task<ChuyenBayModel> GetLastAsync()
         {
-            throw new NotImplementedException();
+            var _ChuyenBay = await _IChuyenBayRepo.GetLastAsync();
+            if (_ChuyenBay != null)
+            {
+                var _ChuyenBayModel = _IMapper.Map<ChuyenBayModel>(_ChuyenBay);
+                return _ChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<List<ChuyenBayModel>> GetListKhuHoi(bool khuHoi)
+        public async Task<List<ChuyenBayModel>> GetListKhuHoi(bool khuHoi)
         {
-            throw new NotImplementedException();
+            var listChuyenBay = await _IChuyenBayRepo.GetListKhuHoi(khuHoi);
+            if (listChuyenBay != null || listChuyenBay.Count > 0)
+            {
+                var listChuyenBayModel = _IMapper.Map<List<ChuyenBayModel>>(listChuyenBay);
+                return listChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<List<ChuyenBayModel>> GetListNoiDen(string maSanBay)
+        public async Task<List<ChuyenBayModel>> GetListNoiDen(string maSanBay)
         {
-            throw new NotImplementedException();
+            var listChuyenBay = await _IChuyenBayRepo.GetListNoiDen(maSanBay);
+            if (listChuyenBay != null || listChuyenBay.Count > 0)
+            {
+                var listChuyenBayModel = _IMapper.Map<List<ChuyenBayModel>>(listChuyenBay);
+                return listChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<List<ChuyenBayModel>> GetListNoiDi(string maSanBay)
+        public async Task<List<ChuyenBayModel>> GetListNoiDi(string maSanBay)
         {
-            throw new NotImplementedException();
+            var listChuyenBay = await _IChuyenBayRepo.GetListNoiDi(maSanBay);
+            if (listChuyenBay != null || listChuyenBay.Count > 0)
+            {
+                var listChuyenBayModel = _IMapper.Map<List<ChuyenBayModel>>(listChuyenBay);
+                return listChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<List<ChuyenBayModel>> GetListTheoNgay(DateTime gioDi, DateTime gioDen)
+        public async Task<List<ChuyenBayModel>> GetListTheoNgay(DateTime gioDi, DateTime gioDen)
         {
-            throw new NotImplementedException();
+            var listChuyenBay = await _IChuyenBayRepo.GetListTheoNgay(gioDi, gioDen);
+            if (listChuyenBay != null || listChuyenBay.Count > 0)
+            {
+                var listChuyenBayModel = _IMapper.Map<List<ChuyenBayModel>>(listChuyenBay);
+                return listChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<ChuyenBayModel> GetOneByIDAsync(string Id)
+        public async Task<ChuyenBayModel> GetOneByIDAsync(string Id)
         {
-            throw new NotImplementedException();
+            var _ChuyenBay = await _IChuyenBayRepo.GetOneByIDAsync(Id);
+            if (_ChuyenBay != null)
+            {
+                var _ChuyenBayModel = _IMapper.Map<ChuyenBayModel>(_ChuyenBay);
+                return _ChuyenBayModel;
+            }
+            return null;
         }
 
-        public Task<bool> UpdateAsync(ChuyenBayModel chuyenBayModel)
+        public async Task<bool> UpdateAsync(ChuyenBayModel chuyenBayModel)
         {
-            throw new NotImplementedException();
+            var _ChuyenBayEntity = await _IChuyenBayRepo.GetOneByIDAsync(chuyenBayModel.Id);
+            if (_ChuyenBayEntity != null)
+            {
+                ChuyenBayEntity ChuyenBayUpdate = _IMapper.Map<ChuyenBayEntity>(chuyenBayModel);
+                return await _IChuyenBayRepo.UpdateAsync(ChuyenBayUpdate);
+            }
+            return false;
         }
     }
 }

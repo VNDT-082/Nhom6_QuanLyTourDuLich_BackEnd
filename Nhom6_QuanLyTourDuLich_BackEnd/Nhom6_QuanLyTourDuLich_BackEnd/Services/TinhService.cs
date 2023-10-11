@@ -21,16 +21,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(Tinh_repo tinhRepo)
         {
-            TinhEntity tinhEntity = await _ITinhRepo.GetLastAsync();
-            if (tinhEntity != null)
-            {
-                tinhEntity.tenTinh = tinhRepo.tenTinh;
-                tinhEntity.Id = GenarateId.setIdTinh(tinhEntity.Id);
-            }
-            else
-            { 
-                tinhEntity.Id = "T001";
-            }
+            TinhEntity tinhEntity = _IMapper.Map<TinhEntity>(tinhRepo);
+            DateTime time = DateTime.Now;
+            tinhEntity.Id = "Tinh" + time.ToString("yyyyMMddHHmmss");
             return await _ITinhRepo.AddAsync(tinhEntity);
         }
 

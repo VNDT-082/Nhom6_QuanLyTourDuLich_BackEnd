@@ -19,12 +19,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         }
         public async Task<bool> AddAsync(Xa_repo xaRepo)
         {
-            XaEntity xaEntity = await _IXaRepository.GetLastAsync();
-            if (xaEntity != null)
-            {
-                xaEntity.Id = GenarateId.setIdXa(xaEntity.Id);
-                xaEntity.tenXa = xaRepo.tenXa;
-            }
+            XaEntity xaEntity = _IMapper.Map<XaEntity>(xaRepo);
+            DateTime time = DateTime.Now;
+            xaEntity.Id = "Xa" + time.ToString("yyyyMMddHHmmss");
             return await _IXaRepository.AddAsync(xaEntity);
         }
 

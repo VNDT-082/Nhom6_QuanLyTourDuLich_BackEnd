@@ -23,14 +23,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         {
             LoaiTaiKhoanEntity loaiTaiKhoanLast = await _ILoaiTaiKhoanRepository.GetLastAsync();
             LoaiTaiKhoanEntity loaiTaiKhoanEntity = _IMapper.Map<LoaiTaiKhoanEntity>(loaiTaiKhoan_repo);
-            if (loaiTaiKhoanLast != null)
-            {
-                loaiTaiKhoanEntity.Id = GenarateId.setIdLoaiTaiKhoan(loaiTaiKhoanLast.Id);
-            }
-            else
-            {
-                loaiTaiKhoanEntity.Id = "LTK001";
-            }
+            DateTime time = DateTime.Now;
+            loaiTaiKhoanEntity.Id = "LTK" + time.ToString("yyyyMMddHHmmss");
             return await _ILoaiTaiKhoanRepository.AddAsync(loaiTaiKhoanEntity);
         }
 
