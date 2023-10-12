@@ -9,7 +9,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<List<TaiKhoanModel>> GetAllAsync();
         public Task<List<TaiKhoanModel>> GetListByTrangThai(bool trangThai);
         public Task<TaiKhoanModel> GetOneByIdAsync(string Id);
-        public Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail);
+        public Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail, string matKhau);
         public Task<TaiKhoanModel> GetLastAsync();
         public Task<bool> AddAsync(TaiKhoan_repo taiKhoan_repo);
         public Task<bool> UpdateAsync(TaiKhoanModel taiKhoanModel);

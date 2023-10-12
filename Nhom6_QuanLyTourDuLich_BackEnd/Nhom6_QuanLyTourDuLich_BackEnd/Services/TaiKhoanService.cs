@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevOne.Security.Cryptography.BCrypt;
 using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
@@ -23,6 +24,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoan_repo);
             DateTime time = DateTime.Now;
             taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
+            string salt = BCryptHelper.GenerateSalt();
+            string passHashCode = BCryptHelper.HashPassword(taiKhoanEntity.matKhau, salt);
+            taiKhoanEntity.matKhau = passHashCode;
             return await _ITaiKhoanRepository.AddAsync(taiKhoanEntity);
         }
 
@@ -80,9 +84,20 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return null;
         }
 
-        public Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail)
+        public async Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail,string matKhau)
         {
-            throw new NotImplementedException();
+            TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.LoginAsync(soDienThoaiOrEmail);
+            if (taiKhoan != null)
+            {
+                string salt = BCryptHelper.GenerateSalt();
+                string passHashCode = BCryptHelper.HashPassword(matKhau, salt);
+                if (taiKhoan.matKhau == passHashCode)
+                {
+                    TaiKhoanModel _TaiKhoanModel = _IMapper.Map<TaiKhoanModel>(taiKhoan);
+                    return _TaiKhoanModel;
+                }
+            }
+            return null;
         }
 
         public async Task<bool> UpdateAsync(TaiKhoanModel taiKhoanModel)
@@ -91,6 +106,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             if (taiKhoan != null)
             {
                 TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoanModel);
+                string salt = BCryptHelper.GenerateSalt();
+                string passHashCode = BCryptHelper.HashPassword(taiKhoanEntity.matKhau, salt);
+                taiKhoanEntity.matKhau = passHashCode;
                 return await _ITaiKhoanRepository.UpdateAsync(taiKhoanEntity);
             }
             return false;

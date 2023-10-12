@@ -155,3 +155,4 @@ C:\Users\PC\Documents\Github_VNDT\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTou
 C:\Users\PC\Documents\Github_VNDT\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\obj\Debug\net7.0\Nhom6_QuanLyTourDuLich_BackEnd.genruntimeconfig.cache
 C:\Users\PC\Documents\Github_VNDT\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\obj\Debug\net7.0\ref\Nhom6_QuanLyTourDuLich_BackEnd.dll
 C:\Users\PC\Documents\Github_VNDT\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\bin\Debug\net7.0\System.Web.Cors.dll
+C:\Users\PC\Documents\Github_VNDT\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\Nhom6_QuanLyTourDuLich_BackEnd\bin\Debug\net7.0\DevOne.Security.Cryptography.BCrypt.dll

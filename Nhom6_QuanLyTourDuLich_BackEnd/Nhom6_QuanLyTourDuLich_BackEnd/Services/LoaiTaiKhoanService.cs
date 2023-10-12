@@ -21,7 +21,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> AddAsync(LoaiTaiKhoan_repo loaiTaiKhoan_repo)
         {
-            LoaiTaiKhoanEntity loaiTaiKhoanLast = await _ILoaiTaiKhoanRepository.GetLastAsync();
             LoaiTaiKhoanEntity loaiTaiKhoanEntity = _IMapper.Map<LoaiTaiKhoanEntity>(loaiTaiKhoan_repo);
             DateTime time = DateTime.Now;
             loaiTaiKhoanEntity.Id = "LTK" + time.ToString("yyyyMMddHHmmss");

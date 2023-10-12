@@ -10,10 +10,11 @@
         public DateTime ngaySinh { get; set; }
         public DateTime ngayVaoLam { get; set; }
         public string? canCuocConDan { get; set; }
+        public string diaChi { get; set; }
         public NhanVien_repo() { }
 
         public NhanVien_repo( string? maTaiKhoan, string maLoaiNhanVien, string tenNhanVien, bool gioiTinh,
-            string soDienThoai, DateTime ngaySinh, DateTime ngayVaoLam, string? canCuocConDan)
+            string soDienThoai, DateTime ngaySinh, DateTime ngayVaoLam, string? canCuocConDan, string diaChi)
         {
             this.maTaiKhoan = maTaiKhoan;
             this.maLoaiNhanVien = maLoaiNhanVien;
@@ -23,6 +24,7 @@
             this.ngaySinh = ngaySinh;
             this.ngayVaoLam = ngayVaoLam;
             this.canCuocConDan = canCuocConDan;
+            this.diaChi = diaChi;
         }
     }
 }

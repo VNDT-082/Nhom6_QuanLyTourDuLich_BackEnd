@@ -15,10 +15,11 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public DateTime ngaySinh { get; set; }
         public DateTime ngayVaoLam { get; set; }
         public string? canCuocConDan { get; set; }
+        public string diaChi { get; set; }
         public NhanVienModel() { }
 
         public NhanVienModel(string id, string? maTaiKhoan, string maLoaiNhanVien, string tenNhanVien, bool gioiTinh,
-            string soDienThoai, DateTime ngaySinh, DateTime ngayVaoLam, string? canCuocConDan)
+            string soDienThoai, DateTime ngaySinh, DateTime ngayVaoLam, string? canCuocConDan, string diaChi)
         {
             Id = id;
             this.maTaiKhoan = maTaiKhoan;
@@ -29,6 +30,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
             this.ngaySinh = ngaySinh;
             this.ngayVaoLam = ngayVaoLam;
             this.canCuocConDan = canCuocConDan;
+            this.diaChi= diaChi;
         }
     }
 }

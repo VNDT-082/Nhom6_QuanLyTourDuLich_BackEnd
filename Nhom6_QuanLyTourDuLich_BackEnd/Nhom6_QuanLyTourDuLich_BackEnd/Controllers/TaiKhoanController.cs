@@ -48,6 +48,22 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         }
 
         [HttpPost]
+        [Route("/[Controller]/login")]
+        public async Task<IActionResult> Login(Login_Repo _Login_Repo)
+        {
+            try
+            {
+                TaiKhoanModel _TaiKhoanModel = await _ITaiKhoanService.LoginAsync(_Login_Repo.TenDangNhap, _Login_Repo.MatKhau);
+                if (_TaiKhoanModel != null)
+                {
+                    return Ok(_TaiKhoanModel);
+                }
+                return BadRequest("LoiDangNhap");
+            }
+            catch { return NotFound(); }
+        }
+
+        [HttpPost]
         [Route("/[Controller]/create-tai-khoan")]
         public async Task<IActionResult> Create(TaiKhoan_repo _TaiKhoan_Repo)
         {
