@@ -21,8 +21,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(DatTour_repo datTour_repo)
         {
             DatTourEntity datTourEntity = _IMapper.Map<DatTourEntity>(datTour_repo);
-            DateTime time = DateTime.Now;
-            datTourEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //datTourEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
             return await _IDatTourRepo.AddAsync(datTourEntity);
         }
 
@@ -170,7 +170,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(DatTourModel datTourModel)
         {
-            DatTourEntity datTour = await _IDatTourRepo.GetOneByIDAsync(datTourModel.Id);
+            DatTourEntity datTour = await _IDatTourRepo.GetOneByIDAsync(datTourModel.IdDatTour);
             if (datTour != null)
             {
                 DatTourEntity datTourEntity = _IMapper.Map<DatTourEntity>(datTourModel);

@@ -5,8 +5,16 @@ using Nhom6_QuanLyTourDuLich_BackEnd.Data.EntityInterface;
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
     [Table("ChiTietChuongTrinhTour")]
-    public class ChiTietChuongTrinhTourEntity : Entity
+    public class ChiTietChuongTrinhTourEntity
     {
+        public ChiTietChuongTrinhTourEntity()
+        {
+
+            IdChiTietChuongTrinhTour = "CTT" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+        [Key]
+        public string IdChiTietChuongTrinhTour { get; set; }
+
         [ForeignKey("Tour")]
         public string maTour { get; set; }
         public DateTime thoiGianBatDau { get; set; }

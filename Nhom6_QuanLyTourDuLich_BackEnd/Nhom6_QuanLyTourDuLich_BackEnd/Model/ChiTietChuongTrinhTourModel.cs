@@ -2,7 +2,7 @@
 {
     public class ChiTietChuongTrinhTourModel
     {
-        public string Id { get; set; }
+        public string IdChiTietChuongTrinhTour { get; set; }
         public string maTour { get; set; }
         public DateTime thoiGianBatDau { get; set; }
         public DateTime thoiGianKetThuc { get; set; }
@@ -14,10 +14,10 @@
         public string maKhachSan { get; set; }
         public string phuongTien { get; set; }
         public ChiTietChuongTrinhTourModel() { }
-        public ChiTietChuongTrinhTourModel( string Id,string maTour, DateTime thoiGianBatDau, DateTime thoiGianKetThuc, string diemKhoiHanh
+        public ChiTietChuongTrinhTourModel( string IdChiTietChuongTrinhTour,string maTour, DateTime thoiGianBatDau, DateTime thoiGianKetThuc, string diemKhoiHanh
             , string diemDen, string tieuDe, string moTa, string hinhAnh, string maKhachSan, string phuongTien)
         {
-            this.Id = Id;
+            this.IdChiTietChuongTrinhTour = IdChiTietChuongTrinhTour;
             this.maTour = maTour;
             this.thoiGianBatDau = thoiGianBatDau;
             this.thoiGianKetThuc = thoiGianKetThuc;
@@ -30,10 +30,10 @@
             this.phuongTien = phuongTien;
         }
 
-        public ChiTietChuongTrinhTourModel(string Id,string maTour, DateTime thoiGianBatDau, DateTime thoiGianKetThuc, string diemKhoiHanh
+        public ChiTietChuongTrinhTourModel(string IdChiTietChuongTrinhTour,string maTour, DateTime thoiGianBatDau, DateTime thoiGianKetThuc, string diemKhoiHanh
             , string diemDen, string tieuDe, string moTa, string hinhAnh, string phuongTien)
         {
-            this.Id = Id;
+            this.IdChiTietChuongTrinhTour = IdChiTietChuongTrinhTour;
             this.maTour = maTour;
             this.thoiGianBatDau = thoiGianBatDau;
             this.thoiGianKetThuc = thoiGianKetThuc;

@@ -65,7 +65,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-san-bay")]
         public async Task<IActionResult> Update(SanBayModel _SanBayModel)
         {
-            var SanBayModel_ = await _ISanBayService.GetOneByIDAsync(_SanBayModel.Id);
+            var SanBayModel_ = await _ISanBayService.GetOneByIDAsync(_SanBayModel.IdSanBay);
             if (SanBayModel_ != null)
             {
                 bool kq = await _ISanBayService.UpdateAsync(_SanBayModel);
@@ -80,7 +80,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var SanBayModel_ = await _ISanBayService.GetOneByIDAsync(Id);
             if (SanBayModel_ != null)
             {
-                bool kq = await _ISanBayService.DeleteAsync(SanBayModel_.Id);
+                bool kq = await _ISanBayService.DeleteAsync(SanBayModel_.IdSanBay);
                 return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
             }
             return BadRequest("Lỗi delete");

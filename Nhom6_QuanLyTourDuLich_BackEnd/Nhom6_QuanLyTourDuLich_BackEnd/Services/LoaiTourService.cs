@@ -20,8 +20,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(LoaiTour_repo loaiTour)
         {
             LoaiTourEntity loaiTourEntity = _IMapper.Map<LoaiTourEntity>(loaiTour);
-            DateTime time = DateTime.Now;
-            loaiTourEntity.Id = "LT" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //loaiTourEntity.Id = "LT" + time.ToString("yyyyMMddHHmmss");
             await _ILoaiTourRepo.AddAsync(loaiTourEntity);
             return true;
             
@@ -32,11 +32,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             var loaiTour = await _ILoaiTourRepo.GetOneByIDAsync(Id);
             if (loaiTour != null)
             {
-                if (loaiTour.Id != "LT20231011163510")
-                {
-                    await _ILoaiTourRepo.DeleteAsync(loaiTour);
-                    return true;
-                }
+                await _ILoaiTourRepo.DeleteAsync(loaiTour);
+                return true;
             }
             return false;
         }
@@ -61,7 +58,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(LoaiTourModel loaiTour)
         {
-            var loaiTourEntity = await _ILoaiTourRepo.GetOneByIDAsync(loaiTour.Id);
+            var loaiTourEntity = await _ILoaiTourRepo.GetOneByIDAsync(loaiTour.IdLoaiTour);
             if (loaiTourEntity != null)
             {
                 loaiTourEntity.tenLoai = loaiTour.tenLoai;

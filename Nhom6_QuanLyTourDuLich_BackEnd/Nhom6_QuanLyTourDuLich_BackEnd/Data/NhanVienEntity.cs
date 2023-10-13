@@ -5,8 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
     [Table("NhanVien")]
-    public class NhanVienEntity:Entity
+    public class NhanVienEntity
     {
+        public NhanVienEntity()
+        {
+
+            IdNhanVien = "NV" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+        [Key]
+        public string IdNhanVien { get; set; }
         [ForeignKey("TaiKhoan")]
         public string? maTaiKhoan { get; set; }
 

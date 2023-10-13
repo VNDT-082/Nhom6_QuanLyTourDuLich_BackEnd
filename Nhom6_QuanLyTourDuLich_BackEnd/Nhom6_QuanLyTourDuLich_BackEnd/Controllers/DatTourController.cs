@@ -65,7 +65,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-dat-tour")]
         public async Task<IActionResult> Update(DatTourModel _DatTourModel)
         {
-            var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(_DatTourModel.Id);
+            var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(_DatTourModel.IdDatTour);
             if (DatTourModel_ != null)
             {
                 bool kq = await _IDatTourService.UpdateAsync(_DatTourModel);
@@ -80,7 +80,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(Id);
             if (DatTourModel_ != null)
             {
-                bool kq = await _IDatTourService.DeleteAsync(DatTourModel_.Id);
+                bool kq = await _IDatTourService.DeleteAsync(DatTourModel_.IdDatTour);
                 return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
             }
             return BadRequest("Lỗi delete");

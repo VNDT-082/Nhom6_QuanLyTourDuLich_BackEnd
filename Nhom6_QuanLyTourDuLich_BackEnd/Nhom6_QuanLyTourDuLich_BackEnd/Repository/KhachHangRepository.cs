@@ -23,38 +23,58 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             
         }
 
-        public Task<bool> DeleteAsync(KhachHangEntity khachHangEntity)
+        public async Task<bool> DeleteAsync(KhachHangEntity khachHangEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DatTourRepository datTourRepository = new DatTourRepository(this._DBContext);
+                var listDatTour = await datTourRepository.GetListByKhachHangIdAsync(khachHangEntity.IdKhachHang);
+                if (listDatTour != null)
+                {
+                    bool Flag = false;
+                    foreach (var item in listDatTour)
+                    {
+                        Flag = await datTourRepository.DeleteAsync(item);
+                    }
+                    if (Flag == true)
+                    {
+                        _DBContext.KhachHangs.Remove(khachHangEntity);
+                        _DBContext.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch { return false; }
         }
 
         public async Task<List<KhachHangEntity>> GetAllAsync()
         {
-            var list = await _DBContext.KhachHangs.OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.KhachHangs.AsNoTracking().OrderByDescending(i => i.IdKhachHang).ToListAsync();
             return list;
         }
 
         public async Task<List<KhachHangEntity>> GetAllTheoGioiTinhAsync(bool gioiTinh)
         {
-            var list = await _DBContext.KhachHangs.Where(i=>i.gioiTinh==gioiTinh).OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.KhachHangs.AsNoTracking().Where(i=>i.gioiTinh==gioiTinh).OrderByDescending(i => i.IdKhachHang).ToListAsync();
             return list;
         }
 
         public async Task<KhachHangEntity> GetLastAsync()
         {
-            var khachHang = await _DBContext.KhachHangs.OrderBy(i => i.Id).LastAsync();
+            var khachHang = await _DBContext.KhachHangs.AsNoTracking().OrderBy(i => i.IdKhachHang).LastAsync();
             return khachHang;
         }
 
         public async Task<KhachHangEntity> GetOneByIdAsync(string Id)
         {
-            var khachHang = await _DBContext.KhachHangs.FirstOrDefaultAsync(i => i.Id==Id);
+            var khachHang = await _DBContext.KhachHangs.AsNoTracking().FirstOrDefaultAsync(i => i.IdKhachHang==Id);
             return khachHang;
         }
 
         public async Task<KhachHangEntity> GetOneByTaiKhoanIdAsync(string maTaiKhoan)
         {
-            var khachHang = await _DBContext.KhachHangs.FirstOrDefaultAsync(i => i.maTaiKhoan == maTaiKhoan);
+            var khachHang = await _DBContext.KhachHangs.AsNoTracking().FirstOrDefaultAsync(i => i.maTaiKhoan == maTaiKhoan);
             return khachHang;
         }
 
@@ -63,7 +83,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.KhachHangs!.Update(khachHangEntity);
-                _DBContext.Entry(khachHangEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

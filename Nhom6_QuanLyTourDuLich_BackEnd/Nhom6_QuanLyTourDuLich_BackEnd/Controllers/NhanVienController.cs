@@ -95,7 +95,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-nhan-vien")]
         public async Task<IActionResult> Update(NhanVienModel _NhanVienModel)
         {
-            var NhanVienModel_ = await _INhanVienService.GetOneByIDAsync(_NhanVienModel.Id);
+            var NhanVienModel_ = await _INhanVienService.GetOneByIDAsync(_NhanVienModel.IdNhanVien);
             if (NhanVienModel_ != null)
             {
                 bool kq = await _INhanVienService.UpdateAsync(_NhanVienModel);
@@ -110,7 +110,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var NhanVienModel_ = await _INhanVienService.GetOneByIDAsync(Id);
             if (NhanVienModel_ != null)
             {
-                bool kq = await _INhanVienService.DeleteAsync(NhanVienModel_.Id);
+                bool kq = await _INhanVienService.DeleteAsync(NhanVienModel_.IdNhanVien);
                 return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
             }
             return BadRequest("Lỗi delete");

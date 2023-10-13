@@ -22,14 +22,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(LoaiNhanVien_repo loaiNhanVien_repo)
         {
             LoaiNhanVienEntity loaiNhanVienEntity = _IMapper.Map<LoaiNhanVienEntity>(loaiNhanVien_repo);
-            DateTime time = DateTime.Now;
-            loaiNhanVienEntity.Id = "LNV" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //loaiNhanVienEntity.Id = "LNV" + time.ToString("yyyyMMddHHmmss");
             return await _ILoaiNhanVienRepository.AddAsync(loaiNhanVienEntity);
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<bool> DeleteAsync(string ID)
         {
-            throw new NotImplementedException();
+            LoaiNhanVienEntity _LoaiNhanVienEntity = await _ILoaiNhanVienRepository.GetOneByIdAsync(ID);
+            if (_LoaiNhanVienEntity != null)
+                return await _ILoaiNhanVienRepository.DeleteAsync(_LoaiNhanVienEntity);
+            return false;
         }
 
         public async Task<List<LoaiNhanVienModel>> GetAllAsync()
@@ -67,7 +70,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(LoaiNhanVienModel loaiNhanVienModel)
         {
-            LoaiNhanVienEntity loaiNhanVien = await _ILoaiNhanVienRepository.GetOneByIdAsync(loaiNhanVienModel.Id);
+            LoaiNhanVienEntity loaiNhanVien = await _ILoaiNhanVienRepository.GetOneByIdAsync(loaiNhanVienModel.IdLoaiNhanVien);
             if (loaiNhanVien != null)
             {
                 LoaiNhanVienEntity loaiNhanVienEntity = _IMapper.Map<LoaiNhanVienEntity>(loaiNhanVienModel);

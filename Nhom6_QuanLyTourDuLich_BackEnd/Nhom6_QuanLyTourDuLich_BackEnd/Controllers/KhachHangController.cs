@@ -63,7 +63,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-khach-hang")]
         public async Task<IActionResult> Update(KhachHangModel _KhachHangModel)
         {
-            var KhachHangModel_ = await _IKhachHangService.GetOneByIdAsync(_KhachHangModel.Id);
+            var KhachHangModel_ = await _IKhachHangService.GetOneByIdAsync(_KhachHangModel.IdKhachHang);
             if (KhachHangModel_ != null)
             {
                 bool kq = await _IKhachHangService.UpdateAsync(_KhachHangModel);
@@ -71,17 +71,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi update");
         }
-        //[HttpDelete]
-        //[Route("/[Controller]/delete-khach-hang")]
-        //public async Task<IActionResult> Delete(string Id)
-        //{
-        //    var KhachHangModel_ = await _IKhachHangService.GetOneByIdAsync(Id);
-        //    if (KhachHangModel_ != null)
-        //    {
-        //        bool kq = await _IKhachHangService.DeleteAsync(KhachHangModel_.Id);
-        //        return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
-        //    }
-        //    return BadRequest("Lỗi delete");
-        //}
+        [HttpDelete]
+        [Route("/[Controller]/delete-khach-hang")]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var KhachHangModel_ = await _IKhachHangService.GetOneByIdAsync(Id);
+            if (KhachHangModel_ != null)
+            {
+                bool kq = await _IKhachHangService.DeleteAsync(KhachHangModel_.IdKhachHang);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
+            }
+            return BadRequest("Lỗi delete");
+        }
     }
 }

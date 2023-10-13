@@ -20,14 +20,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(ChuyenBay_repo chuyenBay_repo)
         {
             ChuyenBayEntity _ChuyenBayEntity = _IMapper.Map<ChuyenBayEntity>(chuyenBay_repo);
-            DateTime time = DateTime.Now;
-            _ChuyenBayEntity.Id = "CTT" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //_ChuyenBayEntity.IdChuyenBay = "CTT" + time.ToString("yyyyMMddHHmmss");
             return await _IChuyenBayRepo.AddAsync(_ChuyenBayEntity);
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<bool> DeleteAsync(string ID)
         {
-            throw new NotImplementedException();
+            ChuyenBayEntity chuyenBayEntity= await _IChuyenBayRepo.GetOneByIDAsync(ID);
+            if(chuyenBayEntity!=null)
+                return await _IChuyenBayRepo.DeleteAsync(chuyenBayEntity);
+            return false;
         }
 
         public async Task<List<ChuyenBayModel>> GetAllAsync()
@@ -109,7 +112,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(ChuyenBayModel chuyenBayModel)
         {
-            var _ChuyenBayEntity = await _IChuyenBayRepo.GetOneByIDAsync(chuyenBayModel.Id);
+            var _ChuyenBayEntity = await _IChuyenBayRepo.GetOneByIDAsync(chuyenBayModel.IdChuyenBay);
             if (_ChuyenBayEntity != null)
             {
                 ChuyenBayEntity ChuyenBayUpdate = _IMapper.Map<ChuyenBayEntity>(chuyenBayModel);

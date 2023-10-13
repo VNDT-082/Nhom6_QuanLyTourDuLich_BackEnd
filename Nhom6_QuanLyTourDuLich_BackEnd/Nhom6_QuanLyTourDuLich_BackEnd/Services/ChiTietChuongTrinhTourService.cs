@@ -21,8 +21,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(ChiTietChuongTrinhTour_repo chiTietChuongTrinhTour_repo)
         {
             ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity = _IMapper.Map<ChiTietChuongTrinhTourEntity>(chiTietChuongTrinhTour_repo);
-            DateTime time = DateTime.Now;
-            chiTietChuongTrinhTourEntity.Id = "CTT" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //chiTietChuongTrinhTourEntity.IdChiTietChuongTrinhTour = "CTT" + time.ToString("yyyyMMddHHmmss");
             return await _IChiTietChuongTrinhTourRepo.AddAsync(chiTietChuongTrinhTourEntity);
         }
 
@@ -73,7 +73,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(ChiTietChuongTrinhTourModel chiTietChuongTrinhTourModel)
         {
-            var chiTietChuongTrinhTourEntity = await _IChiTietChuongTrinhTourRepo.GetOneByIDAsync(chiTietChuongTrinhTourModel.Id);
+            var chiTietChuongTrinhTourEntity = await _IChiTietChuongTrinhTourRepo
+                .GetOneByIDAsync(chiTietChuongTrinhTourModel.IdChiTietChuongTrinhTour);
             if (chiTietChuongTrinhTourEntity != null)
             {
                 ChiTietChuongTrinhTourEntity chiTietChuongTrinhTour = _IMapper

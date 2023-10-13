@@ -25,7 +25,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<int> Count()
         {
-            int soLuong = _DBContext.Tours.Count();
+            int soLuong = _DBContext.Tours.AsNoTracking().Count();
             return soLuong;
         }
 
@@ -45,26 +45,26 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<TourEntity>> GetAllAsync()
         {
-            var list = await _DBContext.Tours.OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.Tours.OrderByDescending(i => i.IdTour).ToListAsync();
             return list;
         }
 
         public async Task<List<TourEntity>> GetAllAsync(bool trangThai)
         {
-            var list = await _DBContext.Tours.Where(i => i.trangThai == trangThai).OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.Tours.Where(i => i.trangThai == trangThai).OrderByDescending(i => i.IdTour).ToListAsync();
             return list;
         }
 
         public async Task<TourEntity> GetLastAsync()
         {
-            var tour = await _DBContext.Tours.OrderBy(i => i.Id).LastOrDefaultAsync();
+            var tour = await _DBContext.Tours.OrderBy(i => i.IdTour).LastOrDefaultAsync();
             return tour;
         }
 
         public async Task<List<TourEntity>> GetListTheoGia(double giaMin, double giaMax)
         {
             var list = await _DBContext.Tours.Where(i => i.chiPhi >= giaMin && i.chiPhi <= giaMax)
-                .OrderByDescending(i => i.Id).ToListAsync();
+                .OrderByDescending(i => i.IdTour).ToListAsync();
             return list;
         }
 
@@ -95,20 +95,20 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<TourEntity> GetOneByIDAsync(string Id)
         {
-            var tour = await _DBContext.Tours.FirstOrDefaultAsync(i => i.Id == Id);
+            var tour = await _DBContext.Tours.AsNoTracking().FirstOrDefaultAsync(i => i.IdTour == Id);
             return tour;
         }
 
         public async Task<List<TourEntity>> GetPage(byte pageSize, int pageNumber)
         {
-            var list = await _DBContext.Tours.OrderByDescending(i => i.Id).Skip((pageNumber - 1) * pageSize)
+            var list = await _DBContext.Tours.AsNoTracking().OrderByDescending(i => i.IdTour).Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
             return list;
         }
 
         public async Task<List<TourEntity>> GetPage(byte pageSize, int pageNumber, bool trangThai)
         {
-            var list = await _DBContext.Tours.OrderByDescending(i => i.Id).Where(i=>i.trangThai==trangThai)
+            var list = await _DBContext.Tours.AsNoTracking().OrderByDescending(i => i.IdTour).Where(i=>i.trangThai==trangThai)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
             return list;
@@ -119,8 +119,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.Tours!.Update(tourEntity);
-                _DBContext.Entry(tourEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
+              
                 return true;
             }
             catch (Exception ex) { Console.WriteLine(ex); return false; }

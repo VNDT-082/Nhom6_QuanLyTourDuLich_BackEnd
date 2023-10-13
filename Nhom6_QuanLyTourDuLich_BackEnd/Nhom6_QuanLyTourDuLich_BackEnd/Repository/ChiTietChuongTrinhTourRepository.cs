@@ -26,36 +26,44 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<bool> DeleteAsync(ChiTietChuongTrinhTourEntity chiTietChuongTrinhTourEntity)
         {
-            throw new NotImplementedException();
+            try {
+                _DBContext.ChiTietChuongTrinhTours.Remove(chiTietChuongTrinhTourEntity);
+                _DBContext.SaveChanges();
+                return true;
+            }catch (Exception ex) { Console.WriteLine(ex.ToString()); return false; }
         }
 
         //public async Task<List<ChiTietChuongTrinhTourEntity>> GetAllAsync()
         //{
-        //    var list = await _DBContext.ChiTietChuongTrinhTours.OrderBy(i => i.Id).ToListAsync();
+        //    var list = await _DBContext.ChiTietChuongTrinhTours.OrderBy(i => i.IdChiTietChuongTrinhTour).ToListAsync();
         //    return list;
         //}
 
         public async Task<ChiTietChuongTrinhTourEntity> GetLastAsync()
         {
-            var ct = await _DBContext.ChiTietChuongTrinhTours.OrderBy(i => i.Id).LastAsync();
+            var ct = await _DBContext.ChiTietChuongTrinhTours.AsNoTracking()
+                .OrderBy(i => i.IdChiTietChuongTrinhTour).LastAsync();
             return ct;
         }
 
         public async Task<ChiTietChuongTrinhTourEntity> GetLastOfTourAsync(string maTour)
         {
-            var ct = await _DBContext.ChiTietChuongTrinhTours.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).LastAsync();
+            var ct = await _DBContext.ChiTietChuongTrinhTours.AsNoTracking()
+                .Where(i=>i.maTour==maTour).OrderBy(i => i.IdChiTietChuongTrinhTour).LastAsync();
             return ct;
         }
 
         public async Task<List<ChiTietChuongTrinhTourEntity>> GetListByTourId(string maTour)
         {
-            var list = await _DBContext.ChiTietChuongTrinhTours.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).ToListAsync();
+            var list = await _DBContext.ChiTietChuongTrinhTours.AsNoTracking()
+                .Where(i=>i.maTour==maTour).OrderBy(i => i.IdChiTietChuongTrinhTour).ToListAsync();
             return list;
         }
 
-        public async Task<ChiTietChuongTrinhTourEntity> GetOneByIDAsync(string Id)
+        public async Task<ChiTietChuongTrinhTourEntity> GetOneByIDAsync(string IdChiTietChuongTrinhTour)
         {
-            var ct = await _DBContext.ChiTietChuongTrinhTours.FirstOrDefaultAsync(i =>i.Id==Id);
+            var ct = await _DBContext.ChiTietChuongTrinhTours.AsNoTracking()
+                .FirstOrDefaultAsync(i =>i.IdChiTietChuongTrinhTour==IdChiTietChuongTrinhTour);
             return ct;
         }
 
@@ -64,7 +72,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.ChiTietChuongTrinhTours!.Update(chiTietChuongTrinhTourEntity);
-                _DBContext.Entry(chiTietChuongTrinhTourEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

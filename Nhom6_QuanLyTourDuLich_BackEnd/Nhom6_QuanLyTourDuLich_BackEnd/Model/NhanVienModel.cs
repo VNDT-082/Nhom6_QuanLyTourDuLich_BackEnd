@@ -6,7 +6,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 {
     public class NhanVienModel
     {
-        public string Id { get; set; }
+        public string IdNhanVien { get; set; }
         public string? maTaiKhoan { get; set; }
         public string maLoaiNhanVien { get; set; }
         public string tenNhanVien { get; set; }
@@ -18,10 +18,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public string diaChi { get; set; }
         public NhanVienModel() { }
 
-        public NhanVienModel(string id, string? maTaiKhoan, string maLoaiNhanVien, string tenNhanVien, bool gioiTinh,
+        public NhanVienModel(string IdNhanVien, string? maTaiKhoan, string maLoaiNhanVien, string tenNhanVien, bool gioiTinh,
             string soDienThoai, DateTime ngaySinh, DateTime ngayVaoLam, string? canCuocConDan, string diaChi)
         {
-            Id = id;
+            this.IdNhanVien = IdNhanVien;
             this.maTaiKhoan = maTaiKhoan;
             this.maLoaiNhanVien = maLoaiNhanVien;
             this.tenNhanVien = tenNhanVien;

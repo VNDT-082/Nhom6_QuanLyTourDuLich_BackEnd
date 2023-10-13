@@ -5,8 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
     [Table("KhachHang")]
-    public class KhachHangEntity:Entity
+    public class KhachHangEntity
     {
+        public KhachHangEntity()
+        {
+
+            IdKhachHang = "KH" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+        [Key]
+        public string IdKhachHang { get; set; }
         [Required]
         public string hoTen { get; set; }
         [Required]
@@ -14,8 +21,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 
         public string? diaChi { get; set; }
 
-        [ForeignKey("Xa")]
-        public string? id_Xa { get; set; }
         public string email { get; set; }
         public DateTime? ngaySinh { get; set; }
         

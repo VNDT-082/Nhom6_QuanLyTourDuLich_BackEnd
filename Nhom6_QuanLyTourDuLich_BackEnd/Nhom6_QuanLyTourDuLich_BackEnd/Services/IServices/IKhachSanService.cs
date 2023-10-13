@@ -8,7 +8,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
     {
         public Task<List<KhachSanModel>> GetAllAsync();
         public Task<List<KhachSanModel>> GetListByHangSao(string hangSao);
-        public Task<List<KhachSanModel>> GetListByXaIdAsync(string xaId);
+        //public Task<List<KhachSanModel>> GetListByXaIdAsync(string xaId);
         public Task<KhachSanModel> GetLastAsync();
         public Task<KhachSanModel> GetOneById(string maKhachSan);
         public Task<bool> AddAsync(KhachSan_repo khachSan_repo);

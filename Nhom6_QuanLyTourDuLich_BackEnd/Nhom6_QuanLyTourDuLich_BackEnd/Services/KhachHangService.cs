@@ -21,8 +21,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(KhachHang_repo khachHang_repo)
         {
             KhachHangEntity khachHangEntity = _IMapper.Map<KhachHangEntity>(khachHang_repo);
-            DateTime time = DateTime.Now;
-            khachHangEntity.Id = "KH" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //khachHangEntity.Id = "KH" + time.ToString("yyyyMMddHHmmss");
             return await _IKhachHangRepo.AddAsync(khachHangEntity);
         }
 
@@ -93,7 +93,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(KhachHangModel khachHangModel)
         {
-            KhachHangEntity khachHang = await _IKhachHangRepo.GetOneByIdAsync(khachHangModel.Id);
+            KhachHangEntity khachHang = await _IKhachHangRepo.GetOneByIdAsync(khachHangModel.IdKhachHang);
             if (khachHang != null)
             {
                 KhachHangEntity khachHangEntity = _IMapper.Map<KhachHangEntity>(khachHangModel);

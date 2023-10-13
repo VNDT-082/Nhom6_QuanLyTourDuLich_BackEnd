@@ -2,13 +2,13 @@
 {
     public class LoaiNhanVienModel
     {
-        public string Id { get; set; }
+        public string IdLoaiNhanVien { get; set; }
         public string tenLoai { get; set; }
         public LoaiNhanVienModel() { }
 
-        public LoaiNhanVienModel(string id, string tenLoai)
+        public LoaiNhanVienModel(string IdLoaiNhanVien, string tenLoai)
         {
-            Id = id;
+            this.IdLoaiNhanVien = IdLoaiNhanVien;
             this.tenLoai = tenLoai;
         }
     }

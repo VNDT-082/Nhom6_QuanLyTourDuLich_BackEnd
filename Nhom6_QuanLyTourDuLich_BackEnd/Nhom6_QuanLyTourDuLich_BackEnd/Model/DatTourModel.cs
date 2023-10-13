@@ -6,7 +6,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 {
     public class DatTourModel
     {
-        public string Id { get; set; }
+        public string IdDatTour { get; set; }
         public string maKhach { get; set; }
         public string? maHuongDanVien { get; set; }
         public string maTour { get; set; }
@@ -16,10 +16,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public virtual ICollection<ThanhVienModel>? ThanhViens { get; set; }
         public DatTourModel() { }
 
-        public DatTourModel(string id, string maKhach, string? maHuongDanVien, string maTour, int soLuong,
+        public DatTourModel(string IdDatTour, string maKhach, string? maHuongDanVien, string maTour, int soLuong,
             DateTime ngayDat, bool trangThai)
         {
-            Id = id;
+            this.IdDatTour = IdDatTour;
             this.maKhach = maKhach;
             this.maHuongDanVien = maHuongDanVien;
             this.maTour = maTour;

@@ -22,8 +22,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(LoaiTaiKhoan_repo loaiTaiKhoan_repo)
         {
             LoaiTaiKhoanEntity loaiTaiKhoanEntity = _IMapper.Map<LoaiTaiKhoanEntity>(loaiTaiKhoan_repo);
-            DateTime time = DateTime.Now;
-            loaiTaiKhoanEntity.Id = "LTK" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //loaiTaiKhoanEntity.Id = "LTK" + time.ToString("yyyyMMddHHmmss");
             return await _ILoaiTaiKhoanRepository.AddAsync(loaiTaiKhoanEntity);
         }
 
@@ -72,7 +72,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(LoaiTaiKhoanModel loaiTaiKhoanModel)
         {
-            LoaiTaiKhoanEntity loaiTaiKhoan = await _ILoaiTaiKhoanRepository.GetOneByIdAsync(loaiTaiKhoanModel.Id);
+            LoaiTaiKhoanEntity loaiTaiKhoan = await _ILoaiTaiKhoanRepository.GetOneByIdAsync(loaiTaiKhoanModel.IdLoaiTaiKhoan);
             if (loaiTaiKhoan != null)
             {
                 LoaiTaiKhoanEntity loaiTaiKhoanEntity = _IMapper.Map<LoaiTaiKhoanEntity>(loaiTaiKhoanModel);

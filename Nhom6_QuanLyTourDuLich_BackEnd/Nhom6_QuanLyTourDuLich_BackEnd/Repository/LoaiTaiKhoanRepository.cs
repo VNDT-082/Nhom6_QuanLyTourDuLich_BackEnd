@@ -28,15 +28,34 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try
             {
-                if (loaiTaiKhoanEntity.Id != "KhachHang")
+                var loaiTaiKhoanUnDefined= _DBContext.LoaiTaiKhoans.FirstOrDefault(i => i.tenLoai == "UNDEFINED");
+                string strUndefineId = "";
+                if (loaiTaiKhoanUnDefined == null)
                 {
-                    var listTaiKhoan = await _DBContext.TaiKhoans.Where(i => i.maLoai == loaiTaiKhoanEntity.Id).ToListAsync();
-                    TaiKhoanRepository tkRepo = new TaiKhoanRepository(_DBContext);
-                    foreach (var item in listTaiKhoan)
+                    LoaiTaiKhoanEntity loaiTaiKhoanNew = new LoaiTaiKhoanEntity();
+                    loaiTaiKhoanNew.tenLoai = "UNDEFINED";
+
+                    await this.AddAsync(loaiTaiKhoanNew);
+                    strUndefineId = loaiTaiKhoanNew.IdLoaiTaiKhoan;
+                }
+                else
+                {
+                    strUndefineId = loaiTaiKhoanUnDefined.IdLoaiTaiKhoan;
+                }
+                if (loaiTaiKhoanEntity.IdLoaiTaiKhoan != strUndefineId)
+                {
+                    var listTaiKhoan = await _DBContext.TaiKhoans.AsNoTracking()
+                        .Where(i => i.maLoai == loaiTaiKhoanEntity.IdLoaiTaiKhoan).ToListAsync();
+                   
+                    if (listTaiKhoan != null)
                     {
-                        item.maLoai = "KhachHang";
-                        item.trangThai = false;
-                        tkRepo.UpdateAsync(item);
+                        TaiKhoanRepository tkRepo = new TaiKhoanRepository(_DBContext);
+                        foreach (var item in listTaiKhoan)
+                        {
+                            item.maLoai = strUndefineId;
+                            item.trangThai = false;
+                            tkRepo.UpdateAsync(item);
+                        }
                     }
                     _DBContext.LoaiTaiKhoans.Remove(loaiTaiKhoanEntity);
                     await _DBContext.SaveChangesAsync();
@@ -49,19 +68,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<LoaiTaiKhoanEntity>> GetAllAsync()
         {
-            var list = await _DBContext.LoaiTaiKhoans.OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.LoaiTaiKhoans.AsNoTracking().OrderByDescending(i => i.IdLoaiTaiKhoan).ToListAsync();
             return list;
         }
 
         public async Task<LoaiTaiKhoanEntity> GetLastAsync()
         {
-            var loai = await _DBContext.LoaiTaiKhoans.OrderBy(i => i.Id).LastAsync();
+            var loai = await _DBContext.LoaiTaiKhoans.AsNoTracking().OrderBy(i => i.IdLoaiTaiKhoan).LastAsync();
             return loai;
         }
 
         public async Task<LoaiTaiKhoanEntity> GetOneByIdAsync(string Id)
         {
-            var loai = await _DBContext.LoaiTaiKhoans.FirstOrDefaultAsync(i => i.Id==Id);
+            var loai = await _DBContext.LoaiTaiKhoans.AsNoTracking().FirstOrDefaultAsync(i => i.IdLoaiTaiKhoan==Id);
             return loai;
         }
 
@@ -70,7 +89,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.LoaiTaiKhoans!.Update(loaiTaiKhoanEntity);
-                _DBContext.Entry(loaiTaiKhoanEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

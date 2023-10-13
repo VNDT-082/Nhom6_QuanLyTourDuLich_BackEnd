@@ -215,7 +215,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-one-tour")]
         public async Task<IActionResult> Update(TourModel tourModel)
         {
-            var tour = await tourService.GetOneByIDAsync(tourModel.Id);
+            var tour = await tourService.GetOneByIDAsync(tourModel.IdTour);
             if (tour != null)
             {
                 bool kq = await tourService.UpdateAsync(tourModel);

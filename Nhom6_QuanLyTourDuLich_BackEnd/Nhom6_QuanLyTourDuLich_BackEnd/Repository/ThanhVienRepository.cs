@@ -34,7 +34,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<ThanhVienEntity>> GetAllAsync(string datTourId)
         {
-            var list = await _DBContext.ThanhViens.Where(i => i.maDatTour == datTourId).ToListAsync();
+            var list = await _DBContext.ThanhViens.AsNoTracking().Where(i => i.maDatTour == datTourId).ToListAsync();
             return list;
         }
 
@@ -46,19 +46,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<ThanhVienEntity> GetLastAsync()
         {
-            var thanhVien = await _DBContext.ThanhViens.OrderBy(i => i.Id).LastAsync();
+            var thanhVien = await _DBContext.ThanhViens.OrderBy(i => i.IdThanhVien).LastAsync();
             return thanhVien;
         }
 
         public async Task<ThanhVienEntity> GetLastOfDatTourAsync(string maDatTour)
         {
-            var thanhVien = await _DBContext.ThanhViens.Where(i=>i.maDatTour==maDatTour).OrderBy(i => i.Id).LastAsync();
+            var thanhVien = await _DBContext.ThanhViens.AsNoTracking().Where(i=>i.maDatTour==maDatTour).OrderBy(i => i.IdThanhVien).LastAsync();
             return thanhVien;
         }
 
         public async Task<ThanhVienEntity> GetOneByIDAsync(string Id)
         {
-            var thanhVien = await _DBContext.ThanhViens.FirstOrDefaultAsync(i => i.Id == Id);
+            var thanhVien = await _DBContext.ThanhViens.AsNoTracking().FirstOrDefaultAsync(i => i.IdThanhVien == Id);
             return thanhVien;
         }
 
@@ -66,7 +66,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try { 
                 _DBContext.ThanhViens!.Update(thanhVienEntity);
-                _DBContext.Entry(thanhVienEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             } catch (Exception ex) { Console.WriteLine(ex);return false; }

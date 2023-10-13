@@ -6,6 +6,7 @@ using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
+using System.Reflection.PortableExecutable;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 {
@@ -22,8 +23,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(TaiKhoan_repo taiKhoan_repo)
         {
             TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoan_repo);
-            DateTime time = DateTime.Now;
-            taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
             string salt = BCryptHelper.GenerateSalt();
             string passHashCode = BCryptHelper.HashPassword(taiKhoanEntity.matKhau, salt);
             taiKhoanEntity.matKhau = passHashCode;
@@ -89,9 +90,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.LoginAsync(soDienThoaiOrEmail);
             if (taiKhoan != null)
             {
-                string salt = BCryptHelper.GenerateSalt();
-                string passHashCode = BCryptHelper.HashPassword(matKhau, salt);
-                if (taiKhoan.matKhau == passHashCode)
+                bool passwordMatch = BCryptHelper.CheckPassword(matKhau,taiKhoan.matKhau);
+                if (passwordMatch==true)
                 {
                     TaiKhoanModel _TaiKhoanModel = _IMapper.Map<TaiKhoanModel>(taiKhoan);
                     return _TaiKhoanModel;
@@ -102,7 +102,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(TaiKhoanModel taiKhoanModel)
         {
-            TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.GetOneByIdAsync(taiKhoanModel.Id);
+            TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.GetOneByIdAsync(taiKhoanModel.IdTaiKhoan);
             if (taiKhoan != null)
             {
                 TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoanModel);

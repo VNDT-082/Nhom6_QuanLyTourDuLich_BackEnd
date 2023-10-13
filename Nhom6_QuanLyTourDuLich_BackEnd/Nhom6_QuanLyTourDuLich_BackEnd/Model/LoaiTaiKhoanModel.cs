@@ -2,13 +2,13 @@
 {
     public class LoaiTaiKhoanModel
     {
-        public string Id { get; set; }
+        public string IdLoaiTaiKhoan { get; set; }
         public string tenLoai { get; set; }
         public LoaiTaiKhoanModel() { }
 
-        public LoaiTaiKhoanModel(string Id, string tenLoai)
+        public LoaiTaiKhoanModel(string IdLoaiTaiKhoan, string tenLoai)
         {
-            this.Id = Id;
+            this.IdLoaiTaiKhoan = IdLoaiTaiKhoan;
             this.tenLoai = tenLoai;
         }
     }

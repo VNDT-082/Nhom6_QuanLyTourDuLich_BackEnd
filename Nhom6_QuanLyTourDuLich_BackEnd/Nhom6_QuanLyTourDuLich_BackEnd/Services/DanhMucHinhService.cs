@@ -21,8 +21,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(DanhMucHinh_repo danhMucHinh_repo)
         {
             DanhMucHinhEntity danhMucHinhEntity = _IMapper.Map<DanhMucHinhEntity>(danhMucHinh_repo);
-            DateTime time = DateTime.Now;
-            danhMucHinhEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //danhMucHinhEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
             return await _IDanhMucHinhRepo.AddAsync(danhMucHinhEntity);
         }
 
@@ -83,7 +83,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(DanhMucHinhModel danhMucHinhModel)
         {
-            DanhMucHinhEntity danhMucHinh = await _IDanhMucHinhRepo.GetOneByIDAsync(danhMucHinhModel.Id);
+            DanhMucHinhEntity danhMucHinh = await _IDanhMucHinhRepo.GetOneByIDAsync(danhMucHinhModel.IdDanhMucHinh);
             if (danhMucHinh != null)
             {
                 DanhMucHinhEntity danhMucHinhEntity = _IMapper.Map<DanhMucHinhEntity>(danhMucHinhModel);

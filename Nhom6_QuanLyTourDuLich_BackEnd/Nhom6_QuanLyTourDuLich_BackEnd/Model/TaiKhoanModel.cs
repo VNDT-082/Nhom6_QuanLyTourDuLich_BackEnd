@@ -4,7 +4,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 {
     public class TaiKhoanModel
     {
-        public string Id { get; set; }
+        public string IdTaiKhoan { get; set; }
         public string maLoai { get; set; }
         public string soDienThoai { get; set; }
         public string email { get; set; }
@@ -13,9 +13,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public DateTime? ngayLap { get; set; }
 
         public TaiKhoanModel() { }
-        public TaiKhoanModel(string id, string maLoai, string soDienThoai, string email, string matKhau, bool trangThai, DateTime? ngayLap)
+        public TaiKhoanModel(string IdTaiKhoan, string maLoai, string soDienThoai, string email, string matKhau, bool trangThai, DateTime? ngayLap)
         {
-            Id = id;
+            this.IdTaiKhoan = IdTaiKhoan;
             this.maLoai = maLoai;
             this.soDienThoai = soDienThoai;
             this.email = email;

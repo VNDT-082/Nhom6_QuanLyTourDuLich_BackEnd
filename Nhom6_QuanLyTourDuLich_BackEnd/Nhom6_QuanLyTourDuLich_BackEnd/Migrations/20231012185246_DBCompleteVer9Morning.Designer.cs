@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 
 #nullable disable
 
-namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
+namespace Nhom6_QuanLyTourDuLich_BackEnd.Migrations
 {
     [DbContext(typeof(QuanLyTourDuLich_DBContext))]
-    partial class QuanLyTourDuLich_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20231012185246_DBCompleteVer9Morning")]
+    partial class DBCompleteVer9Morning
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +27,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.ChiTietChuongTrinhTourEntity", b =>
                 {
-                    b.Property<string>("IdChiTietChuongTrinhTour")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdChiTietChuongTrinhTour");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("diemDen")
                         .IsRequired()
@@ -66,7 +68,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("IdChiTietChuongTrinhTour")
+                    b.HasKey("Id")
                         .HasName("PK_ChiTietChuongTrinhTour");
 
                     b.HasIndex("maKhachSan");
@@ -81,9 +83,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.ChuyenBayEntity", b =>
                 {
-                    b.Property<string>("IdChuyenBay")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdChuyenBay");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("gioDen")
                         .HasColumnType("datetime2");
@@ -116,7 +117,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.HasKey("IdChuyenBay")
+                    b.HasKey("Id")
                         .HasName("PK_ChuyenBay");
 
                     b.HasIndex("maChuyenVe");
@@ -130,9 +131,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.DanhMucHinhEntity", b =>
                 {
-                    b.Property<string>("IdDanhMucHinh")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdDanhMucHinh");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("fileName")
                         .IsRequired()
@@ -144,7 +144,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("IdDanhMucHinh")
+                    b.HasKey("Id")
                         .HasName("PK_DanhMucHinh");
 
                     b.HasIndex("maTour");
@@ -154,9 +154,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.DatTourEntity", b =>
                 {
-                    b.Property<string>("IdDatTour")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdDatTour");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("maHuongDanVien")
                         .HasColumnType("nvarchar(450)");
@@ -172,7 +171,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 13, 58, 14, 513, DateTimeKind.Local).AddTicks(2179));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 1, 52, 46, 605, DateTimeKind.Local).AddTicks(5281));
 
                     b.Property<int>("soLuong")
                         .HasColumnType("int");
@@ -182,7 +181,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.HasKey("IdDatTour")
+                    b.HasKey("Id")
                         .HasName("PK_DatTour");
 
                     b.HasIndex("maHuongDanVien");
@@ -196,9 +195,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", b =>
                 {
-                    b.Property<string>("IdKhachHang")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdKhachHang");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("diaChi")
                         .HasColumnType("nvarchar(max)");
@@ -214,6 +212,9 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("id_Xa")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("maTaiKhoan")
                         .HasColumnType("nvarchar(450)");
 
@@ -224,7 +225,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdKhachHang")
+                    b.HasKey("Id")
                         .HasName("PK_KhachHang");
 
                     b.HasIndex("maTaiKhoan")
@@ -236,9 +237,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachSanEntity", b =>
                 {
-                    b.Property<string>("IdKhachSan")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdKhachSan");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("diaChi")
                         .IsRequired()
@@ -250,6 +250,10 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasDefaultValue("0");
 
+                    b.Property<string>("id_Xa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("soDienThoai")
                         .HasColumnType("nvarchar(max)");
 
@@ -257,7 +261,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdKhachSan")
+                    b.HasKey("Id")
                         .HasName("PK_KhachSan");
 
                     b.ToTable("KhachSan", (string)null);
@@ -265,15 +269,14 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiNhanVienEntity", b =>
                 {
-                    b.Property<string>("IdLoaiNhanVien")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdLoaiNhanVien");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("tenLoai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdLoaiNhanVien")
+                    b.HasKey("Id")
                         .HasName("PK_LoaiNhanVien");
 
                     b.ToTable("LoaiNhanVien", (string)null);
@@ -281,15 +284,14 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiTaiKhoanEntity", b =>
                 {
-                    b.Property<string>("IdLoaiTaiKhoan")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdLoaiTaiKhoan");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("tenLoai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdLoaiTaiKhoan")
+                    b.HasKey("Id")
                         .HasName("PK_LoaiTaiKhoan");
 
                     b.ToTable("LoaiTaiKhoan", (string)null);
@@ -297,15 +299,14 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiTourEntity", b =>
                 {
-                    b.Property<string>("IdLoaiTour")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdLoaiTour");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("tenLoai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdLoaiTour")
+                    b.HasKey("Id")
                         .HasName("PK_LoaiTour");
 
                     b.ToTable("LoaiTour", (string)null);
@@ -313,9 +314,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.NhanVienEntity", b =>
                 {
-                    b.Property<string>("IdNhanVien")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdNhanVien");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("canCuocConDan")
                         .IsRequired()
@@ -342,7 +342,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayVaoLam")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 13, 58, 14, 513, DateTimeKind.Local).AddTicks(4624));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 1, 52, 46, 605, DateTimeKind.Local).AddTicks(7333));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -357,7 +357,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.HasKey("IdNhanVien")
+                    b.HasKey("Id")
                         .HasName("PK_NhanVien");
 
                     b.HasIndex("maLoaiNhanVien");
@@ -371,15 +371,14 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.SanBayEntity", b =>
                 {
-                    b.Property<string>("IdSanBay")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdSanBay");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("tenSanBay")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdSanBay")
+                    b.HasKey("Id")
                         .HasName("PK_SanBay");
 
                     b.ToTable("SanBay", (string)null);
@@ -387,9 +386,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TaiKhoanEntity", b =>
                 {
-                    b.Property<string>("IdTaiKhoan")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdTaiKhoan");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("email")
                         .IsRequired()
@@ -406,7 +404,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime?>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 13, 58, 14, 513, DateTimeKind.Local).AddTicks(6880));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 1, 52, 46, 605, DateTimeKind.Local).AddTicks(9291));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -417,7 +415,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.HasKey("IdTaiKhoan")
+                    b.HasKey("Id")
                         .HasName("PK_TaiKhoan");
 
                     b.HasIndex("email")
@@ -433,9 +431,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.ThanhVienEntity", b =>
                 {
-                    b.Property<string>("IdThanhVien")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdThanhVien");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("canCuocConDan")
                         .HasColumnType("nvarchar(max)");
@@ -454,7 +451,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngaySinh")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("IdThanhVien")
+                    b.HasKey("Id")
                         .HasName("PK_ThanhVien");
 
                     b.HasIndex("maDatTour");
@@ -464,9 +461,8 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", b =>
                 {
-                    b.Property<string>("IdTour")
-                        .HasColumnType("nvarchar(450)")
-                        .HasColumnName("IdTour");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("anhBia")
                         .IsRequired()
@@ -491,7 +487,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 13, 13, 58, 14, 513, DateTimeKind.Local).AddTicks(8638));
+                        .HasDefaultValue(new DateTime(2023, 10, 13, 1, 52, 46, 606, DateTimeKind.Local).AddTicks(612));
 
                     b.Property<string>("nguoiLap")
                         .HasColumnType("nvarchar(450)");
@@ -508,7 +504,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.HasKey("IdTour")
+                    b.HasKey("Id")
                         .HasName("PK_Tour");
 
                     b.HasIndex("maChuyenBay");

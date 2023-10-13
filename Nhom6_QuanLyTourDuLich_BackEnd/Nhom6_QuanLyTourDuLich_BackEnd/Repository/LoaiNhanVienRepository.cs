@@ -26,29 +26,62 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<bool> DeleteAsync(LoaiNhanVienEntity loaiNhanVienEntity)
         {
-            //if (loaiNhanVienEntity.Id != "KhachHang")
-            //{
-            //    _DBContext.LoaiNhanViens.Remove(loaiNhanVienEntity);
-            //    await _DBContext.SaveChangesAsync();
-            //}
-            throw new NotImplementedException();
+            try
+            {
+                NhanVienRepository nhanVienRepository = new NhanVienRepository(this._DBContext);
+
+                var list = await nhanVienRepository.GetListByLoaiNhanVienIdAsync(loaiNhanVienEntity.IdLoaiNhanVien);
+                if (list != null)
+                {
+                    var loaiNhanVienUnDefined = _DBContext.LoaiNhanViens.FirstOrDefault(i => i.tenLoai == "UNDEFINED");
+                    string strUndefineId = "";
+                    if (loaiNhanVienUnDefined == null)
+                    {
+                        LoaiNhanVienEntity loaiNhanVienNew = new LoaiNhanVienEntity();
+                        loaiNhanVienNew.tenLoai = "UNDEFINED";
+
+                        await this.AddAsync(loaiNhanVienNew);
+                        strUndefineId = loaiNhanVienNew.IdLoaiNhanVien;
+                    }
+                    else
+                    {
+                        strUndefineId = loaiNhanVienUnDefined.IdLoaiNhanVien;
+                    }
+
+                    bool Flag = true;
+                    foreach (var item in list)
+                    {
+                        item.maLoaiNhanVien = strUndefineId;
+                        Flag= await nhanVienRepository.UpdateAsync(item);
+                    }
+                    if (Flag == true)
+                    { 
+                        _DBContext.LoaiNhanViens!.Remove(loaiNhanVienEntity);
+                        await _DBContext.SaveChangesAsync();
+                        return true;
+                    }
+                    
+                }
+                return false;
+            }
+            catch { return false; }
         }
 
         public async Task<List<LoaiNhanVienEntity>> GetAllAsync()
         {
-            var list = await _DBContext.LoaiNhanViens.OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.LoaiNhanViens.AsNoTracking().OrderByDescending(i => i.IdLoaiNhanVien).ToListAsync();
             return list;
         }
 
         public async Task<LoaiNhanVienEntity> GetLastAsync()
         {
-            var loai = await _DBContext.LoaiNhanViens.OrderBy(i => i.Id).LastAsync();
+            var loai = await _DBContext.LoaiNhanViens.AsNoTracking().OrderBy(i => i.IdLoaiNhanVien).LastAsync();
             return loai;
         }
 
         public async Task<LoaiNhanVienEntity> GetOneByIdAsync(string Id)
         {
-            var loai = await _DBContext.LoaiNhanViens.FirstOrDefaultAsync(i => i.Id == Id);
+            var loai = await _DBContext.LoaiNhanViens.AsNoTracking().FirstOrDefaultAsync(i => i.IdLoaiNhanVien == Id);
             return loai;
         }
 
@@ -58,7 +91,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.LoaiNhanViens!.Update(loaiNhanVienEntity);
-                _DBContext.Entry(loaiNhanVienEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

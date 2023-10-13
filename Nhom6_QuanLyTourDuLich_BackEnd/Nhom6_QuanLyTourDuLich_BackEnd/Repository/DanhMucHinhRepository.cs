@@ -37,25 +37,25 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<DanhMucHinhEntity>> GetAllAsync(string maTour)
         {
-            var list = await _DBContext.DanhMucHinhs.Where(i=>i.maTour==maTour).OrderByDescending(i => i.Id).ToListAsync();
+            var list = await _DBContext.DanhMucHinhs.AsNoTracking().Where(i=>i.maTour==maTour).OrderByDescending(i => i.IdDanhMucHinh).ToListAsync();
             return list;
         }
 
         public async Task<DanhMucHinhEntity> GetLastAsync()
         {
-            var danhMuc = await _DBContext.DanhMucHinhs.OrderBy(i => i.Id).LastAsync();
+            var danhMuc = await _DBContext.DanhMucHinhs.AsNoTracking().OrderBy(i => i.IdDanhMucHinh).LastAsync();
             return danhMuc;
         }
 
         public async Task<DanhMucHinhEntity> GetLastOfTourAsync(string maTour)
         {
-            var danhMuc = await _DBContext.DanhMucHinhs.Where(i=>i.maTour==maTour).OrderBy(i => i.Id).LastAsync();
+            var danhMuc = await _DBContext.DanhMucHinhs.AsNoTracking().Where(i=>i.maTour==maTour).OrderBy(i => i.IdDanhMucHinh).LastAsync();
             return danhMuc;
         }
 
         public async Task<DanhMucHinhEntity> GetOneByIDAsync(string Id)
         {
-            var danhMuc = await _DBContext.DanhMucHinhs.FirstOrDefaultAsync(i => i.Id==Id);
+            var danhMuc = await _DBContext.DanhMucHinhs.AsNoTracking().FirstOrDefaultAsync(i => i.IdDanhMucHinh==Id);
             return danhMuc;
         }
 
@@ -64,7 +64,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.DanhMucHinhs!.Update(danhMucHinhEntity);
-                _DBContext.Entry(danhMucHinhEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

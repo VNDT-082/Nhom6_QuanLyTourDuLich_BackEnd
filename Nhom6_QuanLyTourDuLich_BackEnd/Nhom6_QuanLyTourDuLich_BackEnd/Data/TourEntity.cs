@@ -5,19 +5,26 @@ using System.Runtime.Serialization;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
-    public enum LoaiPhuongTien
-    {
-        [EnumMember(Value = "Di chuyển bằng ôtô")]
-        Oto,
-        [EnumMember(Value = "Di chuyển bằng máy bay")]
-        MayBay
+    //public enum LoaiPhuongTien
+    //{
+    //    [EnumMember(Value = "Di chuyển bằng ôtô")]
+    //    Oto,
+    //    [EnumMember(Value = "Di chuyển bằng máy bay")]
+    //    MayBay
         
-    }
+    //}
 
 
     [Table("Tour")]
-    public class TourEntity : Entity
+    public class TourEntity
     {
+        public TourEntity()
+        {
+
+            IdTour = "Tour" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+        [Key]
+        public string IdTour { get; set; }
         [Required]
         public string tenTour { get; set; }
         public string? moTa { get; set; }

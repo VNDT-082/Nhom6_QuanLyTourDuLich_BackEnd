@@ -6,7 +6,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 {
     public class TourModel
     {
-        public string Id { get; set; }
+        public string IdTour { get; set; }
         public string tenTour { get; set; }
         public string? moTa { get; set; }
         public string anhBia { get; set; }
@@ -22,10 +22,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 
         public TourModel() { }
 
-        public TourModel(string id, string tenTour, string moTa, string anhBia, double chiPhi, DateTime ngayLap, 
+        public TourModel(string IdTour, string tenTour, string moTa, string anhBia, double chiPhi, DateTime ngayLap, 
             string nguoiLap, string maLoaiTour, string? maChuyenBay, string maKhachSan, string phuongTienDiChuyen, bool trangThai)
         {
-            this.Id = id;
+            this.IdTour = IdTour;
             this.tenTour = tenTour;
             this.moTa = moTa;
             this.anhBia = anhBia;

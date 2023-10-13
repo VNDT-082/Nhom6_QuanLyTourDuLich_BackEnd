@@ -2,12 +2,12 @@
 {
     public class LoaiTourModel
     {
-        public string Id { get; set; }
+        public string IdLoaiTour { get; set; }
         public string tenLoai { get; set; }
         public LoaiTourModel() { }
-        public LoaiTourModel(string Id, string tenLoai)
+        public LoaiTourModel(string IdLoaiTour, string tenLoai)
         {
-            this.Id = Id;
+            this.IdLoaiTour = IdLoaiTour;
             this.tenLoai = tenLoai;
         }
     }

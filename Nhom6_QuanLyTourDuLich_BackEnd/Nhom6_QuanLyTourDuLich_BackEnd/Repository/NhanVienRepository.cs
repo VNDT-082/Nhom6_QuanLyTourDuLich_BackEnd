@@ -39,31 +39,31 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<NhanVienEntity>> GetAllAsync()
         {
-            var list = await _DBContext.NhanViens.ToListAsync();
+            var list = await _DBContext.NhanViens.AsNoTracking().ToListAsync();
             return list;
         }
 
         public async Task<NhanVienEntity> GetLastAsync()
         {
-            var nhanVien = await _DBContext.NhanViens.OrderBy(i => i.Id).LastAsync();
+            var nhanVien = await _DBContext.NhanViens.AsNoTracking().OrderBy(i => i.IdNhanVien).LastAsync();
             return nhanVien;
         }
 
         public async Task<List<NhanVienEntity>> GetListByLoaiNhanVienIdAsync(string maLoaiNhanVien)
         {
-            var list = await _DBContext.NhanViens.Where(i=>i.maLoaiNhanVien==maLoaiNhanVien).ToListAsync();
+            var list = await _DBContext.NhanViens.AsNoTracking().Where(i=>i.maLoaiNhanVien==maLoaiNhanVien).ToListAsync();
             return list;
         }
 
         public async Task<NhanVienEntity> GetOneByCCCDAsync(string canCuocConDan)
         {
-            var nhanVien = await _DBContext.NhanViens.FirstOrDefaultAsync(i=>i.canCuocConDan==canCuocConDan);
+            var nhanVien = await _DBContext.NhanViens.AsNoTracking().FirstOrDefaultAsync(i=>i.canCuocConDan==canCuocConDan);
             return nhanVien;
         }
 
         public async Task<NhanVienEntity> GetOneByIDAsync(string Id)
         {
-            var nhanVien = await _DBContext.NhanViens.FirstOrDefaultAsync(i => i.Id == Id);
+            var nhanVien = await _DBContext.NhanViens.AsNoTracking().FirstOrDefaultAsync(i => i.IdNhanVien == Id);
             return nhanVien;
         }
 
@@ -72,7 +72,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.NhanViens!.Update(nhanVienEntity);
-                _DBContext.Entry(nhanVienEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

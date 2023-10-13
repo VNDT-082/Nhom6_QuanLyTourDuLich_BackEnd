@@ -63,7 +63,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-loai-tai-khoan")]
         public async Task<IActionResult> Update(LoaiTaiKhoanModel _LoaiTaiKhoanModel)
         {
-            var LoaiTaiKhoanModel_ = await _ILoaiTaiKhoanService.GetOneByIdAsync(_LoaiTaiKhoanModel.Id);
+            var LoaiTaiKhoanModel_ = await _ILoaiTaiKhoanService.GetOneByIdAsync(_LoaiTaiKhoanModel.IdLoaiTaiKhoan);
             if (LoaiTaiKhoanModel_ != null)
             {
                 bool kq = await _ILoaiTaiKhoanService.UpdateAsync(_LoaiTaiKhoanModel);
@@ -78,7 +78,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var LoaiTaiKhoanModel_ = await _ILoaiTaiKhoanService.GetOneByIdAsync(Id);
             if (LoaiTaiKhoanModel_ != null)
             {
-                bool kq = await _ILoaiTaiKhoanService.DeleteAsync(LoaiTaiKhoanModel_.Id);
+                bool kq = await _ILoaiTaiKhoanService.DeleteAsync(LoaiTaiKhoanModel_.IdLoaiTaiKhoan);
                 return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
             }
             return BadRequest("Lỗi delete");

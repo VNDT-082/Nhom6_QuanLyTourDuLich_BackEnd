@@ -47,21 +47,21 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             catch { return NotFound(); }
         }
-        [HttpGet]
-        [Route("/[Controller]/get-list-khach-san-theo-xa")]
-        public async Task<IActionResult> GetListByXaIdAsync(string maXa)
-        {
-            try
-            {
-                List<KhachSanModel> dsKhachSan = await _IKhachSanService.GetListByXaIdAsync(maXa);
-                if (dsKhachSan != null || dsKhachSan.Count > 0)
-                {
-                    return Ok(dsKhachSan);
-                }
-                return NoContent();
-            }
-            catch { return NotFound(); }
-        }
+        //[HttpGet]
+        //[Route("/[Controller]/get-list-khach-san-theo-xa")]
+        //public async Task<IActionResult> GetListByXaIdAsync(string maXa)
+        //{
+        //    try
+        //    {
+        //        List<KhachSanModel> dsKhachSan = await _IKhachSanService.GetListByXaIdAsync(maXa);
+        //        if (dsKhachSan != null || dsKhachSan.Count > 0)
+        //        {
+        //            return Ok(dsKhachSan);
+        //        }
+        //        return NoContent();
+        //    }
+        //    catch { return NotFound(); }
+        //}
         [HttpGet]
         [Route("/[Controller]/get-one-tour-by-id")]
         public async Task<IActionResult> GetOneById(string Id)
@@ -94,7 +94,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-khach-san")]
         public async Task<IActionResult> Update(KhachSanModel _KhachSanModel)
         {
-            var KhachSanModel_ = await _IKhachSanService.GetOneById(_KhachSanModel.Id);
+            var KhachSanModel_ = await _IKhachSanService.GetOneById(_KhachSanModel.IdKhachSan);
             if (KhachSanModel_ != null)
             {
                 bool kq = await _IKhachSanService.UpdateAsync(_KhachSanModel);
@@ -102,17 +102,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi update");
         }
-        //[HttpDelete]
-        //[Route("/[Controller]/delete-khach-san")]
-        //public async Task<IActionResult> Delete(string Id)
-        //{
-        //    var KhachSanModel_ = await _IKhachSanService.GetOneById(Id);
-        //    if (KhachSanModel_ != null)
-        //    {
-        //        bool kq = await _IKhachSanService.DeleteAsync(KhachSanModel_.Id);
-        //        return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
-        //    }
-        //    return BadRequest("Lỗi delete");
-        //}
+        [HttpDelete]
+        [Route("/[Controller]/delete-khach-san")]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var KhachSanModel_ = await _IKhachSanService.GetOneById(Id);
+            if (KhachSanModel_ != null)
+            {
+                bool kq = await _IKhachSanService.DeleteAsync(KhachSanModel_.IdKhachSan);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
+            }
+            return BadRequest("Lỗi delete");
+        }
     }
 }

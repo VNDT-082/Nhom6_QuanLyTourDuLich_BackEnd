@@ -26,87 +26,107 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<bool> DeleteAsync(DatTourEntity datTourEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ThanhVienRepository thanhVienRepository = new ThanhVienRepository(this._DBContext);
+                var listThanhVien = await thanhVienRepository.GetAllAsync(datTourEntity.IdDatTour);
+                bool Flag = false;
+                if (listThanhVien != null)
+                {
+                    foreach (var item in listThanhVien)
+                    {
+                        Flag = await thanhVienRepository.DeleteAsync(item);
+                    }
+                }
+                if (Flag == true)
+                {
+                    _DBContext.DatTours.Remove(datTourEntity);
+                    _DBContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch { return false; }
         }
 
         public async Task<List<DatTourEntity>> GetAllAsync()
         {
-            var list = await _DBContext.DatTours.OrderBy(i => i.ngayDat).ToListAsync();
+            var list = await _DBContext.DatTours.AsNoTracking().OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetAllAsync(bool trangThai)
         {
-            var list = await _DBContext.DatTours.Where(i => i.trangThai==trangThai)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.trangThai==trangThai)
                .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<DatTourEntity> GetLastAsync()
         {
-            var datTour = await _DBContext.DatTours.OrderBy(i => i.Id).LastAsync();
+            var datTour = await _DBContext.DatTours.AsNoTracking().OrderBy(i => i.IdDatTour).LastAsync();
             return datTour;
         }
 
         public async Task<List<DatTourEntity>> GetListByHuongDanVienIdAsync(string? maHuongDanVien)
         {
-            var list = await _DBContext.DatTours.Where(i => i.maHuongDanVien == maHuongDanVien)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.maHuongDanVien == maHuongDanVien)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListByKhachHangIdAsync(string maKhach)
         {
-            var list = await _DBContext.DatTours.Where(i => i.maKhach == maKhach)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.maKhach == maKhach)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListByTourIdAsync(string maTour)
         {
-            var list = await _DBContext.DatTours.Where(i => i.maTour == maTour)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.maTour == maTour)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListByTourIdAsync(string maTour, bool trangThai)
         {
-            var list = await _DBContext.DatTours.Where(i => i.maTour==maTour && i.trangThai==trangThai)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.maTour==maTour && i.trangThai==trangThai)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayMin, DateTime ngayMax)
         {
-            var list = await _DBContext.DatTours.Where(i => i.ngayDat >= ngayMin && i.ngayDat <= ngayMax)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.ngayDat >= ngayMin && i.ngayDat <= ngayMax)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayDat)
         {
-            var list = await _DBContext.DatTours.Where(i => i.ngayDat == ngayDat)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.ngayDat == ngayDat)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayMin, DateTime ngayMax, bool trangThai)
         {
-            var list = await _DBContext.DatTours.Where(i => i.ngayDat >= ngayMin&&i.ngayDat<=ngayMax && i.trangThai == trangThai)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.ngayDat >= ngayMin&&i.ngayDat<=ngayMax && i.trangThai == trangThai)
                 .OrderBy(i => i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayDat, bool trangThai)
         {
-            var list = await _DBContext.DatTours.Where(i => i.ngayDat == ngayDat && i.trangThai == trangThai)
+            var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.ngayDat == ngayDat && i.trangThai == trangThai)
                 .OrderBy(i=>i.ngayDat).ToListAsync();
             return list;
         }
 
         public async Task<DatTourEntity> GetOneByIDAsync(string Id)
         {
-            var datTour = await _DBContext.DatTours.FirstOrDefaultAsync(i => i.Id == Id);
+            var datTour = await _DBContext.DatTours.AsNoTracking().FirstOrDefaultAsync(i => i.IdDatTour == Id);
             return datTour;
         }
 
@@ -115,7 +135,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.DatTours!.Update(datTourEntity);
-                _DBContext.Entry(datTourEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data.EntityInterface;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
@@ -25,16 +26,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try
             {
-                if (taiKhoanEntity.maLoai == "KhachHang")
+                string strKhacHangId = _DBContext.LoaiTaiKhoans.FirstOrDefault(i => i.tenLoai == "Khách hàng").IdLoaiTaiKhoan;
+                if (taiKhoanEntity.maLoai == strKhacHangId)
                 {
-                    var kh = _DBContext.KhachHangs.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
+                    var kh = _DBContext.KhachHangs.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.IdTaiKhoan);
                     kh.maTaiKhoan = null;
                     KhachHangRepository khRepo = new KhachHangRepository(_DBContext);
                     khRepo.UpdateAsync(kh);
                 }
                 else
                 {
-                    var nv = _DBContext.NhanViens.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.Id);
+                    var nv = _DBContext.NhanViens.FirstOrDefault(i => i.maTaiKhoan == taiKhoanEntity.IdTaiKhoan);
                     nv.maTaiKhoan = null;
                     NhanVienRepository nvRepo = new NhanVienRepository(_DBContext);
                     nvRepo.UpdateAsync(nv);
@@ -49,31 +51,32 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<TaiKhoanEntity>> GetAllAsync()
         {
-            var list = await _DBContext.TaiKhoans.ToListAsync();
+            var list = await _DBContext.TaiKhoans.AsNoTracking().ToListAsync();
             return list;
         }
 
         public async Task<TaiKhoanEntity> GetLastAsync()
         {
-            var taiKhoan = await _DBContext.TaiKhoans.OrderBy(i => i.Id).LastAsync();
+            var taiKhoan = await _DBContext.TaiKhoans.OrderBy(i => i.IdTaiKhoan).LastAsync();
             return taiKhoan;
         }
 
         public async Task<List<TaiKhoanEntity>> GetListByTrangThai(bool trangThai)
         {
-            var list = await _DBContext.TaiKhoans.Where(i=>i.trangThai==trangThai).ToListAsync();
+            var list = await _DBContext.TaiKhoans.AsNoTracking().Where(i=>i.trangThai==trangThai).ToListAsync();
             return list;
         }
 
         public async Task<TaiKhoanEntity> GetOneByIdAsync(string Id)
         {
-            var taiKhoan = await _DBContext.TaiKhoans.FirstOrDefaultAsync(i => i.Id==Id);
+            //return await _DBContext.TaiKhoans.Where(i => i.IdTaiKhoan == Id).AsNoTracking().FirstOrDefaultAsync();
+            var taiKhoan = await _DBContext.TaiKhoans.AsNoTracking().FirstOrDefaultAsync(i => i.IdTaiKhoan == Id);
             return taiKhoan;
         }
 
         public async Task<TaiKhoanEntity> LoginAsync(string soDienThoaiOrEmail)
         {
-            var taiKhoan = await _DBContext.TaiKhoans
+            var taiKhoan = await _DBContext.TaiKhoans.AsNoTracking()
                 .FirstOrDefaultAsync(i => i.soDienThoai == soDienThoaiOrEmail || i.email == soDienThoaiOrEmail);
             return taiKhoan;
         }
@@ -83,7 +86,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.TaiKhoans!.Update(taiKhoanEntity);
-                _DBContext.Entry(taiKhoanEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

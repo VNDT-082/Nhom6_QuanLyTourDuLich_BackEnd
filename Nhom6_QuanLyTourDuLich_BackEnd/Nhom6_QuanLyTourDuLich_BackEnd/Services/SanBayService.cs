@@ -20,15 +20,18 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(SanBay_repo sanBay_repo)
         {
             SanBayEntity _SanBayEntity = _IMapper.Map<SanBayEntity>(sanBay_repo);
-            DateTime time = DateTime.Now;
-            _SanBayEntity.Id = "NV" + time.ToString("yyyyMMddHHmmss");
+            //DateTime time = DateTime.Now;
+            //_SanBayEntity.Id = "NV" + time.ToString("yyyyMMddHHmmss");
             await _ISanBayRepo.AddAsync(_SanBayEntity);
             return true;
         }
 
-        public Task<bool> DeleteAsync(string ID)
+        public async Task<bool> DeleteAsync(string ID)
         {
-            throw new NotImplementedException();
+            var _SanBayEntiy = await _ISanBayRepo.GetOneByIDAsync(ID);
+            if (_SanBayEntiy != null)
+                return await _ISanBayRepo.DeleteAsync(_SanBayEntiy);
+            return false;
         }
 
         public async Task<List<SanBayModel>> GetAllAsync()
@@ -68,7 +71,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
         public async Task<bool> UpdateAsync(SanBayModel sanBayModel)
         {
-            var _SanBayEntity = await _ISanBayRepo.GetOneByIDAsync(sanBayModel.Id);
+            var _SanBayEntity = await _ISanBayRepo.GetOneByIDAsync(sanBayModel.IdSanBay);
             if (_SanBayEntity != null)
             {
                 var _SanBayEntityUpdate = _IMapper.Map<SanBayEntity>(sanBayModel);

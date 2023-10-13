@@ -2,13 +2,13 @@
 {
     public class SanBayModel
     {
-        public string Id { get; set; }
+        public string IdSanBay { get; set; }
         public string tenSanBay { get; set; }
 
         public SanBayModel() { }
-        public SanBayModel(string id, string tenSanBay)
+        public SanBayModel(string IdSanBay, string tenSanBay)
         {
-            Id = id;
+            this.IdSanBay = IdSanBay;
             this.tenSanBay = tenSanBay;
         }
 

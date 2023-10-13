@@ -28,22 +28,25 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try
             {
-                var list = _DBContext.ChuyenBays.Where(i => i.noiKhoiHanh == sanBayEntity.Id || i.noiDen == sanBayEntity.Id).ToList();
-                ChuyenBayRepository cbRepo = new ChuyenBayRepository(_DBContext);
-                foreach (var item in list)
+                var list = _DBContext.ChuyenBays.AsNoTracking().Where(i => i.noiKhoiHanh == sanBayEntity.IdSanBay ||
+                i.noiDen == sanBayEntity.IdSanBay).ToList();
+                if (list != null || list.Count > 0)
                 {
-                    if (item.noiKhoiHanh == sanBayEntity.Id)
+                    foreach (var item in list)
                     {
-                        item.noiKhoiHanh = null;
-                        item.trangThai = false;
-                        cbRepo.UpdateAsync(item);
+                        if (item.noiKhoiHanh == sanBayEntity.IdSanBay)
+                        {
+                            item.noiKhoiHanh = null;
+                            item.trangThai = false;
+                        }
+                        if (item.noiDen == sanBayEntity.IdSanBay)
+                        {
+                            item.noiDen = null;
+                            item.trangThai = false;
+                        }
                     }
-                    if (item.noiDen == sanBayEntity.Id)
-                    {
-                        item.noiDen = null;
-                        item.trangThai = false;
-                        cbRepo.UpdateAsync(item);
-                    }
+                    _DBContext.ChuyenBays!.UpdateRange(list);
+                    await _DBContext.SaveChangesAsync();
                 }
                 _DBContext.SanBays.Remove(sanBayEntity);
                 await _DBContext.SaveChangesAsync();
@@ -61,13 +64,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<SanBayEntity> GetLastAsync()
         {
-            var sanBay = await _DBContext.SanBays.OrderBy(i => i.Id).LastAsync();
+            var sanBay = await _DBContext.SanBays.AsNoTracking().OrderBy(i => i.IdSanBay).LastAsync();
             return sanBay;
         }
 
         public async Task<SanBayEntity> GetOneByIDAsync(string Id)
         {
-            var sanBay = await _DBContext.SanBays.FirstOrDefaultAsync(i => i.Id==Id);
+            var sanBay = await _DBContext.SanBays.AsNoTracking().FirstOrDefaultAsync(i => i.IdSanBay==Id);
             return sanBay;
         }
 
@@ -76,7 +79,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try
             {
                 _DBContext.SanBays!.Update(sanBayEntity);
-                _DBContext.Entry(sanBayEntity).State = EntityState.Modified;
                 await _DBContext.SaveChangesAsync();
                 return true;
             }

@@ -1,11 +1,18 @@
-﻿using Nhom6_QuanLyTourDuLich_BackEnd.Data.EntityInterface;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
     [Table("ChuyenBay")]
-    public class ChuyenBayEntity:Entity
+    public class ChuyenBayEntity
     {
+        public ChuyenBayEntity()
+        {
+
+            IdChuyenBay= "CB" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+        }
+        [Key]
+        public string IdChuyenBay { get; set; }
         public string hangBay { get; set; }
         public DateTime gioKhoiHanh { get; set; }
         [ForeignKey("SanBayDi")]

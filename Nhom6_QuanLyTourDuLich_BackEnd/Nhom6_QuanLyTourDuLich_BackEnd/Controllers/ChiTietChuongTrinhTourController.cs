@@ -65,7 +65,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-chi-tiet-chuong-trinh-tour")]
         public async Task<IActionResult> Update(ChiTietChuongTrinhTourModel _ChiTietChuongTrinhTourModel)
         {
-            var ChiTietChuongTrinhTourModel_ = await _ChiTietChuongTrinhTourService.GetOneByIDAsync(_ChiTietChuongTrinhTourModel.Id);
+            var ChiTietChuongTrinhTourModel_ = await _ChiTietChuongTrinhTourService
+                .GetOneByIDAsync(_ChiTietChuongTrinhTourModel.IdChiTietChuongTrinhTour);
             if (ChiTietChuongTrinhTourModel_ != null)
             {
                 bool kq = await _ChiTietChuongTrinhTourService.UpdateAsync(_ChiTietChuongTrinhTourModel);
@@ -80,7 +81,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var ChiTietChuongTrinhTourModel_ = await _ChiTietChuongTrinhTourService.GetOneByIDAsync(Id);
             if (ChiTietChuongTrinhTourModel_ != null)
             {
-                bool kq = await _ChiTietChuongTrinhTourService.DeleteAsync(ChiTietChuongTrinhTourModel_.Id);
+                bool kq = await _ChiTietChuongTrinhTourService
+                    .DeleteAsync(ChiTietChuongTrinhTourModel_.IdChiTietChuongTrinhTour);
                 return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
             }
             return BadRequest("Lỗi delete");

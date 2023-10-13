@@ -123,7 +123,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         [Route("/[Controller]/update-chuyen-bay")]
         public async Task<IActionResult> Update(ChuyenBayModel _ChuyenBayModel)
         {
-            var ChuyenBayModel_ = await _IChuyenBayService.GetOneByIDAsync(_ChuyenBayModel.Id);
+            var ChuyenBayModel_ = await _IChuyenBayService.GetOneByIDAsync(_ChuyenBayModel.IdChuyenBay);
             if (ChuyenBayModel_ != null)
             {
                 bool kq = await _IChuyenBayService.UpdateAsync(_ChuyenBayModel);
@@ -131,17 +131,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi update");
         }
-        //[HttpDelete]
-        //[Route("/[Controller]/delete-chuyen-bay")]
-        //public async Task<IActionResult> Delete(string Id)
-        //{
-        //    var ChuyenBayModel_ = await _IChuyenBayService.GetOneByIDAsync(Id);
-        //    if (ChuyenBayModel_ != null)
-        //    {
-        //        bool kq = await _IChuyenBayService.DeleteAsync(ChuyenBayModel_.Id);
-        //        return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
-        //    }
-        //    return BadRequest("Lỗi delete");
-        //}
+        [HttpDelete]
+        [Route("/[Controller]/delete-chuyen-bay")]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var ChuyenBayModel_ = await _IChuyenBayService.GetOneByIDAsync(Id);
+            if (ChuyenBayModel_ != null)
+            {
+                bool kq = await _IChuyenBayService.DeleteAsync(ChuyenBayModel_.IdChuyenBay);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
+            }
+            return BadRequest("Lỗi delete");
+        }
     }
 }

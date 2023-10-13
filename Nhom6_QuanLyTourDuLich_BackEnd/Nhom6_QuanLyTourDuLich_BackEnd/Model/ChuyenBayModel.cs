@@ -4,7 +4,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 {
     public class ChuyenBayModel
     {
-        public string Id { get; set; }
+        public string IdChuyenBay { get; set; }
         public string hangBay { get; set; }
         public DateTime gioKhoiHanh { get; set; }
         public string? noiKhoiHanh { get; set; }
@@ -16,10 +16,10 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public string? maChuyenVe { get; set; }
         public ChuyenBayModel() { }
 
-        public ChuyenBayModel(string Id, string hangBay, DateTime gioKhoiHanh, string? noiKhoiHanh, DateTime gioDen, string? noiDen,
+        public ChuyenBayModel(string IdChuyenBay, string hangBay, DateTime gioKhoiHanh, string? noiKhoiHanh, DateTime gioDen, string? noiDen,
             bool khuHoi, string mayBay, bool trangThai, string? maChuyenVe)
         {
-            this.Id = Id;
+            this.IdChuyenBay = IdChuyenBay;
             this.hangBay = hangBay;
             this.gioKhoiHanh = gioKhoiHanh;
             this.noiKhoiHanh = noiKhoiHanh;
