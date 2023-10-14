@@ -56,6 +56,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
                 TaiKhoanModel _TaiKhoanModel = await _ITaiKhoanService.LoginAsync(_Login_Repo.TenDangNhap, _Login_Repo.MatKhau);
                 if (_TaiKhoanModel != null)
                 {
+
                     return Ok(_TaiKhoanModel);
                 }
                 return BadRequest("LoiDangNhap");
@@ -69,9 +70,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         {
             try
             {
-                bool kq = await _ITaiKhoanService.AddAsync(_TaiKhoan_Repo);
-                if (kq == true)
-                    return Ok(kq);
+                var taiKhoanModel = await _ITaiKhoanService.AddAsync(_TaiKhoan_Repo);
+                if (taiKhoanModel!=null)
+                    return Ok(taiKhoanModel);
                 return BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }

@@ -46,15 +46,30 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             catch { return NotFound(); }
         }
+        [HttpGet]
+        [Route("/[Controller]/get-one-khach-hang-by-ma-tai-khoan-id")]
+        public async Task<IActionResult> GetOneBymaTaiKhoanId(string maTaiKhoan)
+        {
+            try
+            {
+                KhachHangModel values = await _IKhachHangService.GetOneByTaiKhoanIdAsync(maTaiKhoan);
+                if (values != null)
+                {
+                    return Ok(values);
+                }
+                return NoContent();
+            }
+            catch { return NotFound(); }
+        }
         [HttpPost]
         [Route("/[Controller]/create-khach-hang")]
         public async Task<IActionResult> Create(KhachHang_repo _KhachHang_Repo)
         {
             try
             {
-                bool kq = await _IKhachHangService.AddAsync(_KhachHang_Repo);
-                if (kq == true)
-                    return Ok(kq);
+                KhachHangModel khachHangModel = await _IKhachHangService.AddAsync(_KhachHang_Repo);
+                if (khachHangModel!=null)
+                    return Ok(khachHangModel);
                 return BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }

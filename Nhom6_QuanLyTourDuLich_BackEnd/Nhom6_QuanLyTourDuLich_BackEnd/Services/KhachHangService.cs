@@ -18,12 +18,14 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public async Task<bool> AddAsync(KhachHang_repo khachHang_repo)
+        public async Task<KhachHangModel> AddAsync(KhachHang_repo khachHang_repo)
         {
             KhachHangEntity khachHangEntity = _IMapper.Map<KhachHangEntity>(khachHang_repo);
             //DateTime time = DateTime.Now;
             //khachHangEntity.Id = "KH" + time.ToString("yyyyMMddHHmmss");
-            return await _IKhachHangRepo.AddAsync(khachHangEntity);
+            var khachHangEntity_repo= await _IKhachHangRepo.AddAsync(khachHangEntity);
+
+            return (khachHangEntity_repo==null)?null: _IMapper.Map<KhachHangModel>(khachHangEntity_repo);
         }
 
         public async Task<bool> DeleteAsync(string ID)

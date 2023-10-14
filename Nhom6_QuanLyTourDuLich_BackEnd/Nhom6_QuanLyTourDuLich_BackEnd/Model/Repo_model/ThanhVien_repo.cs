@@ -7,10 +7,10 @@
 
         public string? canCuocConDan { get; set; }
         public DateTime ngaySinh { get; set; }
-        public string maDatTour { get; set; }
+        public string? maDatTour { get; set; }
 
         public ThanhVien_repo() { }
-        public ThanhVien_repo(string hoTen, bool gioiTinh, string? canCuocConDan, DateTime ngaySinh, string maDatTour)
+        public ThanhVien_repo(string hoTen, bool gioiTinh, string? canCuocConDan, DateTime ngaySinh, string? maDatTour)
         {
             this.hoTen = hoTen;
             this.gioiTinh = gioiTinh;

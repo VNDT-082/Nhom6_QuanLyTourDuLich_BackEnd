@@ -12,13 +12,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task<bool> AddAsync(TaiKhoanEntity taiKhoanEntity)
+        public async Task<TaiKhoanEntity> AddAsync(TaiKhoanEntity taiKhoanEntity)
         {
             try {
                 await _DBContext.TaiKhoans.AddAsync(taiKhoanEntity);
                 await _DBContext.SaveChangesAsync();
-                return true;
-            } catch (Exception ex) { Console.WriteLine(ex); return false; }
+                return taiKhoanEntity;
+            } catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
 

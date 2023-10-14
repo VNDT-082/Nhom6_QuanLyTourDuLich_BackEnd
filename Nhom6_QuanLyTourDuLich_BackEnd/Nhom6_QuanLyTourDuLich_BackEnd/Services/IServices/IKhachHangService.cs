@@ -1,4 +1,5 @@
-﻿using Nhom6_QuanLyTourDuLich_BackEnd.Model;
+﻿using Nhom6_QuanLyTourDuLich_BackEnd.Data;
+using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
@@ -10,7 +11,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<KhachHangModel> GetOneByIdAsync(string Id);
         public Task<KhachHangModel> GetOneByTaiKhoanIdAsync(string maTaiKhoan);
         public Task<KhachHangModel> GetLastAsync();
-        public Task<bool> AddAsync(KhachHang_repo khachHang_repo);
+        public Task<KhachHangModel> AddAsync(KhachHang_repo khachHang_repo);
         public Task<bool> UpdateAsync(KhachHangModel khachHangModel);
         public Task<bool> DeleteAsync(string ID);
     }

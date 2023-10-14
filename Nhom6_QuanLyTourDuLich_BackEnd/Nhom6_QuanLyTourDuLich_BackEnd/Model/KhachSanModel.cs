@@ -13,7 +13,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
 
         public KhachSanModel(string IdKhachSan, string tenKhachSan, string hangSao, string diaChi, string soDienThoai)
         {
-            IdKhachSan = IdKhachSan;
+            this.IdKhachSan = IdKhachSan;
             this.tenKhachSan = tenKhachSan;
             this.hangSao = hangSao;
             this.diaChi = diaChi;

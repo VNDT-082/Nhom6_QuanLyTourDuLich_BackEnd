@@ -6,6 +6,7 @@ using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
+using System.Reflection.Metadata.Ecma335;
 using System.Reflection.PortableExecutable;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
@@ -20,15 +21,16 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public async Task<bool> AddAsync(TaiKhoan_repo taiKhoan_repo)
+        public async Task<TaiKhoanModel> AddAsync(TaiKhoan_repo taiKhoan_repo)
         {
             TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoan_repo);
             //DateTime time = DateTime.Now;
-            //taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
+            ////taiKhoanEntity.Id = "TK" + time.ToString("yyyyMMddHHmmss");
             string salt = BCryptHelper.GenerateSalt();
             string passHashCode = BCryptHelper.HashPassword(taiKhoanEntity.matKhau, salt);
             taiKhoanEntity.matKhau = passHashCode;
-            return await _ITaiKhoanRepository.AddAsync(taiKhoanEntity);
+            var taiKhoanEntity_repo= await _ITaiKhoanRepository.AddAsync(taiKhoanEntity);
+            return (taiKhoanEntity_repo == null) ? null : _IMapper.Map<TaiKhoanModel>(taiKhoanEntity_repo);
         }
 
         public async Task<bool> DeleteAsync(string ID)

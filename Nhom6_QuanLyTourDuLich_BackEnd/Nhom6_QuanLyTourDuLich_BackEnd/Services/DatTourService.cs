@@ -21,6 +21,12 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         public async Task<bool> AddAsync(DatTour_repo datTour_repo)
         {
             DatTourEntity datTourEntity = _IMapper.Map<DatTourEntity>(datTour_repo);
+            foreach (ThanhVienEntity thanhVienEntity in datTourEntity.ThanhViens)
+            {
+                thanhVienEntity.maDatTour = datTourEntity.IdDatTour;
+            }
+
+
             //DateTime time = DateTime.Now;
             //datTourEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
             return await _IDatTourRepo.AddAsync(datTourEntity);

@@ -11,15 +11,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             this._DBContext = _DBContext;
         }
-        public async Task<bool> AddAsync(KhachHangEntity khachHangEntity)
+        public async Task<KhachHangEntity> AddAsync(KhachHangEntity khachHangEntity)
         {
             try
             {
                 await _DBContext.KhachHangs.AddAsync(khachHangEntity);
                 await _DBContext.SaveChangesAsync();
-                return true;
+                return khachHangEntity;
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
 
@@ -31,7 +31,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
                 var listDatTour = await datTourRepository.GetListByKhachHangIdAsync(khachHangEntity.IdKhachHang);
                 if (listDatTour != null)
                 {
-                    bool Flag = false;
+                    bool Flag = true;
                     foreach (var item in listDatTour)
                     {
                         Flag = await datTourRepository.DeleteAsync(item);
