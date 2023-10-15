@@ -13,7 +13,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             this._DBContext = _DBContext;
         }
 
-        public async Task<bool> AddAsync(DatTourEntity datTourEntity)
+        public async Task<DatTourEntity> AddAsync(DatTourEntity datTourEntity)
         {
             try
             {
@@ -27,9 +27,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
                         thanhVienRepository.AddAsync(thanhVienEntity);
                     }
                 }
-                return true;
+                return await GetOneByIDAsync(datTourEntity.IdDatTour);
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
 
@@ -193,15 +193,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return datTour;
         }
 
-        public async Task<bool> UpdateAsync(DatTourEntity datTourEntity)
+        public async Task<DatTourEntity> UpdateAsync(DatTourEntity datTourEntity)
         {
             try
             {
                 _DBContext.DatTours!.Update(datTourEntity);
                 await _DBContext.SaveChangesAsync();
-                return true;
+                return await GetOneByIDAsync(datTourEntity.IdDatTour);
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
     }

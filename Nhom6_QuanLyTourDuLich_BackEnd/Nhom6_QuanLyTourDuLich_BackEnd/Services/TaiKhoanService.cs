@@ -102,7 +102,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return null;
         }
 
-        public async Task<bool> UpdateAsync(TaiKhoanModel taiKhoanModel)
+        public async Task<TaiKhoanModel> UpdateAsync(TaiKhoanModel taiKhoanModel)
         {
             TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.GetOneByIdAsync(taiKhoanModel.IdTaiKhoan);
             if (taiKhoan != null)
@@ -111,9 +111,11 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
                 string salt = BCryptHelper.GenerateSalt();
                 string passHashCode = BCryptHelper.HashPassword(taiKhoanEntity.matKhau, salt);
                 taiKhoanEntity.matKhau = passHashCode;
-                return await _ITaiKhoanRepository.UpdateAsync(taiKhoanEntity);
+
+                var _TaiKhoanEntity_repo = await _ITaiKhoanRepository.UpdateAsync(taiKhoanEntity);
+                return (_TaiKhoanEntity_repo != null) ? _IMapper.Map<TaiKhoanModel>(_TaiKhoanEntity_repo) : null;
             }
-            return false;
+            return null;
         }
     }
 }

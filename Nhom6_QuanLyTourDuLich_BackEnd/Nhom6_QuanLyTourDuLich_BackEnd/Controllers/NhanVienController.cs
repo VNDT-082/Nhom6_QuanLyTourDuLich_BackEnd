@@ -84,10 +84,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         {
             try
             {
-                bool kq = await _INhanVienService.AddAsync(_NhanVien_Repo);
-                if (kq == true)
-                    return Ok(kq);
-                return BadRequest("Không thể khởi tạo");
+                var _NhanVienModel_repo = await _INhanVienService.AddAsync(_NhanVien_Repo);
+
+                return (_NhanVienModel_repo != null) ? Ok(_NhanVienModel_repo) : BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }
         }
@@ -98,8 +97,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var NhanVienModel_ = await _INhanVienService.GetOneByIDAsync(_NhanVienModel.IdNhanVien);
             if (NhanVienModel_ != null)
             {
-                bool kq = await _INhanVienService.UpdateAsync(_NhanVienModel);
-                return (kq == true) ? Ok(kq) : BadRequest("Lỗi update");
+                var _NhanVienModel_repo = await _INhanVienService.UpdateAsync(_NhanVienModel);
+                return (_NhanVienModel_repo != null) ? Ok(_NhanVienModel_repo) : BadRequest("Lỗi update");
             }
             return BadRequest("Lỗi update");
         }

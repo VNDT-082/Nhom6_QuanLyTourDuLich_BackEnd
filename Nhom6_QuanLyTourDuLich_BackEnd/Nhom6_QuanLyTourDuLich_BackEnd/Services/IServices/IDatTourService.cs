@@ -18,8 +18,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
 
         public Task<DatTourModel> GetOneByIDAsync(string Id);
         public Task<DatTourModel> GetLastAsync();
-        public Task<bool> AddAsync(DatTour_repo datTour_repo);
-        public Task<bool> UpdateAsync(DatTourModel datTourModel);
+        public Task<DatTourModel> AddAsync(DatTour_repo datTour_repo);
+        public Task<DatTourModel> UpdateAsync(DatTourModel datTourModel);
         public Task<bool> DeleteAsync(string ID);
     }
 }

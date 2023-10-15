@@ -18,13 +18,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public async Task<bool> AddAsync(NhanVien_repo nhaVien_repo)
+        public async Task<NhanVienModel> AddAsync(NhanVien_repo nhaVien_repo)
         {
             NhanVienEntity _NhanVienEntity = _IMapper.Map<NhanVienEntity>(nhaVien_repo);
             //DateTime time = DateTime.Now;
             //_NhanVienEntity.Id = "NV" + time.ToString("yyyyMMddHHmmss");
-            await _INhanVienRepo.AddAsync(_NhanVienEntity);
-            return true;
+            var _NhanVienEntity_repo = await _INhanVienRepo.AddAsync(_NhanVienEntity);
+            return (_NhanVienEntity_repo!=null)?_IMapper.Map<NhanVienModel>(_NhanVienEntity_repo):null;
         }
 
         public async Task<bool> DeleteAsync(string ID)
@@ -92,16 +92,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return null;
         }
 
-        public async Task<bool> UpdateAsync(NhanVienModel nhanVienModel)
+        public async Task<NhanVienModel> UpdateAsync(NhanVienModel nhanVienModel)
         {
             var _NhanVienEntity = await _INhanVienRepo.GetOneByIDAsync(nhanVienModel.IdNhanVien);
             if (_NhanVienEntity != null)
             {
                 var _NhanVienEntityUpdate = _IMapper.Map<NhanVienEntity>(nhanVienModel);
                 await _INhanVienRepo.UpdateAsync(_NhanVienEntityUpdate);
-                return true;
+                var _NhanVienEntity_repo = await _INhanVienRepo.UpdateAsync(_NhanVienEntityUpdate);
+                return (_NhanVienEntity_repo != null) ? _IMapper.Map<NhanVienModel>(_NhanVienEntity_repo) : null;
             }
-            return false;
+            return null;
         }
     }
 }

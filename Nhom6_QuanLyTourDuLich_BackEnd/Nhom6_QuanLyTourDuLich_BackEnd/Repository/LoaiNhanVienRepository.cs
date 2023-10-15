@@ -52,7 +52,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
                     foreach (var item in list)
                     {
                         item.maLoaiNhanVien = strUndefineId;
-                        Flag= await nhanVienRepository.UpdateAsync(item);
+                        var nv_repo= await nhanVienRepository.UpdateAsync(item);
+                        Flag = (nv_repo != null) ? true : false;
                     }
                     if (Flag == true)
                     { 

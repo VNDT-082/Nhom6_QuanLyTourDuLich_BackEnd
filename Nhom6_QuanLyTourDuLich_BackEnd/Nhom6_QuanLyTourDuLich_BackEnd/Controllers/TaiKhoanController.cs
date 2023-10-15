@@ -71,9 +71,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             try
             {
                 var taiKhoanModel = await _ITaiKhoanService.AddAsync(_TaiKhoan_Repo);
-                if (taiKhoanModel!=null)
-                    return Ok(taiKhoanModel);
-                return BadRequest("Không thể khởi tạo");
+                return (taiKhoanModel!=null)?Ok(taiKhoanModel): BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }
         }
@@ -84,8 +82,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var TaiKhoanModel_ = await _ITaiKhoanService.GetOneByIdAsync(_TaiKhoanModel.IdTaiKhoan);
             if (TaiKhoanModel_ != null)
             {
-                bool kq = await _ITaiKhoanService.UpdateAsync(_TaiKhoanModel);
-                return (kq == true) ? Ok(kq) : BadRequest("Lỗi update");
+                var  _TaiKhoanModel_repo = await _ITaiKhoanService.UpdateAsync(_TaiKhoanModel);
+                return (_TaiKhoanModel_repo != null) ? Ok(_TaiKhoanModel_repo) : BadRequest("Lỗi update");
             }
             return BadRequest("Lỗi update");
         }

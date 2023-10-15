@@ -12,7 +12,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail, string matKhau);
         public Task<TaiKhoanModel> GetLastAsync();
         public Task<TaiKhoanModel> AddAsync(TaiKhoan_repo taiKhoan_repo);
-        public Task<bool> UpdateAsync(TaiKhoanModel taiKhoanModel);
+        public Task<TaiKhoanModel> UpdateAsync(TaiKhoanModel taiKhoanModel);
         public Task<bool> DeleteAsync(string ID);
     }
 }

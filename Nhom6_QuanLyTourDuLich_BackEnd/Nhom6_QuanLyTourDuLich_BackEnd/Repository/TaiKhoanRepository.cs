@@ -17,7 +17,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             try {
                 await _DBContext.TaiKhoans.AddAsync(taiKhoanEntity);
                 await _DBContext.SaveChangesAsync();
-                return taiKhoanEntity;
+                return await GetOneByIdAsync(taiKhoanEntity.IdTaiKhoan);
             } catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
@@ -81,15 +81,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return taiKhoan;
         }
 
-        public async Task<bool> UpdateAsync(TaiKhoanEntity taiKhoanEntity)
+        public async Task<TaiKhoanEntity> UpdateAsync(TaiKhoanEntity taiKhoanEntity)
         {
             try
             {
                 _DBContext.TaiKhoans!.Update(taiKhoanEntity);
                 await _DBContext.SaveChangesAsync();
-                return true;
+                return await GetOneByIdAsync(taiKhoanEntity.IdTaiKhoan);
             }
-            catch (Exception ex) { Console.WriteLine(ex); return false; }
+            catch (Exception ex) { Console.WriteLine(ex); return null; }
             
         }
     }

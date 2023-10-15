@@ -54,10 +54,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         {
             try
             {
-                bool kq = await _IDatTourService.AddAsync(_DatTour_Repo);
-                if (kq == true)
-                    return Ok(kq);
-                return BadRequest("Không thể khởi tạo");
+                var datTourModel= await _IDatTourService.AddAsync(_DatTour_Repo);
+                return (datTourModel != null) ? Ok(datTourModel) : BadRequest("Không thể khởi tạo");
             }
             catch { return BadRequest("Không thể khởi tạo"); }
         }
@@ -68,8 +66,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(_DatTourModel.IdDatTour);
             if (DatTourModel_ != null)
             {
-                bool kq = await _IDatTourService.UpdateAsync(_DatTourModel);
-                return (kq == true) ? Ok(kq) : BadRequest("Lỗi update");
+                var _DatTourModel_repo = await _IDatTourService.UpdateAsync(_DatTourModel);
+                return (_DatTourModel_repo != null) ? Ok(_DatTourModel_repo) : BadRequest("Lỗi update");
             }
             return BadRequest("Lỗi update");
         }

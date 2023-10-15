@@ -9,8 +9,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<NhanVienEntity> GetOneByIDAsync(string Id);
         public Task<NhanVienEntity> GetOneByCCCDAsync(string canCuocConDan);
         public Task<NhanVienEntity> GetLastAsync();
-        public Task<bool> AddAsync(NhanVienEntity nhanVienEntity);
-        public Task<bool> UpdateAsync(NhanVienEntity nhanVienEntity);
+        public Task<NhanVienEntity> AddAsync(NhanVienEntity nhanVienEntity);
+        public Task<NhanVienEntity> UpdateAsync(NhanVienEntity nhanVienEntity);
         public Task<bool> DeleteAsync(NhanVienEntity nhanVienEntity);
     }
 }

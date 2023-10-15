@@ -17,8 +17,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 
         [ForeignKey("Tour")]
         public string maTour { get; set; }
-        public DateTime thoiGianBatDau { get; set; }
-        public DateTime thoiGianKetThuc { get; set; }
+        public string ngayThu { get; set; }
+        public string  buaAn { get; set; }
         public string diemKhoiHanh { get; set; }
         public string diemDen { get; set; }
 

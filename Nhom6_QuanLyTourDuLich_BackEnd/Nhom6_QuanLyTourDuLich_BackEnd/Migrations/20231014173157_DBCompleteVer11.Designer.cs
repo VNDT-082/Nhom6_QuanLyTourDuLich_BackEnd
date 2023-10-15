@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nhom6_QuanLyTourDuLich_BackEnd.Data;
 
 #nullable disable
 
-namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
+namespace Nhom6_QuanLyTourDuLich_BackEnd.Migrations
 {
     [DbContext(typeof(QuanLyTourDuLich_DBContext))]
-    partial class QuanLyTourDuLich_DBContextModelSnapshot : ModelSnapshot
+    [Migration("20231014173157_DBCompleteVer11")]
+    partial class DBCompleteVer11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

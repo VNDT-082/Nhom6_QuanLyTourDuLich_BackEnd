@@ -18,7 +18,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             this._IMapper = _IMapper;
         }
 
-        public async Task<bool> AddAsync(DatTour_repo datTour_repo)
+        public async Task<DatTourModel> AddAsync(DatTour_repo datTour_repo)
         {
             DatTourEntity datTourEntity = _IMapper.Map<DatTourEntity>(datTour_repo);
             foreach (ThanhVienEntity thanhVienEntity in datTourEntity.ThanhViens)
@@ -29,7 +29,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
 
             //DateTime time = DateTime.Now;
             //datTourEntity.Id = "Tour" + time.ToString("yyyyMMddHHmmss");
-            return await _IDatTourRepo.AddAsync(datTourEntity);
+            var _DatTourEntity_repo = await _IDatTourRepo.AddAsync(datTourEntity);
+            return (_DatTourEntity_repo != null) ? _IMapper.Map<DatTourModel>(_DatTourEntity_repo) : null;
         }
 
         public async Task<bool> DeleteAsync(string ID)
@@ -174,15 +175,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             return null; 
         }
 
-        public async Task<bool> UpdateAsync(DatTourModel datTourModel)
+        public async Task<DatTourModel> UpdateAsync(DatTourModel datTourModel)
         {
             DatTourEntity datTour = await _IDatTourRepo.GetOneByIDAsync(datTourModel.IdDatTour);
             if (datTour != null)
             {
                 DatTourEntity datTourEntity = _IMapper.Map<DatTourEntity>(datTourModel);
-                return await _IDatTourRepo.UpdateAsync(datTourEntity);
+
+                var _DatTourEntity_repo = await _IDatTourRepo.UpdateAsync(datTourEntity);
+                return (_DatTourEntity_repo != null) ? _IMapper.Map<DatTourModel>(_DatTourEntity_repo) : null;
             }
-            return false;
+            return null;
         }
     }
 }

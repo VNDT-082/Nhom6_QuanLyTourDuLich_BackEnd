@@ -10,8 +10,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<NhanVienModel> GetOneByIDAsync(string Id);
         public Task<NhanVienModel> GetOneByCCCDAsync(string canCuocConDan);
         public Task<NhanVienModel> GetLastAsync();
-        public Task<bool> AddAsync(NhanVien_repo nhaVien_repo);
-        public Task<bool> UpdateAsync(NhanVienModel nhanVienModel);
+        public Task<NhanVienModel> AddAsync(NhanVien_repo nhaVien_repo);
+        public Task<NhanVienModel> UpdateAsync(NhanVienModel nhanVienModel);
         public Task<bool> DeleteAsync(string ID);
     }
 }
