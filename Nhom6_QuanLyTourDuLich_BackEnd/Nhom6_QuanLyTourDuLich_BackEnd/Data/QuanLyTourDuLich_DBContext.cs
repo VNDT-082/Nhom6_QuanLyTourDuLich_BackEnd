@@ -34,7 +34,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
                 entity.ToTable("ChiTietChuongTrinhTour");
                 entity.Property(i => i.IdChiTietChuongTrinhTour).HasColumnName("IdChiTietChuongTrinhTour");
                 entity.Property(i => i.hinhAnh).HasDefaultValue("ImageDefault.png");
-                entity.HasIndex(i => i.tieuDe).IsUnique();
                 entity.HasKey(i => i.IdChiTietChuongTrinhTour).HasName("PK_ChiTietChuongTrinhTour");
             });
             //ChuyenBay
