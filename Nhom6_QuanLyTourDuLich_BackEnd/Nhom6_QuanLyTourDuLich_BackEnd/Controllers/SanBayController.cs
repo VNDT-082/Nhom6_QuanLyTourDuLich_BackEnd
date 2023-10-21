@@ -23,7 +23,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             try
             {
                 List<SanBayModel> dsSanBay = await _ISanBayService.GetAllAsync();
-                if (dsSanBay != null || dsSanBay.Count > 0)
+                if (dsSanBay != null)
                 {
                     return Ok(dsSanBay);
                 }

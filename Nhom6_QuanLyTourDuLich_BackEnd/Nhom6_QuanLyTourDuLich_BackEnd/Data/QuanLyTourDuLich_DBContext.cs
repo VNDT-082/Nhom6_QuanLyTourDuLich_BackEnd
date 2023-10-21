@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
 {
@@ -12,16 +13,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public DbSet<ChuyenBayEntity> ChuyenBays { get; set; }
         public DbSet<DanhMucHinhEntity> DanhMucHinhs { get; set; }
         public DbSet<DatTourEntity> DatTours { get; set; }
+        public DbSet<HoiDapEntity> HoiDaps { get; set; }
         public DbSet<KhachHangEntity> KhachHangs { get; set; }
         public DbSet<KhachSanEntity> KhachSans { get; set; }
         public DbSet<LoaiNhanVienEntity> LoaiNhanViens { get; set; }
         public DbSet<LoaiTaiKhoanEntity> LoaiTaiKhoans { get; set; }
         public DbSet<LoaiTourEntity> LoaiTours { get; set; }
         public DbSet<NhanVienEntity> NhanViens { get; set; }
+        public DbSet<NhanXetEntity> NhanXets { get; set; }
         public DbSet<SanBayEntity> SanBays { get; set; }
         public DbSet<TaiKhoanEntity> TaiKhoans { get; set; }
         public DbSet<ThanhVienEntity> ThanhViens { get; set; }
         public DbSet<TourEntity> Tours { get; set; }
+        public DbSet<TraLoiHoiDapEntity> TraLoiHoiDaps { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,6 +72,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
                 entity.Property(i => i.IdKhachHang).HasColumnName("IdKhachHang");
                 entity.HasKey(i => i.IdKhachHang).HasName("PK_KhachHang");
             });
+            
 
             //KhachSan
             modelBuilder.Entity<KhachSanEntity>(entity =>
@@ -148,6 +153,31 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
                 entity.HasKey(i => i.IdTour).HasName("PK_Tour");
                
             });
+
+            //============================NHANXET DANH GIA TOUR===================
+            modelBuilder.Entity<NhanXetEntity>(entity =>
+            {
+                entity.ToTable("NhanXet");
+                entity.Property(i => i.IdNhanXet).HasColumnName("IdNhanXet");
+                entity.Property(i => i.ngayDang).HasDefaultValue(DateTime.Now);
+            });
+
+            modelBuilder.Entity<HoiDapEntity>(entity =>
+            {
+                entity.ToTable("HoiDap");
+                entity.Property(i => i.IdHoiDap).HasColumnName("IdHoiDap");
+                entity.Property(i => i.ngayDang).HasDefaultValue(DateTime.Now);
+            });
+
+            modelBuilder.Entity<TraLoiHoiDapEntity>(entity =>
+            {
+                entity.ToTable("TraLoiHoiDap");
+                entity.Property(i => i.IdTraLoiHoiDap).HasColumnName("IdTraLoiHoiDap");
+                entity.Property(i => i.ngayTraLoi).HasDefaultValue(DateTime.Now);
+            });
+            modelBuilder
+                   .Entity<TraLoiHoiDapEntity>()
+                   .HasOne(e => e.KhachHang).WithMany(e => e.TraLoiHoiDaps).OnDelete(DeleteBehavior.NoAction);
         }
         
     }

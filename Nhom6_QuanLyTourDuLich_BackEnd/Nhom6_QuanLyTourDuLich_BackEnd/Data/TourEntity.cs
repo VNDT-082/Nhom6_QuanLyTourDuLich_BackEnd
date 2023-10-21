@@ -11,7 +11,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
     //    Oto,
     //    [EnumMember(Value = "Di chuyển bằng máy bay")]
     //    MayBay
-        
+
     //}
 
 
@@ -52,5 +52,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public virtual NhanVienEntity? NhanVien { get; set; }
         public virtual KhachSanEntity? KhachSan { get; set; }
         public virtual ICollection<DanhMucHinhEntity>? DanhMucHinhs { get; set; }
+        public virtual ICollection<NhanXetEntity>? danhSachNhanXet { get; set; }
+        public virtual ICollection<HoiDapEntity>? danhSachHoiDap{get;set;}
     }
 }

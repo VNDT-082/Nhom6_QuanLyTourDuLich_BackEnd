@@ -171,7 +171,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 15, 15, 38, 2, 744, DateTimeKind.Local).AddTicks(4391));
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(1695));
 
                     b.Property<int>("soLuong")
                         .HasColumnType("int");
@@ -191,6 +191,38 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.HasIndex("maTour");
 
                     b.ToTable("DatTour", (string)null);
+                });
+
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.HoiDapEntity", b =>
+                {
+                    b.Property<string>("IdHoiDap")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("IdHoiDap");
+
+                    b.Property<string>("IdNguoiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdTour")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ngayDang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(8596));
+
+                    b.Property<string>("noiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdHoiDap");
+
+                    b.HasIndex("IdNguoiDung");
+
+                    b.HasIndex("IdTour");
+
+                    b.ToTable("HoiDap", (string)null);
                 });
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", b =>
@@ -341,7 +373,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayVaoLam")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 15, 15, 38, 2, 744, DateTimeKind.Local).AddTicks(7277));
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(4000));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -366,6 +398,41 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .HasFilter("[maTaiKhoan] IS NOT NULL");
 
                     b.ToTable("NhanVien", (string)null);
+                });
+
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.NhanXetEntity", b =>
+                {
+                    b.Property<string>("IdNhanXet")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("IdNhanXet");
+
+                    b.Property<string>("IdNguoiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdTour")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("danhGia")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ngayDang")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(8210));
+
+                    b.Property<string>("noiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdNhanXet");
+
+                    b.HasIndex("IdNguoiDung");
+
+                    b.HasIndex("IdTour");
+
+                    b.ToTable("NhanXet", (string)null);
                 });
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.SanBayEntity", b =>
@@ -405,7 +472,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime?>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 15, 15, 38, 2, 744, DateTimeKind.Local).AddTicks(9877));
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(6205));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -490,7 +557,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 15, 15, 38, 2, 745, DateTimeKind.Local).AddTicks(1867));
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(7698));
 
                     b.Property<string>("nguoiLap")
                         .HasColumnType("nvarchar(450)");
@@ -522,6 +589,38 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsUnique();
 
                     b.ToTable("Tour", (string)null);
+                });
+
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TraLoiHoiDapEntity", b =>
+                {
+                    b.Property<string>("IdTraLoiHoiDap")
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("IdTraLoiHoiDap");
+
+                    b.Property<string>("IdHoiDap")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("IdKhachHang")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ngayTraLoi")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(9003));
+
+                    b.Property<string>("noiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdTraLoiHoiDap");
+
+                    b.HasIndex("IdHoiDap");
+
+                    b.HasIndex("IdKhachHang");
+
+                    b.ToTable("TraLoiHoiDap", (string)null);
                 });
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.ChiTietChuongTrinhTourEntity", b =>
@@ -598,6 +697,25 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Navigation("Tour");
                 });
 
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.HoiDapEntity", b =>
+                {
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", "KhachHang")
+                        .WithMany("HoiDaps")
+                        .HasForeignKey("IdNguoiDung")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", "Tour")
+                        .WithMany("danhSachHoiDap")
+                        .HasForeignKey("IdTour")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KhachHang");
+
+                    b.Navigation("Tour");
+                });
+
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", b =>
                 {
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TaiKhoanEntity", "TaiKhoan")
@@ -620,6 +738,25 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Navigation("LoaiNhanVien");
 
                     b.Navigation("TaiKhoan");
+                });
+
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.NhanXetEntity", b =>
+                {
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", "KhachHang")
+                        .WithMany("NhanXets")
+                        .HasForeignKey("IdNguoiDung")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", "Tour")
+                        .WithMany("danhSachNhanXet")
+                        .HasForeignKey("IdTour")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KhachHang");
+
+                    b.Navigation("Tour");
                 });
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TaiKhoanEntity", b =>
@@ -673,14 +810,44 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Navigation("NhanVien");
                 });
 
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TraLoiHoiDapEntity", b =>
+                {
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.HoiDapEntity", "HoiDap")
+                        .WithMany("danhSachCauTraLoi")
+                        .HasForeignKey("IdHoiDap")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", "KhachHang")
+                        .WithMany("TraLoiHoiDaps")
+                        .HasForeignKey("IdKhachHang")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("HoiDap");
+
+                    b.Navigation("KhachHang");
+                });
+
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.DatTourEntity", b =>
                 {
                     b.Navigation("ThanhViens");
                 });
 
+            modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.HoiDapEntity", b =>
+                {
+                    b.Navigation("danhSachCauTraLoi");
+                });
+
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.KhachHangEntity", b =>
                 {
+                    b.Navigation("HoiDaps");
+
+                    b.Navigation("NhanXets");
+
                     b.Navigation("Tours");
+
+                    b.Navigation("TraLoiHoiDaps");
                 });
 
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.LoaiNhanVienEntity", b =>
@@ -701,6 +868,10 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", b =>
                 {
                     b.Navigation("DanhMucHinhs");
+
+                    b.Navigation("danhSachHoiDap");
+
+                    b.Navigation("danhSachNhanXet");
                 });
 #pragma warning restore 612, 618
         }

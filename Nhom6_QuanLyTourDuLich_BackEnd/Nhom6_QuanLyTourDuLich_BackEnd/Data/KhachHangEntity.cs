@@ -31,5 +31,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public string? maTaiKhoan { get; set; }
         public virtual TaiKhoanEntity? TaiKhoan { get; set; }
         public virtual ICollection<DatTourEntity>? Tours { get; set; }
+        public virtual ICollection<TraLoiHoiDapEntity>? TraLoiHoiDaps { get; set; }
+        public virtual ICollection<NhanXetEntity>? NhanXets { get; set; }
+        public virtual ICollection<HoiDapEntity> HoiDaps { get; set; }
+
     }
 }

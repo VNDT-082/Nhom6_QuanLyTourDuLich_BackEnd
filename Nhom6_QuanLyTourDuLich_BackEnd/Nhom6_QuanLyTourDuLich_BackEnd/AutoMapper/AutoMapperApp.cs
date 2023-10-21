@@ -23,6 +23,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
             CreateMap<SanBayEntity, SanBayModel>().ReverseMap();
             CreateMap<TaiKhoanEntity, TaiKhoanModel>().ReverseMap();
             CreateMap<ThanhVienEntity, ThanhVienModel>().ReverseMap();
+            CreateMap<NhanXetEntity, NhanXetModel>().ReverseMap();
+            CreateMap<HoiDapEntity, HoiDapModel>().ReverseMap();
+            CreateMap<TraLoiHoiDapEntity, TraLoiHoiDapModel>().ReverseMap();
 
             //==============
             CreateMap<LoaiTourEntity, LoaiTour_repo>().ReverseMap();
@@ -39,6 +42,9 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
             CreateMap<SanBayEntity, SanBay_repo>().ReverseMap();
             CreateMap<TaiKhoanEntity, TaiKhoan_repo>().ReverseMap();
             CreateMap<ThanhVienEntity, ThanhVien_repo>().ReverseMap();
+            CreateMap<NhanXetEntity, NhanXet_repo>().ReverseMap();
+            CreateMap<HoiDapEntity, HoiDap_repo>().ReverseMap();
+            CreateMap<TraLoiHoiDapEntity, TraLoiHoiDap_repo>().ReverseMap();
         }
     }
 }

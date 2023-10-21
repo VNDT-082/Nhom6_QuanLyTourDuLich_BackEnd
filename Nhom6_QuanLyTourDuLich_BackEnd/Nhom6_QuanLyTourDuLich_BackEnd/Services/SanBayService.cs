@@ -38,7 +38,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         {
             var listSanBayEnity = await _ISanBayRepo.GetAllAsync();
 
-            if (listSanBayEnity.Count > 0)
+            if (listSanBayEnity!=null)
             {
                 List<SanBayModel> listSanBayModel = _IMapper.Map<List<SanBayModel>>(listSanBayEnity);
                 return listSanBayModel;

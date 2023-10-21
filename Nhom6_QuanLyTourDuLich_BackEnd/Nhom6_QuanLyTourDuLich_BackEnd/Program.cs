@@ -36,6 +36,9 @@ builder.Services.AddScoped<ISanBayRepository, SanBayRepository>();
 builder.Services.AddScoped<ITaiKhoanRepository, TaiKhoanRepository>();
 builder.Services.AddScoped<IThanhVienRepository, ThanhVienRepository>();
 builder.Services.AddScoped<ITourRepository, TourRepository>();
+builder.Services.AddScoped<INhanXetRepository, NhanXetRepository>();
+builder.Services.AddScoped<IHoiDapRepository, HoiDapRepository>();
+builder.Services.AddScoped<ITraLoiHoiDapRepository, TraLoiHoiDapRepository>();
 
 
 builder.Services.AddScoped<IChiTietChuongTrinhTourService, ChiTietChuongTrinhTourService>();
@@ -52,6 +55,9 @@ builder.Services.AddScoped<ISanBayService, SanBayService>();
 builder.Services.AddScoped<ITaiKhoanService, TaiKhoanService>();
 builder.Services.AddScoped<IThanhVienService, ThanhVienService>();
 builder.Services.AddScoped<ITourService, TourService>();
+builder.Services.AddScoped<INhanXetService, NhanXetService>();
+builder.Services.AddScoped<IHoiDapService, HoiDapService>();
+builder.Services.AddScoped<ITraLoiHoiDapService, TraLoiHoiDapService>();
 
 var app = builder.Build();
 
