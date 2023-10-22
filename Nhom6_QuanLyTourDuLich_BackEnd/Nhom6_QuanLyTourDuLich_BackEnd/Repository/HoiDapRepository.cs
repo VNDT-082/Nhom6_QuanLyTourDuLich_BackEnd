@@ -59,14 +59,24 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
 
         public async Task<List<HoiDapEntity>> GetAllAsync(string IdTour)
         {
+            
             var list = await _DBContext.HoiDaps.Where(i => i.IdTour == IdTour).ToListAsync();
             if (list != null)
             {
+                KhachHangRepository _KhachHangRepository = new KhachHangRepository(_DBContext);
+                TraLoiHoiDapRepository _TraLoiHoiDapRepository = new TraLoiHoiDapRepository(_DBContext);
                 foreach (var item in list)
                 {
-                    var listTraLoiHoiDap = await _DBContext.TraLoiHoiDaps.Where(i => i.IdHoiDap == item.IdHoiDap).ToListAsync();
+                    item.KhachHang = await _KhachHangRepository.GetOneByIdAsync(item.IdNguoiDung);
+                    var listTraLoiHoiDap = _TraLoiHoiDapRepository.GetAllAsync(item.IdHoiDap); // await _DBContext.TraLoiHoiDaps.Where(i => i.IdHoiDap == item.IdHoiDap).ToListAsync();
                     if (listTraLoiHoiDap != null)
-                        item.danhSachCauTraLoi = listTraLoiHoiDap;
+                    {
+                        item.danhSachCauTraLoi = await listTraLoiHoiDap;
+                        foreach (var i in item.danhSachCauTraLoi)
+                        {
+                            i.KhachHang = await _KhachHangRepository.GetOneByIdAsync(i.IdKhachHang);
+                        }
+                    }
                 }
             }
             return list;

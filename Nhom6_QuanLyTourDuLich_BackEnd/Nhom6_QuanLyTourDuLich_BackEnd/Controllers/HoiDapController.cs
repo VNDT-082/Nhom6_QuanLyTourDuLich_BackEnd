@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
 {
@@ -24,6 +26,11 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
                 List<HoiDapModel> dsHoiDap = await _IHoiDapService.GetAllAsync(IdTour);
                 if (dsHoiDap != null)
                 {
+                    var options = new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.Preserve
+                    };
+                    var jsondata = JsonSerializer.Serialize(dsHoiDap,options);
                     return Ok(dsHoiDap);
                 }
                 return NoContent();

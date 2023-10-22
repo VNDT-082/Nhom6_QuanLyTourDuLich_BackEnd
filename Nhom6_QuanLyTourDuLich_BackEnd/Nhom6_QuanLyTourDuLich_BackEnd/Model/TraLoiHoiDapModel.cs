@@ -17,8 +17,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public string IdKhachHang { get; set; }
         public DateTime ngayTraLoi { get; set; }
         public string noiDung { get; set; }
-        public virtual HoiDapEntity? HoiDap { get; set; }
-        public virtual KhachHangEntity? KhachHang { get; set; }
+        //public virtual HoiDapModel? HoiDap { get; set; }
+        public virtual KhachHangModel? KhachHang { get; set; }
 
     }
 }

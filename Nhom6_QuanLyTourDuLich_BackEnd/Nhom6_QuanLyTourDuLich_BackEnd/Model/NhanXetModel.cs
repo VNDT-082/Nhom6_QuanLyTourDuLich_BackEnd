@@ -18,7 +18,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Model
         public DateTime ngayDang { get; set; }
         public string noiDung { get; set; }
         public int danhGia { get; set; }
-        public virtual KhachHangEntity? KhachHang { get; set; }
-        public virtual TourEntity? Tour { get; set; }
+        public virtual KhachHangModel? KhachHang { get; set; }
+        public virtual TourModel? Tour { get; set; }
     }
 }
