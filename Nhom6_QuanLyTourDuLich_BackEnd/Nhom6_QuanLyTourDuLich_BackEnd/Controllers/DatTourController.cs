@@ -4,6 +4,7 @@ using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
 {
@@ -68,6 +69,25 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             {
                 var _DatTourModel_repo = await _IDatTourService.UpdateAsync(_DatTourModel);
                 return (_DatTourModel_repo != null) ? Ok(_DatTourModel_repo) : BadRequest("Lỗi update");
+            }
+            return BadRequest("Lỗi update");
+        }
+        [HttpPut]
+        [Route("/[Controller]/thanh-toan-dat-tour")]
+        public async Task<IActionResult> ThanhToan(DatTourModel _DatTourModel)
+        {
+            var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(_DatTourModel.IdDatTour);
+            if (DatTourModel_ != null)
+            {
+                var _DatTourModel_repo = await _IDatTourService.UpdateAsync(_DatTourModel);
+                _DatTourModel_repo.trangThai= true;
+                if (_DatTourModel_repo != null)
+                {
+                    Mailer.SendMail(_DatTourModel_repo);
+                    return Ok(_DatTourModel_repo);
+                }
+                else 
+                    return BadRequest("Lỗi update");
             }
             return BadRequest("Lỗi update");
         }
