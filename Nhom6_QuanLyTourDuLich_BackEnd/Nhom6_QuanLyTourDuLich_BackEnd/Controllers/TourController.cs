@@ -239,11 +239,11 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         }
         [HttpDelete]
         [Route("/[Controller]/delete-one-tour")] 
-        public async Task<IActionResult> Delete(Tour_repo tour_Repo) //tat trang thai hoat 
+        public async Task<IActionResult> Delete(string Id) //tat trang thai hoat 
         {
             try
             {
-                bool kq = await tourService.AddAsync(tour_Repo);
+                bool kq = await tourService.DeleteAsync(Id);
                 if (kq == true)
                     return Ok(kq);
                 return BadRequest("Không thể xóa");

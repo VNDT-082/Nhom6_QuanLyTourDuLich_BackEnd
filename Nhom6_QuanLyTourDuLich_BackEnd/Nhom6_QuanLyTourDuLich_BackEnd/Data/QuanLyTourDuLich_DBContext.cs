@@ -61,7 +61,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
             {
                 entity.ToTable("DatTour");
                 entity.Property(i => i.IdDatTour).HasColumnName("IdDatTour");
-                entity.Property(i => i.trangThai).HasDefaultValue(true);
+                //entity.Property(i => i.trangThai).HasDefaultValue(true);
                 entity.Property(i => i.ngayDat).HasDefaultValue(DateTime.Now);//.ToString("dd/MM/yyyy HH:mm:ss")
                 entity.HasKey(i => i.IdDatTour).HasName("PK_DatTour");
             });

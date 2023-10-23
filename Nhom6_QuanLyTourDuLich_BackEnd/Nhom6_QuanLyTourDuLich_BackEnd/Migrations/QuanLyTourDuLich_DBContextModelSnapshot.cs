@@ -171,15 +171,13 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(1695));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 406, DateTimeKind.Local).AddTicks(8445));
 
                     b.Property<int>("soLuong")
                         .HasColumnType("int");
 
                     b.Property<bool>("trangThai")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.HasKey("IdDatTour")
                         .HasName("PK_DatTour");
@@ -210,7 +208,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDang")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(8596));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(7212));
 
                     b.Property<string>("noiDung")
                         .IsRequired()
@@ -373,7 +371,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayVaoLam")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(4000));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(1452));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -420,7 +418,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayDang")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(8210));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(6687));
 
                     b.Property<string>("noiDung")
                         .IsRequired()
@@ -472,7 +470,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime?>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(6205));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(4285));
 
                     b.Property<string>("soDienThoai")
                         .IsRequired()
@@ -557,7 +555,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayLap")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(7698));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(6093));
 
                     b.Property<string>("nguoiLap")
                         .HasColumnType("nvarchar(450)");
@@ -608,7 +606,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                     b.Property<DateTime>("ngayTraLoi")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 21, 15, 5, 56, 650, DateTimeKind.Local).AddTicks(9003));
+                        .HasDefaultValue(new DateTime(2023, 10, 23, 10, 17, 8, 407, DateTimeKind.Local).AddTicks(7671));
 
                     b.Property<string>("noiDung")
                         .IsRequired()
@@ -706,7 +704,7 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
                         .IsRequired();
 
                     b.HasOne("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", "Tour")
-                        .WithMany("danhSachHoiDap")
+                        .WithMany()
                         .HasForeignKey("IdTour")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -868,8 +866,6 @@ namespace CongNghePhanMemNangCao_Nhom6_QuanLyTourDuLich.Migrations
             modelBuilder.Entity("Nhom6_QuanLyTourDuLich_BackEnd.Data.TourEntity", b =>
                 {
                     b.Navigation("DanhMucHinhs");
-
-                    b.Navigation("danhSachHoiDap");
 
                     b.Navigation("danhSachNhanXet");
                 });

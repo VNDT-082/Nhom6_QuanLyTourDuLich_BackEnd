@@ -53,6 +53,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Data
         public virtual KhachSanEntity? KhachSan { get; set; }
         public virtual ICollection<DanhMucHinhEntity>? DanhMucHinhs { get; set; }
         public virtual ICollection<NhanXetEntity>? danhSachNhanXet { get; set; }
-        public virtual ICollection<HoiDapEntity>? danhSachHoiDap{get;set;}
+        //public virtual ICollection<HoiDapEntity>? danhSachHoiDap{get;set;}
     }
 }

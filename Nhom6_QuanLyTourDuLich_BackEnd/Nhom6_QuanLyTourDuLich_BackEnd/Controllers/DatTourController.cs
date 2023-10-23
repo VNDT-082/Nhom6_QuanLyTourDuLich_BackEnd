@@ -55,6 +55,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
         {
             try
             {
+                _DatTour_Repo.trangThai = false;
                 var datTourModel= await _IDatTourService.AddAsync(_DatTour_Repo);
                 return (datTourModel != null) ? Ok(datTourModel) : BadRequest("Không thể khởi tạo");
             }
