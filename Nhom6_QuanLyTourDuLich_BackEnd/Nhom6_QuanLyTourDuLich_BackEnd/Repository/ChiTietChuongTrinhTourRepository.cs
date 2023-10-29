@@ -16,6 +16,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             try
             {
+                var sl = _DBContext.ChiTietChuongTrinhTours.Where(i => i.maTour == chiTietChuongTrinhTourEntity.maTour).ToList().Count();
+                if (sl != null)
+                {
+                    chiTietChuongTrinhTourEntity.ngayThu = "Ngày" + ++sl;
+                }
+                else
+                    chiTietChuongTrinhTourEntity.ngayThu = "Ngày 1";
                 await _DBContext.ChiTietChuongTrinhTours.AddAsync(chiTietChuongTrinhTourEntity);
                 await _DBContext.SaveChangesAsync();
                 return true;
