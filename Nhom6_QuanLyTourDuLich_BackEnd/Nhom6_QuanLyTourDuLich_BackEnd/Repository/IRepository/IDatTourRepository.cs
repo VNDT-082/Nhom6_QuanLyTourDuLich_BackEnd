@@ -15,6 +15,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayMin, DateTime ngayMax, bool trangThai);
         public Task<List<DatTourEntity>> GetListTheoNgayDatAsync(DateTime ngayDat, bool trangThai);
 
+       
+        public Task<DatTourEntity> getThanhToanAsync(string Id);
         public Task<DatTourEntity> GetOneByIDAsync(string Id);
         public Task<DatTourEntity> GetLastAsync();
         public Task<DatTourEntity> AddAsync(DatTourEntity datTourEntity);

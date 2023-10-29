@@ -163,6 +163,16 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             }
             return null;
         }
+        public async Task<ThanhToanModel> getThanhToanAsync(string Id) {
+
+            var datTour = await _IDatTourRepo.getThanhToanAsync(Id);
+            if (datTour != null)
+            {
+                ThanhToanModel datTourModel = _IMapper.Map<ThanhToanModel>(datTour);
+                return datTourModel;
+            }
+            return null;
+        }
 
         public async Task<DatTourModel> GetOneByIDAsync(string Id)
         {

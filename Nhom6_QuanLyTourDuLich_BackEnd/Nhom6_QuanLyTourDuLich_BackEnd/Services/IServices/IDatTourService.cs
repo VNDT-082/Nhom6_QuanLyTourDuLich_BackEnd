@@ -1,4 +1,5 @@
-﻿using Nhom6_QuanLyTourDuLich_BackEnd.Model;
+﻿using Nhom6_QuanLyTourDuLich_BackEnd.Data;
+using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
@@ -16,6 +17,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<List<DatTourModel>> GetListTheoNgayDatAsync(DateTime ngayMin, DateTime ngayMax, bool trangThai);
         public Task<List<DatTourModel>> GetListTheoNgayDatAsync(DateTime ngayDat, bool trangThai);
 
+        public Task<ThanhToanModel> getThanhToanAsync(string Id);
         public Task<DatTourModel> GetOneByIDAsync(string Id);
         public Task<DatTourModel> GetLastAsync();
         public Task<DatTourModel> AddAsync(DatTour_repo datTour_repo);

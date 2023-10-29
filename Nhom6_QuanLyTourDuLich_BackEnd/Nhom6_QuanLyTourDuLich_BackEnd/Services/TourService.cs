@@ -176,5 +176,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             }
             return false;
         }
+
+        public async Task<bool> KichHoatTourAsync(string IdTour)
+        {
+            var tinhEntity = await _ITourRepository.GetOneByIDAsync(IdTour);
+            if (tinhEntity != null)
+            {
+                tinhEntity.trangThai = true;
+                await _ITourRepository.UpdateAsync(tinhEntity);
+                return true;
+            }
+            return false;
+        }
     }
 }

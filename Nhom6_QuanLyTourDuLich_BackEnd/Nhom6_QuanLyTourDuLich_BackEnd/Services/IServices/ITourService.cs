@@ -22,5 +22,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<bool> UpdateAsync(TourModel tourModel);
         public Task<bool> DeleteAsync(string ID);
 
+        public Task<bool> KichHoatTourAsync(string IdTour);
+
     }
 }

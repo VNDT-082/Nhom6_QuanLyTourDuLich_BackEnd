@@ -23,5 +23,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<bool> AddAsync(TourEntity tourEntity);
         public Task<bool> UpdateAsync(TourEntity tourEntity);
         public Task<bool> DeleteAsync(TourEntity tourEntity);
+
+        public Task<bool> KichHoatTourAsync(TourEntity tourEntity);
     }
 }

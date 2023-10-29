@@ -177,6 +177,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
         {
             var list = await _DBContext.DatTours.AsNoTracking().Where(i => i.ngayDat == ngayDat && i.trangThai == trangThai)
                 .OrderBy(i=>i.ngayDat).ToListAsync();
+          
             ThanhVienRepository thanhVienRepository = new ThanhVienRepository(this._DBContext);
             foreach (DatTourEntity datTourEntity in list)
             {
@@ -184,7 +185,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             }
             return list;
         }
-
+        public async Task<DatTourEntity> getThanhToanAsync(string Id)
+        {
+            var datTour = await _DBContext.DatTours.AsNoTracking().FirstOrDefaultAsync(i => i.IdDatTour == Id);
+            ThanhVienRepository thanhVienRepository = new ThanhVienRepository(this._DBContext);
+            KhachHangRepository khachHangRepository = new KhachHangRepository(this._DBContext);
+            TourRepository tourRepository = new TourRepository(this._DBContext);
+            datTour.Tour = await tourRepository.GetOneByIDAsync(datTour.maTour);
+            datTour.KhachHang = await khachHangRepository.GetOneByIdAsync(datTour.maKhach);
+            datTour.ThanhViens = await thanhVienRepository.GetAllAsync(datTour.IdDatTour);
+            return datTour;
+        }
         public async Task<DatTourEntity> GetOneByIDAsync(string Id)
         {
             var datTour = await _DBContext.DatTours.AsNoTracking().FirstOrDefaultAsync(i => i.IdDatTour == Id);

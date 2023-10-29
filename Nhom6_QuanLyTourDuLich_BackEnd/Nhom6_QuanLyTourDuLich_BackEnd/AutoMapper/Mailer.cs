@@ -1,28 +1,61 @@
-﻿using Nhom6_QuanLyTourDuLich_BackEnd.Model;
+﻿using Nhom6_QuanLyTourDuLich_BackEnd.Controllers;
+using Nhom6_QuanLyTourDuLich_BackEnd.Data;
+using Nhom6_QuanLyTourDuLich_BackEnd.Model;
+using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
+using Nhom6_QuanLyTourDuLich_BackEnd.Services;
+using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
+
 namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
 {
     public class Mailer
     {
-        public static bool SendMail(DatTourModel datTourModel)
+        //private ITourService _ITourService;
+        //private IKhachHangService _IKhachHangService;
+        //private IThanhVienService _IThanhVienService;
+        //public Mailer(ITourService _ITourService, IKhachHangService _IKhachHangService, IThanhVienService _IThanhVienService) {
+        //    this._ITourService= _ITourService;
+        //    this._IKhachHangService= _IKhachHangService;
+        //    this._IThanhVienService= _IThanhVienService;
+        //}
+
+        public static bool SendMail(ThanhToanModel datTourModel)
         {
+
+            double TongTien = datTourModel.soLuong * datTourModel.Tour.chiPhi;
+            string listThanhVien = "";
+            if (datTourModel.ThanhViens != null)
+            {
+                int i = 0;
+                foreach (var item in datTourModel.ThanhViens)
+                {
+                    listThanhVien += ++i + ". Họ tên: " + item.hoTen + " - giới tính: "+ item.gioiTinh + " - Ngày sinh: "+item.ngaySinh.ToShortDateString()+"\n";
+               
+                }
+            }
+
             string email = "vonguyenduytan08022002@gmail.com";
-            string password = "02B3325FF069793B73A0EA8476A36746E682";
+            string password = "kfyk nufa clxf sstl";
 
             // Tạo đối tượng MailMessage
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(email);
-            mail.To.Add("duytantt9@gmail.com");
+            mail.To.Add(datTourModel.KhachHang.email);
             mail.Subject = "Thong bao";
-            mail.Body = "Xin chào!" +datTourModel.maKhach+
+            mail.Body = "Xin chào!" + datTourModel.KhachHang.hoTen +
                 "Cảm ơn bạn đã tin tưởng chúng tôi.\n" +
-                "sau day tui xin thong tin tour ban da dat tren he thong chung toi\n"+
-                "ma tour: "+datTourModel.maTour+" ; so luong: "+datTourModel.soLuong;
+                "Sau đây chúng tôi xin thông báo tour mà bạn đã đặt trên hệ  thống của chúng tôi\n" +
+                "Mã Tour: " + datTourModel.maTour + " - Tên Tour: " + datTourModel.Tour.tenTour
+                + "\n Giá: " + datTourModel.Tour.chiPhi.ToString("N0") + " VND - so luong: " + datTourModel.soLuong
+                + "\n Tổng cộng: " + TongTien.ToString("N0") + "VND \n"
+                + "Thành viên:\n"
+                + listThanhVien;
 
             // Cấu hình thông tin SMTP server
-            SmtpClient smtpClient = new SmtpClient("smtp.elasticemail.com");
-            smtpClient.Port = 2525;
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.Port = 587;
             smtpClient.Credentials = new NetworkCredential(email, password);
             smtpClient.EnableSsl = true;
 
@@ -32,13 +65,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
                 smtpClient.Send(mail);
 
                 Console.WriteLine("Email sent successfully.");
-                return true;
+                  return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Failed to send email. Error message: " + ex.Message);
                 return false;
             }
+        }
+        public string GetGioiTinh(bool gt)
+        {
+            return (gt == true) ? "Nam" : "Nữ";
         }
     }
 }

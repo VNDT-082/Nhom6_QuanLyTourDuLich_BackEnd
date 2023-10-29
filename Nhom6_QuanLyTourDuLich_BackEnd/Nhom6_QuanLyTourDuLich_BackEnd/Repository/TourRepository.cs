@@ -127,6 +127,18 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             
         }
 
+        public async Task<bool> KichHoatTourAsync(TourEntity tourEntity)
+        {
+            try
+            {
+                _DBContext.Tours!.Update(tourEntity);
+                await _DBContext.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+
+        }
 
     }
 }

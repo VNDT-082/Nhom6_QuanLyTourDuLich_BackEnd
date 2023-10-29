@@ -80,11 +80,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             var DatTourModel_ = await _IDatTourService.GetOneByIDAsync(_DatTourModel.IdDatTour);
             if (DatTourModel_ != null)
             {
+                _DatTourModel.trangThai = true;
                 var _DatTourModel_repo = await _IDatTourService.UpdateAsync(_DatTourModel);
-                _DatTourModel_repo.trangThai= true;
+                
                 if (_DatTourModel_repo != null)
                 {
-                    Mailer.SendMail(_DatTourModel_repo);
+                    ThanhToanModel thanhToan = await _IDatTourService.getThanhToanAsync(_DatTourModel_repo.IdDatTour);
+                    Mailer.SendMail(thanhToan);
                     return Ok(_DatTourModel_repo);
                 }
                 else 

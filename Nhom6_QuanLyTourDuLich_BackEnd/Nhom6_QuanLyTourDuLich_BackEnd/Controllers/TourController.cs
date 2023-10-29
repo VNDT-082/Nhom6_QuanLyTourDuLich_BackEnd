@@ -224,6 +224,19 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             return BadRequest("Lỗi update");
         }
 
+        [HttpPut]
+        [Route("/[Controller]/kich-hoat-one-tour")]
+        public async Task<IActionResult> KichHoatTourAsync(string IdTour)
+        {
+            var tour = await tourService.GetOneByIDAsync(IdTour);
+            if (tour != null)
+            {
+                bool kq = await tourService.KichHoatTourAsync(IdTour);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi update");
+            }
+            return BadRequest("Lỗi update");
+        }
+
         [HttpPost]
         [Route("/[Controller]/create-tour")]
         public async Task<IActionResult> Create(Tour_repo tour_Repo)

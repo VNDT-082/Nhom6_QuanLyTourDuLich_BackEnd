@@ -27,6 +27,8 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
             CreateMap<HoiDapEntity, HoiDapModel>().ReverseMap();
             CreateMap<TraLoiHoiDapEntity, TraLoiHoiDapModel>().ReverseMap();
 
+            CreateMap<DatTourEntity, ThanhToanModel>().ReverseMap();
+
             //==============
             CreateMap<LoaiTourEntity, LoaiTour_repo>().ReverseMap();
             CreateMap<TourEntity, Tour_repo>().ReverseMap();
