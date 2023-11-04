@@ -73,6 +73,41 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper
                 return false;
             }
         }
+
+        public static bool SendMailForgetPass(TaiKhoanModel TaiKhoanModel_)
+        {
+
+            string email = "vonguyenduytan08022002@gmail.com";
+            string password = "kfyk nufa clxf sstl";
+
+            // Tạo đối tượng MailMessage
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(email);
+            mail.To.Add(TaiKhoanModel_.email);
+            mail.Subject = "Thong bao";
+            mail.Body = "Xin chào! " + TaiKhoanModel_.email + "\n Mật khẩu mới của bạn là: " + TaiKhoanModel_.matKhau +
+                "\n Vui lòng không chia sẻ mật khẩu cho bất kì ai";
+
+            // Cấu hình thông tin SMTP server
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.Port = 587;
+            smtpClient.Credentials = new NetworkCredential(email, password);
+            smtpClient.EnableSsl = true;
+
+            try
+            {
+                // Gửi email
+                smtpClient.Send(mail);
+
+                Console.WriteLine("Email sent successfully.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failed to send email. Error message: " + ex.Message);
+                return false;
+            }
+        }
         public string GetGioiTinh(bool gt)
         {
             return (gt == true) ? "Nam" : "Nữ";

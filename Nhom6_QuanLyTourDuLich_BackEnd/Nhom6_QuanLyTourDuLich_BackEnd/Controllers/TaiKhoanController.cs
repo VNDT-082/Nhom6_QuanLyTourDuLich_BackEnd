@@ -4,6 +4,7 @@ using Nhom6_QuanLyTourDuLich_BackEnd.Model.Repo_model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Model;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices;
 using Nhom6_QuanLyTourDuLich_BackEnd.Services;
+using Nhom6_QuanLyTourDuLich_BackEnd.AutoMapper;
 
 namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
 {
@@ -87,6 +88,49 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi update");
         }
+
+        [HttpPut]
+        [Route("/[Controller]/forget-password")]
+        public async Task<IActionResult> fotGetPassWord(string email)
+        {
+            var TaiKhoanModel_ = await _ITaiKhoanService.GetOneByEmailAsync(email);
+            if (TaiKhoanModel_ != null)
+            {
+                string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // Các ký tự có thể xuất hiện trong chuỗi
+
+                string randomStringPassword = "";
+
+                Random random = new Random();
+
+                for (int i = 0; i < 6; i++)
+                {
+                    randomStringPassword += chars[random.Next(chars.Length)];
+                }
+
+
+                TaiKhoanModel_.matKhau = randomStringPassword;
+                Mailer.SendMailForgetPass(TaiKhoanModel_);
+                var _TaiKhoanModel_repo = await _ITaiKhoanService.ChangePasswordAsync(TaiKhoanModel_);
+                return (_TaiKhoanModel_repo != null) ? Ok(_TaiKhoanModel_repo) : BadRequest("Lỗi update");
+            }
+            return BadRequest("Lỗi update");
+        }
+
+
+        [HttpPut]
+        [Route("/[Controller]/change-password")]
+        public async Task<IActionResult> ChangePasswordAsync(TaiKhoanUpdate_repo taiKhoanUpdate_)
+        {
+            var TaiKhoanModel_ = await _ITaiKhoanService.GetOneByEmailAsync(taiKhoanUpdate_.email);
+            if (TaiKhoanModel_ != null)
+            {
+                TaiKhoanModel_.matKhau = taiKhoanUpdate_.matKhau;
+                var _TaiKhoanModel_repo = await _ITaiKhoanService.ChangePasswordAsync(TaiKhoanModel_);
+                return (_TaiKhoanModel_repo != null) ? Ok(_TaiKhoanModel_repo) : BadRequest("Lỗi update");
+            }
+            return BadRequest("Lỗi update");
+        }
+
         [HttpDelete]
         [Route("/[Controller]/delete-tai-khoan")]
         public async Task<IActionResult> Delete(string Id)

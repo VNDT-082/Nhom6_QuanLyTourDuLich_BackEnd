@@ -13,5 +13,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services.IServices
         public Task<bool> AddAsync(DanhMucHinh_repo danhMucHinh_repo);
         public Task<bool> UpdateAsync(DanhMucHinhModel danhMucHinhModel);
         public Task<bool> DeleteAsync(string ID);
+        public Task<bool> DeleteListAsync(string maTour);
     }
 }

@@ -35,6 +35,20 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
 
+        public async Task<bool> DeleteListAsync(List<DanhMucHinhEntity> danhMucHinhEntities)
+        {
+            try
+            {
+                foreach (DanhMucHinhEntity danhMucHinhEntity in danhMucHinhEntities)
+                {
+                    _DBContext.DanhMucHinhs.Remove(danhMucHinhEntity);
+                }
+                _DBContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return false; }
+        }
+
         public async Task<List<DanhMucHinhEntity>> GetAllAsync(string maTour)
         {
             var list = await _DBContext.DanhMucHinhs.AsNoTracking().Where(i=>i.maTour==maTour).OrderByDescending(i => i.IdDanhMucHinh).ToListAsync();
@@ -69,5 +83,7 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             }
             catch (Exception ex) { Console.WriteLine(ex); return false; }
         }
+
+        
     }
 }

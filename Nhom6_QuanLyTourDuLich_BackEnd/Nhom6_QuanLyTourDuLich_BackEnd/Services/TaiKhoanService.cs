@@ -86,7 +86,15 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             }
             return null;
         }
-
+        public async Task<TaiKhoanModel> GetOneByEmailAsync(string email) {
+            TaiKhoanEntity taiKhoanEntity = await _ITaiKhoanRepository.GetOneByEmailAsync(email);
+            if (taiKhoanEntity != null)
+            {
+                TaiKhoanModel taiKhoanModel = _IMapper.Map<TaiKhoanModel>(taiKhoanEntity);
+                return taiKhoanModel;
+            }
+            return null;
+        }
         public async Task<TaiKhoanModel> LoginAsync(string soDienThoaiOrEmail,string matKhau)
         {
             TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.LoginAsync(soDienThoaiOrEmail);
@@ -103,6 +111,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
         }
 
         public async Task<TaiKhoanModel> UpdateAsync(TaiKhoanModel taiKhoanModel)
+        {
+            TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.GetOneByIdAsync(taiKhoanModel.IdTaiKhoan);
+            if (taiKhoan != null)
+            {
+                TaiKhoanEntity taiKhoanEntity = _IMapper.Map<TaiKhoanEntity>(taiKhoanModel);
+                var _TaiKhoanEntity_repo = await _ITaiKhoanRepository.UpdateAsync(taiKhoanEntity);
+                return (_TaiKhoanEntity_repo != null) ? _IMapper.Map<TaiKhoanModel>(_TaiKhoanEntity_repo) : null;
+            }
+            return null;
+        }
+        public async Task<TaiKhoanModel> ChangePasswordAsync(TaiKhoanModel taiKhoanModel)
         {
             TaiKhoanEntity taiKhoan = await _ITaiKhoanRepository.GetOneByIdAsync(taiKhoanModel.IdTaiKhoan);
             if (taiKhoan != null)

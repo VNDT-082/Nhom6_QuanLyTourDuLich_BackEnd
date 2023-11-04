@@ -84,5 +84,18 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Controllers
             }
             return BadRequest("Lỗi delete");
         }
+
+        [HttpDelete]
+        [Route("/[Controller]/delete-list-danh-muc-hinh-tour")]
+        public async Task<IActionResult> DeleteList(string maTour)
+        {
+            var DanhMucHinhModels_ = await _IDanhMucHinhService.GetAllAsync(maTour);
+            if (DanhMucHinhModels_ != null)
+            {
+                bool kq = await _IDanhMucHinhService.DeleteListAsync(maTour);
+                return (kq == true) ? Ok(kq) : BadRequest("Lỗi delete");
+            }
+            return BadRequest("Lỗi delete");
+        }
     }
 }

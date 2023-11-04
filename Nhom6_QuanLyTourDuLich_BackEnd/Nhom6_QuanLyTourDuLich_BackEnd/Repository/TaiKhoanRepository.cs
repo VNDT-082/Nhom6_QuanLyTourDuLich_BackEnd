@@ -74,6 +74,13 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             return taiKhoan;
         }
 
+        public async Task<TaiKhoanEntity> GetOneByEmailAsync(string email)
+        {
+            var taiKhoan = await _DBContext.TaiKhoans.AsNoTracking().FirstOrDefaultAsync(i => i.email == email);
+            return taiKhoan;
+        }
+
+
         public async Task<TaiKhoanEntity> LoginAsync(string soDienThoaiOrEmail)
         {
             var taiKhoan = await _DBContext.TaiKhoans.AsNoTracking()
@@ -91,6 +98,16 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository
             }
             catch (Exception ex) { Console.WriteLine(ex); return null; }
             
+        }
+        public async Task<TaiKhoanEntity> ChangePassword(TaiKhoanEntity taiKhoanEntity)
+        {
+            try
+            {
+                _DBContext.TaiKhoans!.Update(taiKhoanEntity);
+                await _DBContext.SaveChangesAsync();
+                return await GetOneByIdAsync(taiKhoanEntity.IdTaiKhoan);
+            }
+            catch (Exception ex) { Console.WriteLine(ex); return null; }
         }
     }
 }

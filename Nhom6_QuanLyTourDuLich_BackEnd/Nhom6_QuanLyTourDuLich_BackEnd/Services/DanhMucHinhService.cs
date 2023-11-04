@@ -35,7 +35,17 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Services
             }
             return false;
         }
+        public async Task<bool> DeleteListAsync(string maTour)
+        {
+            List<DanhMucHinhEntity> listDanhMucHinh = await _IDanhMucHinhRepo.GetAllAsync(maTour);
+            if (listDanhMucHinh != null)
+            {
+                List<DanhMucHinhEntity> listDanhMucHinhEntityl = _IMapper.Map<List<DanhMucHinhEntity>>(listDanhMucHinh);
 
+                return await _IDanhMucHinhRepo.DeleteListAsync(listDanhMucHinhEntityl);
+            }
+            return false;
+        }
         public async Task<List<DanhMucHinhModel>> GetAllAsync(string maTour)
         {
             List<DanhMucHinhEntity> listDanhMucHinh = await _IDanhMucHinhRepo.GetAllAsync(maTour);

@@ -11,5 +11,6 @@ namespace Nhom6_QuanLyTourDuLich_BackEnd.Repository.IRepository
         public Task<bool> AddAsync(DanhMucHinhEntity danhMucHinhEntity);
         public Task<bool> UpdateAsync(DanhMucHinhEntity danhMucHinhEntity);
         public Task<bool> DeleteAsync(DanhMucHinhEntity danhMucHinhEntity);
+        public Task<bool> DeleteListAsync(List<DanhMucHinhEntity> danhMucHinhEntities);
     }
 }
